@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Module workflow unittree</title>
+    </properties>
+    <body>
+        <section name="Module workflow unittree">
+            <subsection name="Introduction">
+                <p>
+                    This module contains workflow tasks for the plugin <strong>lutece-system-plugin-unittree</strong>.
+                </p>
+                <p>
+                    The tasks are the following:
+                    <ul>
+                        <li>manually assign a workflow resource to a unit. The user has to choose the target unit in the task form.</li>
+                        <li>automatically assign a workflow resource to a unit. This task can be used in an automatic workflow action. In this case, there is no task form.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Configuration">
+                <p>
+                    The admin user has to configure the tasks. A assignment type and at least one unit selection are mandatory.
+                </p>
+                <p>
+                    For a manual unit assignment, several unit selections can be configured. The user will choose the selection she / he wants in the task form.
+                </p>
+                <p>
+                    For an automatic unit assignment, only one unit selection can be configured.
+                </p>
+            </subsection>
+            <subsection name="Assignment types">
+                <p>
+                    The assignment types are the following:
+                    <ul>
+                        <li><strong>Create</strong>: indicates that this is the first assignment. A chain of unit assignments is created.</li>
+                        <li><strong>Assign up</strong>: the resource is assigned to a unit with a higher level of knowledge. The target unit is added in the chain of assignment units.</li>
+                        <li><strong>Assign down</strong>: the resource is assigned to a unit with a lower level of knowledge. Often used when the resource has been assigned up but must be then treated by the assignor unit.
+                            The corresponding units are removed from the chain of unit assignments.
+                        </li>
+                        <li><strong>Transfer</strong>: the resource is transferred to a unit. The chain of unit assignments is reset.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Unit selections">
+                <p><strong>Introduction</strong></p>
+                <p>
+                    A unit selection enables to select the target unit. A unit selection can be automatic and so can be used in the task to automatically assign a resource to a unit. 
+                    All the unit selections (automatic or not) can be used in the task to manually assign a resource to a unit.
+                </p>
+                <p>
+                    This module contains the following unit selections:
+                    <ul>
+                        <li>Selection of a unit among all the units. Non automatic. The user selects the target unit in a combobox. It can be used to transfer the resource to a unit for example.</li>
+                        <li>Selection of the parent unit. Automatic. It can be used to assign the resource up for example.</li>
+                        <li>Selection of the assignor unit. Automatic. It can be used to assign the resource down for example.</li>
+                    </ul>
+                </p>
+                
+                <p><strong>Create a unit selection</strong></p>
+                <p>
+                    If you want to use your own unit selection, the only thing you have to do is to implement the interface <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection</code>
+                    and to declare it as a bean in the Spring context.
+                    Your unit selection will be then present in the configuration of the unit assignment tasks.
+                </p>
+                <p>
+                    The method which does the real job is the method <code>select( ... )</code>. It returns the id of the target unit.
+                    This method is not responsible of storing the assignment. The store is done by the workflow task itself.
+                    If this method detects that the assignment is not possible, it must throw a <code>fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException</code>.
+                </p>
+                <p>
+                    The <code>IUnitSelection</code> uses a configuration handler to manage the configuration part of the unit selection in the unit assignment tasks.
+                    You can create your own configuration handler by implementing the interface <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IConfigurationHandler</code>.
+                    If your unit selection has no configuration, you can extends the abstract class <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.AbstractEmptyConfigurationHandler</code>.
+                    The only thing you have to do is to give the title of your unit selection.
+                </p>
+                <p>
+                    The <code>IUnitSelection</code> uses a form handler to manage the task form of the unit selection in the unit assignment tasks.
+                    You can create your own form handler by implementing the interface <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.ITaskFormHandler</code>.
+                    For automatic selections, it is a good idea to test if the assignment is possible in the method <code>getDisplayedForm( ... )</code> (by calling the method <code>select( ... )</code>).
+                    If the assignment is not possible, then the method must throw a <code>fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException</code>.
+                    It enables to hide this selection in the task form.
+                </p>
+            </subsection>
+            <subsection name="Services">
+                <p>
+                    The service <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.UnitAssignmentService</code> enables to retrieve the unit assignments for a resource.
+                </p>
+                <p>
+                    It contains the following methods:
+                    <ul>
+                        <li><code>findCurrentAssignment( ... )</code>: gives the current assignment in the chain of unit assignments.</li>
+                        <li><code>findAssignments( ... )</code>: gives the chain of unit assignments.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Usage">
+                <p>
+                    The workflow tasks are used to assign the resource to units. The service <code>UnitAssignmentService</code> is used to retrieve the unit assignments for the resource.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

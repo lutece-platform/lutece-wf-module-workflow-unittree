@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+    
+    <!-- Transaction Manager -->
+    <bean id="workflow-unittree.transactionManager" class="fr.paris.lutece.portal.service.database.DAOUtilTransactionManager"
+        p:pluginName="workflow-unittree" />
+
+    <!-- DAO -->
+    <bean id="workflow-unittree.unitAssignmentDAO"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentDAO" />
+    <bean id="workflow-unittree.taskUnitAssignmentConfigDAO"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfigDAO" />
+    <bean id="workflow-unittree.taskInformationDAO"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationDAO" />
+
+    <!-- Service -->
+    <bean id="workflow-unittree.taskUnitAssignmentConfigService"
+        class="fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService"
+        p:taskConfigDAO-ref="workflow-unittree.taskUnitAssignmentConfigDAO" />
+
+    <!-- Unit Selection -->
+    <bean id="workflow-unittree.unitSelection.fromAll"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.UnitSelectionFromAll" />
+    <bean id="workflow-unittree.unitSelection.parent"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.UnitSelectionParent" />
+    <bean id="workflow-unittree.unitSelection.assignor"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.UnitSelectionAssignor" />
+
+    
+    <!-- Task Unit Assignment - Manual -->
+    <bean id="workflow-unittree.taskUnitAssignmentManual"
+            class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.TaskUnitAssignmentManual"
+            scope="prototype" />
+    <bean id="workflow-unittree.taskTypeUnitAssignmentManual"
+            class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+            p:key="taskUnitAssignmentManual"
+            p:titleI18nKey="module.workflow.unittree.task_unit_assignment.manual.title"
+            p:beanName="workflow-unittree.taskUnitAssignmentManual"
+            p:taskForAutomaticAction="false"
+            p:configRequired="true"
+            p:formTaskRequired="true"   />
+    <bean id="workflow-unittree.unitAssignmentManualTaskComponent"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.web.task.UnitAssignmentManualTaskComponent"
+        p:taskType-ref="workflow-unittree.taskTypeUnitAssignmentManual"
+        p:taskConfigService-ref="workflow-unittree.taskUnitAssignmentConfigService" />
+
+    <!-- Task Unit Assignment - automatic -->
+    <bean id="workflow-unittree.taskUnitAssignmentAutomatic"
+            class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.TaskUnitAssignmentAutomatic"
+            scope="prototype" />
+    <bean id="workflow-unittree.taskTypeUnitAssignmentAutomatic"
+            class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+            p:key="taskUnitAssignmentAutomatic"
+            p:titleI18nKey="module.workflow.unittree.task_unit_assignment.automatic.title"
+            p:beanName="workflow-unittree.taskUnitAssignmentAutomatic"
+            p:taskForAutomaticAction="true"
+            p:configRequired="true"
+            p:formTaskRequired="false"   />
+    <bean id="workflow-unittree.unitAssignmentAutomaticTaskComponent"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.web.task.UnitAssignmentAutomaticTaskComponent"
+        p:taskType-ref="workflow-unittree.taskTypeUnitAssignmentAutomatic"
+        p:taskConfigService-ref="workflow-unittree.taskUnitAssignmentConfigService" />
+</beans>

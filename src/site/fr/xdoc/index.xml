@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document>
+    <properties>
+        <title>Module workflow unittree</title>
+    </properties>
+    <body>
+        <section name="Module workflow unittree">
+            <subsection name="Introduction">
+                <p>
+                    Ce module contient des tâches de workflow pour le plugin <strong>lutece-system-plugin-unittree</strong>.
+                </p>
+                <p>
+                    Les tâches sont les suivantes :
+                    <ul>
+                        <li>assigner manuellement une ressource de workflow à une entité. L'utilisateur doit choisir l'entité cible dans le formulaire de la tâche.</li>
+                        <li>assigner automatiquement une ressource de workflow à une entité. La tâche peut être utilisée dans une action automatique de workflow. Dans ce cas, il n'y a pas de formulaire de tâche.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Configuration">
+                <p>
+                    L'administrateur doit configurer les tâches. Un type d'assignation et au moins une sélection d'entité sont obligatoires.
+                </p>
+                <p>
+                    Pour une assignation manuelle, plusieurs sélections d'entité peuvent être configurées. L'utilisateur choisira la sélection qu'il souhaite dans le formulaire de la tâche.
+                </p>
+                <p>
+                    Pour une assignation automatique, une seule sélection d'entité peut être configurée.
+                </p>
+            </subsection>
+            <subsection name="Types d'assignation">
+                <p>
+                    Les types d'assignation sont les suivants :
+                    <ul>
+                        <li><strong>Creation</strong>: indique la première assignation. Une chaine d'assignations est créée.</li>
+                        <li><strong>Escalade</strong>: la ressource est assignée à une entité ayant un niveau de compétence plus élevé. L'entité cible est ajoutée à la chaine d'assignations.</li>
+                        <li><strong>Désescalade</strong>: la ressource est assignée à une entité ayant un niveau de compétence plus faible. Souvent utilisé quand une ressource a été escaladée mais doit ensuite être traitée par l'entité émetttrice.
+                            Les entités correspondantes sont enlevées de la chaine d'assignations.
+                        </li>
+                        <li><strong>Transférer</strong>: la ressource est transférée à une entité. La chaine d'assignations est réinitialisée.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Sélections d'entité">
+                <p><strong>Introduction</strong></p>
+                <p>
+                    Une sélection d'entité permet de sélectionner l'entité cible. Une sélection d'entité peut être automatique et donc peut être utilisée dans la tâche pour assigner automatiquement une ressource à une entité.
+                    Toutes les sélections d'entités (automatiques ou non) peuvent être utilisées dans la tâche pour assigner manuellement une ressource à une entité.
+                </p>
+                <p>
+                    Ce module contient les sélections d'entité suivantes :
+                    <ul>
+                        <li>Sélection d'une entité parmi toutes les entités. Non automatique. L'utilisateur sélectionne l'entité cible dans une liste déroulante. Elle peut être utilisée pour transférer la ressource à une entité par exemple.</li>
+                        <li>Sélection de l'entité parente. Automatique. Elle peut être utilisée pour l'escalade par l'exemple.</li>
+                        <li>Sélection de l'entité émettrice. Automatique. Elle peut être utilisée pour la désescalade par exemple.</li>
+                    </ul>
+                </p>
+                
+                <p><strong>Créer une sélection d'entité</strong></p>
+                <p>
+                    Si vous voulez utiliser votre propre sélection d'entité, il suffit d'implémenter l'interface <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection</code>
+                    et de la déclarer en tant que bean dans le contexte Spring.
+                    Votre sélection d'entité sera alors présente dans la configuration des tâches d'assignation.
+                </p>
+                <p>
+                    La méthode qui fait le travail est la méthode <code>select( ... )</code>. Elle retourne l'id de l'entité cible.
+                    Cette méthode n'est pas responsable du stockage de l'assignation. Ce stockage est réalisé par la tâche de workflow elle-même.
+                    Si cette méthode détecte que l'assignation n'est pas possible, elle doit lancer une <code>fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException</code>.
+                </p>
+                <p>
+                    La classe <code>IUnitSelection</code> utilise un handler de configuration pour gérer la partie configuration de la sélection d'entité dans la tâche d'assignation.
+                    Vous pouvez créer votre propre handler de configuration en implémentant l'interface <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IConfigurationHandler</code>.
+                    Si votre sélection d'entité n'a pas de configuration, vous pouvez étendre la classe abstraite <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.AbstractEmptyConfigurationHandler</code>.
+                    La seule chose à faire est de donner le titre de votre sélection d'entité.
+                </p>
+                <p>
+                    La classe <code>IUnitSelection</code> utilise un handler de formulaire pour gérer le formulaire de tâche de la sélection d'entité dans la tâche d'assignation.
+                    Vous pouvez créer votre propre handler de formulaire en implémentant l'interface <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.ITaskFormHandler</code>.
+                    Pour les sélections automatiques, cela peut être une bonne idée de tester si l'assignation est possible dans la méthode <code>getDisplayedForm( ... )</code> (en appelant la méthode <code>select( ... )</code>).
+                    Si l'assignation n'est pas possible, alors la méthode doit lancer une <code>fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException</code>.
+                    Cela permet de cacher cette sélection dans le formulaire de la tâche.
+                </p>
+            </subsection>
+            <subsection name="Services">
+                <p>
+                    Le service <code>fr.paris.lutece.plugins.workflow.modules.unittree.service.UnitAssignmentService</code> permet de retrouver les entités d'assignation pour une ressource.
+                </p>
+                <p>
+                    Il contient les méthodes suivantes :
+                    <ul>
+                        <li><code>findCurrentAssignment( ... )</code>: donne l'assignation courante dans la chaine d'assignations.</li>
+                        <li><code>findAssignments( ... )</code>: donne la chaine d'assignations.</li>
+                    </ul>
+                </p>
+            </subsection>
+            <subsection name="Utilisation">
+                <p>
+                    Les tâches de workflow sont utilisées pour assigner la ressource à des entités. Le service <code>UnitAssignmentService</code> est utilisé pour retrouver les entités d'assignation pour la ressource.
+                </p>
+            </subsection>
+        </section>
+    </body>
+</document>

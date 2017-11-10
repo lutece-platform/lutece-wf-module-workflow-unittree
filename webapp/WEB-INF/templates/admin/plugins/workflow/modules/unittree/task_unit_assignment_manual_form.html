@@ -1,0 +1,28 @@
+<div class="row" >
+  <#if list_unit_selection_form?has_content>
+    <#if list_unit_selection_form?size == 1>
+      <@formGroup labelFor="unit_selection_id" >
+        <#list list_unit_selection_form as unit_selection_form >
+          <input type="hidden" name="task_unit_assignment_selection_id" value="${unit_selection_form.id}" >
+          <@staticText >
+            ${unit_selection_form.title}
+          </@staticText>
+          ${unit_selection_form.htmlForm}
+        </#list>
+      </@formGroup>
+    <#else>
+      <@formGroup labelFor="unit_selection_id" labelKey="#i18n{module.workflow.unittree.task_unit_assignment.manual.form.labelUnitSelection}" helpKey="#i18n{module.workflow.unittree.task_unit_assignment.manual.form.labelUnitSelection.help}">
+        <#list list_unit_selection_form as unit_selection_form >
+          <@radioButton name="task_unit_assignment_selection_id" value='${unit_selection_form.id}' mandatory=true labelKey='${unit_selection_form.title}' />
+          ${unit_selection_form.htmlForm}
+        </#list>
+      </@formGroup>
+    </#if>
+  <#else>
+    <@formGroup>
+      <@staticText >
+        <em>#i18n{module.workflow.unittree.task_unit_assignment.manual.form.message.noUnitSelection}</em>
+      </@staticText>
+    </@formGroup>
+  </#if>
+</div>
