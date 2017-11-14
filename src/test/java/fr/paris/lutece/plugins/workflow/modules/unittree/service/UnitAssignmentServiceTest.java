@@ -11,7 +11,7 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 /**
- * This class tests the {@link  UnitAssignmentService} class
+ * This class tests the {@link UnitAssignmentService} class
  *
  */
 public class UnitAssignmentServiceTest extends LuteceTestCase
@@ -114,12 +114,19 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
     /**
      * Creates a unit assignment
-     * @param nIdResource the resource id
-     * @param strResourceType the resource type
-     * @param nIdAssignorUnit the assignor unit id
-     * @param nIdAssignedUnit the assigned unit id
-     * @param assignmentType the assignment type
-     * @param bIsActive {@code true} if the unit assignment is active, {@code false} otherwise
+     * 
+     * @param nIdResource
+     *            the resource id
+     * @param strResourceType
+     *            the resource type
+     * @param nIdAssignorUnit
+     *            the assignor unit id
+     * @param nIdAssignedUnit
+     *            the assigned unit id
+     * @param assignmentType
+     *            the assignment type
+     * @param bIsActive
+     *            {@code true} if the unit assignment is active, {@code false} otherwise
      * @return the created unit assignment
      */
     private UnitAssignment create( int nIdResource, String strResourceType, int nIdAssignorUnit, int nIdAssignedUnit, UnitAssignmentType assignmentType,
@@ -138,9 +145,13 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
     /**
      * Tests if the current unit assignment of the specified couple {resource id, resource type} is the specified unit assignment
-     * @param nIdResource the resource id
-     * @param strResourceType the resource type
-     * @param unitAssignment the unit assignment
+     * 
+     * @param nIdResource
+     *            the resource id
+     * @param strResourceType
+     *            the resource type
+     * @param unitAssignment
+     *            the unit assignment
      */
     private void testCurrentAssignment( int nIdResource, String strResourceType, UnitAssignment unitAssignment )
     {
@@ -150,9 +161,13 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
     /**
      * Tests if the size of the list of unit assignments of the specified couple {resource id, resource type} is equal to the specified number
-     * @param nIdResource the resource id
-     * @param strResourceType the resource type
-     * @param nNumberOfAssignments the number of assignments
+     * 
+     * @param nIdResource
+     *            the resource id
+     * @param strResourceType
+     *            the resource type
+     * @param nNumberOfAssignments
+     *            the number of assignments
      */
     private void testAssignments( int nIdResource, String strResourceType, int nNumberOfAssignments )
     {

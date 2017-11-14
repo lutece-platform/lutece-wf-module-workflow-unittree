@@ -78,9 +78,9 @@ public class UnitAssignmentDAO implements IUnitAssignmentDAO
             daoUtil.setTimestamp( ++nIndex, unitAssignment.getAssignmentDate( ) );
             daoUtil.setString( ++nIndex, unitAssignment.getAssignmentType( ).getAssignmentTypeCode( ) );
             daoUtil.setBoolean( ++nIndex, unitAssignment.isActive( ) );
-    
+
             daoUtil.executeUpdate( );
-            
+
             if ( daoUtil.nextGeneratedKey( ) )
             {
                 unitAssignment.setId( daoUtil.getGeneratedKeyInt( 1 ) );
