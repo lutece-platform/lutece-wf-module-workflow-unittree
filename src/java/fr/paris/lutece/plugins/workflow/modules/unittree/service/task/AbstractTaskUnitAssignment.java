@@ -51,6 +51,7 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.informati
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationHome;
 import fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection;
+import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistoryService;
@@ -126,6 +127,30 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
             }
         }
 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doRemoveConfig( )
+    {
+        TaskUnitAssignmentConfig config = getConfig( );
+
+        if ( config != null )
+        {
+            for ( String strUnitSelectionId : config.getUnitSelections( ) )
+            {
+                IUnitSelection unitSelection = UnitSelectionService.getInstance( ).find( strUnitSelectionId );
+
+                if ( unitSelection != null )
+                {
+                    unitSelection.getConfigurationHandler( ).removeConfiguration( this );
+                }
+            }
+        }
+
+        _taskConfigService.remove( this.getId( ) );
     }
 
     /**
