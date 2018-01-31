@@ -102,4 +102,21 @@ public final class UnitAssignmentHome
     {
         return _dao.selectByResource( nIdResource, strResourceType, _plugin );
     }
+
+    /**
+     * <p>
+     * Finds the unit assignments associated to the specified unit.
+     * </p>
+     * <p>
+     * The result list contains active and inactive unit assignments.
+     * </p>
+     * 
+     * @param nIdUnit
+     *            the unit id
+     * @return the list of unit assignments
+     */
+    public static List<UnitAssignment> findByUnit( int nIdUnit )
+    {
+        return _dao.selectByUnit( nIdUnit, _plugin );
+    }
 }

@@ -27,6 +27,10 @@
         class="fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService"
         p:taskConfigDAO-ref="workflow-unittree.taskUnitAssignmentConfigDAO" />
 
+    <!-- Listener -->
+    <bean id="workflow-unittree.unitRemovalListener"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.unit.UnitAssignmentRemovalListener" />
+
     <!-- Unit Selection -->
     <bean id="workflow-unittree.unitSelection.fromAll"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.UnitSelectionFromAll" />

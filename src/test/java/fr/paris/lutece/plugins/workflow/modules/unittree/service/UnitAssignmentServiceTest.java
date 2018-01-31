@@ -1,177 +1,251 @@
+/*
+ * Copyright (c) 2002-2017, Mairie de Paris
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *  1. Redistributions of source code must retain the above copyright notice
+ *     and the following disclaimer.
+ *
+ *  2. Redistributions in binary form must reproduce the above copyright notice
+ *     and the following disclaimer in the documentation and/or other materials
+ *     provided with the distribution.
+ *
+ *  3. Neither the name of 'Mairie de Paris' nor 'Lutece' nor the names of its
+ *     contributors may be used to endorse or promote products derived from
+ *     this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE
+ * LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * License 1.0
+ */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service;
 
+import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.MockResource;
+import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.MockUnitAssignment;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentDAOTest;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentType;
+import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
 import fr.paris.lutece.test.LuteceTestCase;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
-/**
- * This class tests the {@link UnitAssignmentService} class
- *
- */
 public class UnitAssignmentServiceTest extends LuteceTestCase
 {
-    private static final int RESOURCE_ID_1 = 1;
-    private static final int RESOURCE_ID_2 = 2;
-    private static final int RESOURCE_ID_3 = 3;
-    private static final int RESOURCE_ID_4 = 4;
-    private static final String RESOURCE_TYPE_1 = "RESOURCE_TYPE_1";
-    private static final String RESOURCE_TYPE_2 = "RESOURCE_TYPE_2";
-    private static final String RESOURCE_TYPE_3 = "RESOURCE_TYPE_3";
-    private static final String RESOURCE_TYPE_4 = "RESOURCE_TYPE_4";
-    private static final int UNIT_ID_UNSET = -1;
-    private static final int UNIT_ID_1 = 1;
-    private static final int UNIT_ID_2 = 2;
-    private static final int UNIT_ID_3 = 3;
-    private static final int UNIT_ID_4 = 4;
-    private static final int UNIT_ID_5 = 5;
+    private UnitAssignmentDAOTest _dao = new UnitAssignmentDAOTest( );
 
-    /**
-     * Tests the {@link UnitAssignmentService#findCurrentAssignment(int, String)} method
-     */
-    public void testFindCurrentAssignment( )
+    public void testCurrentAssignmentWhenResourceHasNotBeenAssigned( )
     {
-        UnitAssignment unitAssignment1_1 = create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_1, UnitAssignmentType.CREATION, true );
-        testCurrentAssignment( RESOURCE_ID_1, RESOURCE_TYPE_1, unitAssignment1_1 );
+        MockResource resource = MockResource.create( );
 
-        unitAssignment1_1 = create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_2, UnitAssignmentType.ASSIGN_UP, true );
-        testCurrentAssignment( RESOURCE_ID_1, RESOURCE_TYPE_1, unitAssignment1_1 );
+        assertThatCurrentAssignmentOfResourceIsNull( resource );
 
-        UnitAssignment unitAssignment2_1 = create( RESOURCE_ID_2, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_1, UnitAssignmentType.CREATION, true );
-        UnitAssignment unitAssignment1_2 = create( RESOURCE_ID_1, RESOURCE_TYPE_2, UNIT_ID_UNSET, UNIT_ID_1, UnitAssignmentType.CREATION, true );
-        UnitAssignment unitAssignment2_2 = create( RESOURCE_ID_2, RESOURCE_TYPE_2, UNIT_ID_UNSET, UNIT_ID_1, UnitAssignmentType.CREATION, true );
-        testCurrentAssignment( RESOURCE_ID_1, RESOURCE_TYPE_1, unitAssignment1_1 );
-        testCurrentAssignment( RESOURCE_ID_2, RESOURCE_TYPE_1, unitAssignment2_1 );
-        testCurrentAssignment( RESOURCE_ID_1, RESOURCE_TYPE_2, unitAssignment1_2 );
-        testCurrentAssignment( RESOURCE_ID_2, RESOURCE_TYPE_2, unitAssignment2_2 );
-
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_UP, true );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_2, UnitAssignmentType.ASSIGN_DOWN, true );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_UP, true );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_4, UnitAssignmentType.ASSIGN_UP, true );
-        unitAssignment1_1 = create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_5, UnitAssignmentType.ASSIGN_UP, true );
-        testCurrentAssignment( RESOURCE_ID_1, RESOURCE_TYPE_1, unitAssignment1_1 );
-
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_4, UnitAssignmentType.ASSIGN_DOWN, false );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_DOWN, false );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_2, UnitAssignmentType.ASSIGN_DOWN, false );
-        unitAssignment1_1 = create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_UP, true );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_4, UnitAssignmentType.ASSIGN_UP, false );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_5, UnitAssignmentType.ASSIGN_UP, false );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_4, UnitAssignmentType.ASSIGN_DOWN, false );
-        create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_DOWN, false );
-        testCurrentAssignment( RESOURCE_ID_1, RESOURCE_TYPE_1, unitAssignment1_1 );
-
-        unitAssignment1_1 = create( RESOURCE_ID_1, RESOURCE_TYPE_1, UNIT_ID_UNSET, UNIT_ID_2, UnitAssignmentType.TRANSFER, true );
-        testCurrentAssignment( RESOURCE_ID_1, RESOURCE_TYPE_1, unitAssignment1_1 );
-
+        _dao.clearTable( );
     }
 
-    /**
-     * Tests the {@link UnitAssignmentService#findAssignments(int, String)} method
-     */
-    public void testFindAssignments( )
+    private void assertThatCurrentAssignmentOfResourceIsNull( MockResource resource )
     {
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_1, UnitAssignmentType.CREATION, true );
-        testAssignments( RESOURCE_ID_3, RESOURCE_TYPE_3, 1 );
-
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_2, UnitAssignmentType.ASSIGN_UP, true );
-        testAssignments( RESOURCE_ID_3, RESOURCE_TYPE_3, 2 );
-
-        create( RESOURCE_ID_4, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_1, UnitAssignmentType.CREATION, true );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_4, UNIT_ID_UNSET, UNIT_ID_1, UnitAssignmentType.CREATION, true );
-        create( RESOURCE_ID_4, RESOURCE_TYPE_4, UNIT_ID_UNSET, UNIT_ID_1, UnitAssignmentType.CREATION, true );
-        testAssignments( RESOURCE_ID_3, RESOURCE_TYPE_3, 2 );
-        testAssignments( RESOURCE_ID_4, RESOURCE_TYPE_3, 1 );
-        testAssignments( RESOURCE_ID_3, RESOURCE_TYPE_4, 1 );
-        testAssignments( RESOURCE_ID_4, RESOURCE_TYPE_4, 1 );
-
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_UP, true );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_2, UnitAssignmentType.ASSIGN_DOWN, true );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_UP, true );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_4, UnitAssignmentType.ASSIGN_UP, true );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_5, UnitAssignmentType.ASSIGN_UP, true );
-        testAssignments( RESOURCE_ID_3, RESOURCE_TYPE_3, 7 );
-
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_4, UnitAssignmentType.ASSIGN_DOWN, false );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_DOWN, false );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_2, UnitAssignmentType.ASSIGN_DOWN, false );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_UP, true );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_4, UnitAssignmentType.ASSIGN_UP, false );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_5, UnitAssignmentType.ASSIGN_UP, false );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_4, UnitAssignmentType.ASSIGN_DOWN, false );
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_3, UnitAssignmentType.ASSIGN_DOWN, false );
-        testAssignments( RESOURCE_ID_3, RESOURCE_TYPE_3, 8 );
-
-        create( RESOURCE_ID_3, RESOURCE_TYPE_3, UNIT_ID_UNSET, UNIT_ID_2, UnitAssignmentType.TRANSFER, true );
-        testAssignments( RESOURCE_ID_3, RESOURCE_TYPE_3, 9 );
+        UnitAssignment unitAssignmentCurrent = UnitAssignmentService.findCurrentAssignment( resource.getId( ), resource.getType( ) );
+        assertThat( unitAssignmentCurrent, is( nullValue( ) ) );
     }
 
-    /**
-     * Creates a unit assignment
-     * 
-     * @param nIdResource
-     *            the resource id
-     * @param strResourceType
-     *            the resource type
-     * @param nIdAssignorUnit
-     *            the assignor unit id
-     * @param nIdAssignedUnit
-     *            the assigned unit id
-     * @param assignmentType
-     *            the assignment type
-     * @param bIsActive
-     *            {@code true} if the unit assignment is active, {@code false} otherwise
-     * @return the created unit assignment
-     */
-    private UnitAssignment create( int nIdResource, String strResourceType, int nIdAssignorUnit, int nIdAssignedUnit, UnitAssignmentType assignmentType,
-            boolean bIsActive )
+    public void testCurrentAssignmentWhenResourceIsInactive( )
     {
-        UnitAssignment unitAssignment = new UnitAssignment( );
-        unitAssignment.setIdResource( nIdResource );
-        unitAssignment.setResourceType( strResourceType );
-        unitAssignment.setIdAssignorUnit( nIdAssignorUnit );
-        unitAssignment.setIdAssignedUnit( nIdAssignedUnit );
-        unitAssignment.setAssignmentType( assignmentType );
-        unitAssignment.setActive( bIsActive );
+        MockResource resource = MockResource.create( );
+        int nIdUnit = IdGenerator.generateId( );
+
+        insertAssignmentInDatabase( resource, nIdUnit, UnitAssignmentType.CREATION, false );
+
+        assertThatCurrentAssignmentOfResourceIsNull( resource );
+
+        _dao.clearTable( );
+    }
+
+    public void testCurrentAssignmentBasicTest( )
+    {
+        MockResource resource = MockResource.create( );
+        int nIdUnit = IdGenerator.generateId( );
+
+        UnitAssignment unitAssignment = insertAssignmentInDatabase( resource, nIdUnit, UnitAssignmentType.CREATION, true );
+
+        assertThatCurrentAssignmentOfResourceIs( resource, unitAssignment );
+
+        _dao.clearTable( );
+    }
+
+    private UnitAssignment insertAssignmentInDatabase( MockResource resource, int nIdAssignedUnit, UnitAssignmentType assignmentType, boolean bIsActive )
+    {
+        UnitAssignment unitAssignment = MockUnitAssignment.create( resource, MockUnitAssignment.UNIT_ID_UNSET, nIdAssignedUnit, assignmentType, bIsActive );
 
         return UnitAssignmentHome.create( unitAssignment );
     }
 
-    /**
-     * Tests if the current unit assignment of the specified couple {resource id, resource type} is the specified unit assignment
-     * 
-     * @param nIdResource
-     *            the resource id
-     * @param strResourceType
-     *            the resource type
-     * @param unitAssignment
-     *            the unit assignment
-     */
-    private void testCurrentAssignment( int nIdResource, String strResourceType, UnitAssignment unitAssignment )
+    private void assertThatCurrentAssignmentOfResourceIs( MockResource resource, UnitAssignment unitAssignment )
     {
-        UnitAssignment unitAssignmentCurrent = UnitAssignmentService.findCurrentAssignment( nIdResource, strResourceType );
+        UnitAssignment unitAssignmentCurrent = UnitAssignmentService.findCurrentAssignment( resource.getId( ), resource.getType( ) );
         assertThat( unitAssignmentCurrent.getId( ), is( unitAssignment.getId( ) ) );
     }
 
-    /**
-     * Tests if the size of the list of unit assignments of the specified couple {resource id, resource type} is equal to the specified number
-     * 
-     * @param nIdResource
-     *            the resource id
-     * @param strResourceType
-     *            the resource type
-     * @param nNumberOfAssignments
-     *            the number of assignments
-     */
-    private void testAssignments( int nIdResource, String strResourceType, int nNumberOfAssignments )
+    public void testCurrentAssignmentForResourcesWithDifferentTypes( )
     {
-        List<UnitAssignment> listUnitAssignment = UnitAssignmentService.findAssignments( nIdResource, strResourceType );
+        MockResource resource1_1 = MockResource.create( );
+        MockResource resource2_1 = MockResource.create( );
+        MockResource resource1_2 = MockResource.create( );
+        MockResource resource2_2 = MockResource.create( );
+        int nIdUnit1 = IdGenerator.generateId( );
+        UnitAssignment unitAssignment1_1 = insertAssignmentInDatabase( resource1_1, nIdUnit1, UnitAssignmentType.CREATION, true );
+        UnitAssignment unitAssignment2_1 = insertAssignmentInDatabase( resource2_1, nIdUnit1, UnitAssignmentType.CREATION, true );
+        UnitAssignment unitAssignment1_2 = insertAssignmentInDatabase( resource1_2, nIdUnit1, UnitAssignmentType.CREATION, true );
+        UnitAssignment unitAssignment2_2 = insertAssignmentInDatabase( resource2_2, nIdUnit1, UnitAssignmentType.CREATION, true );
+
+        assertThatCurrentAssignmentOfResourceIs( resource1_1, unitAssignment1_1 );
+        assertThatCurrentAssignmentOfResourceIs( resource2_1, unitAssignment2_1 );
+        assertThatCurrentAssignmentOfResourceIs( resource1_2, unitAssignment1_2 );
+        assertThatCurrentAssignmentOfResourceIs( resource2_2, unitAssignment2_2 );
+
+        _dao.clearTable( );
+    }
+
+    public void testCurrentAssignmentWhenResourceHasBeenReassigned( )
+    {
+        MockResource resource = MockResource.create( );
+        int nIdUnit1 = IdGenerator.generateId( );
+        int nIdUnit2 = IdGenerator.generateId( );
+        int nIdUnit3 = IdGenerator.generateId( );
+        int nIdUnit4 = IdGenerator.generateId( );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_UP, true );
+        insertAssignmentInDatabase( resource, nIdUnit1, UnitAssignmentType.ASSIGN_DOWN, true );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_UP, true );
+        insertAssignmentInDatabase( resource, nIdUnit3, UnitAssignmentType.ASSIGN_UP, true );
+        UnitAssignment unitAssignment = insertAssignmentInDatabase( resource, nIdUnit4, UnitAssignmentType.ASSIGN_UP, true );
+
+        assertThatCurrentAssignmentOfResourceIs( resource, unitAssignment );
+
+        insertAssignmentInDatabase( resource, nIdUnit3, UnitAssignmentType.ASSIGN_DOWN, false );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_DOWN, false );
+        insertAssignmentInDatabase( resource, nIdUnit1, UnitAssignmentType.ASSIGN_DOWN, false );
+        unitAssignment = insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_UP, true );
+        insertAssignmentInDatabase( resource, nIdUnit3, UnitAssignmentType.ASSIGN_UP, false );
+        insertAssignmentInDatabase( resource, nIdUnit4, UnitAssignmentType.ASSIGN_UP, false );
+        insertAssignmentInDatabase( resource, nIdUnit3, UnitAssignmentType.ASSIGN_DOWN, false );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_DOWN, false );
+
+        assertThatCurrentAssignmentOfResourceIs( resource, unitAssignment );
+
+        unitAssignment = insertAssignmentInDatabase( resource, nIdUnit1, UnitAssignmentType.TRANSFER, true );
+
+        assertThatCurrentAssignmentOfResourceIs( resource, unitAssignment );
+
+        _dao.clearTable( );
+    }
+
+    public void testAssignmentsWhenResourceHasNotBeenAssigned( )
+    {
+        MockResource resource = MockResource.create( );
+
+        assertThatNumberOfAssignmentsForResourceIs( resource, 0 );
+
+        _dao.clearTable( );
+    }
+
+    public void testAssignmentsWhenResourceIsInactive( )
+    {
+        MockResource resource = MockResource.create( );
+        int nIdUnit = IdGenerator.generateId( );
+        insertAssignmentInDatabase( resource, nIdUnit, UnitAssignmentType.CREATION, false );
+
+        assertThatNumberOfAssignmentsForResourceIs( resource, 0 );
+
+        _dao.clearTable( );
+    }
+
+    public void testAssignmentsBasicTest( )
+    {
+        MockResource resource = MockResource.create( );
+        int nIdUnit = IdGenerator.generateId( );
+        insertAssignmentInDatabase( resource, nIdUnit, UnitAssignmentType.CREATION, true );
+
+        assertThatNumberOfAssignmentsForResourceIs( resource, 1 );
+
+        _dao.clearTable( );
+    }
+
+    private void assertThatNumberOfAssignmentsForResourceIs( MockResource resource, int nNumberOfAssignments )
+    {
+        List<UnitAssignment> listUnitAssignment = UnitAssignmentService.findAssignments( resource.getId( ), resource.getType( ) );
         assertThat( listUnitAssignment.size( ), is( nNumberOfAssignments ) );
+    }
+
+    public void testAssignmentsForResourcesWithDifferentTypes( )
+    {
+        MockResource resource1_1 = MockResource.create( );
+        MockResource resource2_1 = MockResource.create( );
+        MockResource resource1_2 = MockResource.create( );
+        MockResource resource2_2 = MockResource.create( );
+        int nIdUnit1 = IdGenerator.generateId( );
+        int nIdUnit2 = IdGenerator.generateId( );
+        insertAssignmentInDatabase( resource1_1, nIdUnit1, UnitAssignmentType.CREATION, true );
+        insertAssignmentInDatabase( resource1_1, nIdUnit2, UnitAssignmentType.ASSIGN_UP, true );
+        insertAssignmentInDatabase( resource2_1, nIdUnit1, UnitAssignmentType.CREATION, true );
+        insertAssignmentInDatabase( resource1_2, nIdUnit1, UnitAssignmentType.CREATION, true );
+        insertAssignmentInDatabase( resource2_2, nIdUnit1, UnitAssignmentType.CREATION, true );
+
+        assertThatNumberOfAssignmentsForResourceIs( resource1_1, 2 );
+        assertThatNumberOfAssignmentsForResourceIs( resource2_1, 1 );
+        assertThatNumberOfAssignmentsForResourceIs( resource1_2, 1 );
+        assertThatNumberOfAssignmentsForResourceIs( resource2_2, 1 );
+
+        _dao.clearTable( );
+    }
+
+    public void testAssignmentsWhenResourceHasBeenReassigned( )
+    {
+        MockResource resource = MockResource.create( );
+        int nIdUnit1 = IdGenerator.generateId( );
+        int nIdUnit2 = IdGenerator.generateId( );
+        int nIdUnit3 = IdGenerator.generateId( );
+        int nIdUnit4 = IdGenerator.generateId( );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_UP, true );
+        insertAssignmentInDatabase( resource, nIdUnit1, UnitAssignmentType.ASSIGN_DOWN, true );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_UP, true );
+        insertAssignmentInDatabase( resource, nIdUnit3, UnitAssignmentType.ASSIGN_UP, true );
+        insertAssignmentInDatabase( resource, nIdUnit4, UnitAssignmentType.ASSIGN_UP, true );
+
+        assertThatNumberOfAssignmentsForResourceIs( resource, 5 );
+
+        insertAssignmentInDatabase( resource, nIdUnit3, UnitAssignmentType.ASSIGN_DOWN, false );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_DOWN, false );
+        insertAssignmentInDatabase( resource, nIdUnit1, UnitAssignmentType.ASSIGN_DOWN, false );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_UP, true );
+        insertAssignmentInDatabase( resource, nIdUnit3, UnitAssignmentType.ASSIGN_UP, false );
+        insertAssignmentInDatabase( resource, nIdUnit4, UnitAssignmentType.ASSIGN_UP, false );
+        insertAssignmentInDatabase( resource, nIdUnit3, UnitAssignmentType.ASSIGN_DOWN, false );
+        insertAssignmentInDatabase( resource, nIdUnit2, UnitAssignmentType.ASSIGN_DOWN, false );
+
+        assertThatNumberOfAssignmentsForResourceIs( resource, 6 );
+
+        insertAssignmentInDatabase( resource, nIdUnit1, UnitAssignmentType.TRANSFER, true );
+
+        assertThatNumberOfAssignmentsForResourceIs( resource, 7 );
+
+        _dao.clearTable( );
     }
 }
