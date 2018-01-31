@@ -109,7 +109,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
                     throw new AppException( "The target unit does not exist" );
                 }
 
-                List<UnitAssignment> listUnitAssignment = UnitAssignmentHome.findUnitAssignments( resourceHistory.getIdResource( ),
+                List<UnitAssignment> listUnitAssignment = UnitAssignmentHome.findByResource( resourceHistory.getIdResource( ),
                         resourceHistory.getResourceType( ) );
                 Unit unitAssignor = findAssignorUnit( listUnitAssignment );
                 TaskUnitAssignmentConfig config = getConfig( );

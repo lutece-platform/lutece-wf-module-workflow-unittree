@@ -89,6 +89,6 @@ public interface IUnitAssignmentDAO
      *            the plugin
      * @return the list of unit assignments
      */
-    List<UnitAssignment> selectUnitAssignments( int nIdResource, String strResourceType, Plugin plugin );
+    List<UnitAssignment> selectByResource( int nIdResource, String strResourceType, Plugin plugin );
 
 }

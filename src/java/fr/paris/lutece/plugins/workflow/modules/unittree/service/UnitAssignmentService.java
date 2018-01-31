@@ -90,7 +90,7 @@ public final class UnitAssignmentService
      */
     public static List<UnitAssignment> findAssignments( int nIdResource, String strResourceType )
     {
-        List<UnitAssignment> listUnitAssignment = _dao.selectUnitAssignments( nIdResource, strResourceType, _plugin );
+        List<UnitAssignment> listUnitAssignment = _dao.selectByResource( nIdResource, strResourceType, _plugin );
 
         return listUnitAssignment.stream( ).filter( unitAssignment -> unitAssignment.isActive( ) ).collect( Collectors.toList( ) );
     }

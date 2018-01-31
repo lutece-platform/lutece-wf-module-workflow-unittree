@@ -54,7 +54,7 @@ public class UnitAssignmentDAO implements IUnitAssignmentDAO
             + " FROM unittree_unit_assignment  LEFT JOIN  unittree_unit u_assignor on u_assignor.id_unit = unittree_unit_assignment.id_assignor_unit left JOIN unittree_unit u_assigned on u_assigned.id_unit = unittree_unit_assignment.id_assigned_unit  ";
     private static final String SQL_QUERY_SELECT_CURRENT = SQL_QUERY_SELECTALL
             + " WHERE id_resource = ? AND resource_type = ? AND is_active = 1 ORDER BY assignment_date DESC, id DESC";
-    private static final String SQL_QUERY_SELECT_BY_ID_RESOURCE = SQL_QUERY_SELECTALL
+    private static final String SQL_QUERY_SELECT_BY_RESOURCE = SQL_QUERY_SELECTALL
             + " WHERE id_resource = ? AND resource_type = ? ORDER BY assignment_date ASC, id ASC";
     private static final String SQL_QUERY_INSERT = "INSERT INTO unittree_unit_assignment ( id, id_resource, resource_type, id_assigned_unit, id_assignor_unit, assignment_date, assignment_type, is_active ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ? ) ";
     private static final String SQL_QUERY_DESACTIVATE = "UPDATE unittree_unit_assignment SET is_active = 0 WHERE id = ? ";
@@ -136,10 +136,10 @@ public class UnitAssignmentDAO implements IUnitAssignmentDAO
      * {@inheritDoc}
      */
     @Override
-    public List<UnitAssignment> selectUnitAssignments( int nIdResource, String strResourceType, Plugin plugin )
+    public List<UnitAssignment> selectByResource( int nIdResource, String strResourceType, Plugin plugin )
     {
         List<UnitAssignment> listUnitAssignments = new ArrayList<>( );
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_ID_RESOURCE, plugin );
+        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT_BY_RESOURCE, plugin );
 
         int nIndex = 0;
         daoUtil.setInt( ++nIndex, nIdResource );

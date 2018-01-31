@@ -98,8 +98,8 @@ public final class UnitAssignmentHome
      *            the resource type
      * @return the list of unit assignments
      */
-    public static List<UnitAssignment> findUnitAssignments( int nIdResource, String strResourceType )
+    public static List<UnitAssignment> findByResource( int nIdResource, String strResourceType )
     {
-        return _dao.selectUnitAssignments( nIdResource, strResourceType, _plugin );
+        return _dao.selectByResource( nIdResource, strResourceType, _plugin );
     }
 }
