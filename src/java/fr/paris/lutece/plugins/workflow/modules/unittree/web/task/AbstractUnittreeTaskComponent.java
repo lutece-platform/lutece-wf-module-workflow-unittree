@@ -61,14 +61,21 @@ public abstract class AbstractUnittreeTaskComponent extends SimpleTaskComponent
     @Override
     public String getDisplayTaskInformation( int nIdHistory, HttpServletRequest request, Locale locale, ITask task )
     {
+        String strTaskInformationHtml = null;
+
         TaskInformation taskInformation = TaskInformationHome.find( nIdHistory, task.getId( ) );
 
-        Map<String, Object> model = new HashMap<String, Object>( );
-        model.put( MARK_TASK_INFORMATION, taskInformation );
+        if ( taskInformation != null )
+        {
+            Map<String, Object> model = new HashMap<String, Object>( );
+            model.put( MARK_TASK_INFORMATION, taskInformation );
 
-        HtmlTemplate template = AppTemplateService.getTemplate( getTaskInformationTemplate( ), locale, model );
+            HtmlTemplate template = AppTemplateService.getTemplate( getTaskInformationTemplate( ), locale, model );
 
-        return template.getHtml( );
+            strTaskInformationHtml = template.getHtml( );
+        }
+
+        return strTaskInformationHtml;
     }
 
     /**

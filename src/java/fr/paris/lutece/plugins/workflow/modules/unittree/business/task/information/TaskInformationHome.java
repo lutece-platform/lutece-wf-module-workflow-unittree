@@ -79,14 +79,7 @@ public final class TaskInformationHome
      */
     public static TaskInformation find( int nIdHistory, int nIdTask )
     {
-        TaskInformation taskInformation = _dao.load( nIdHistory, nIdTask, WorkflowUnittreePlugin.getPlugin( ) );
-
-        if ( taskInformation == null )
-        {
-            taskInformation = new TaskInformation( nIdHistory, nIdTask );
-        }
-
-        return taskInformation;
+        return _dao.load( nIdHistory, nIdTask, WorkflowUnittreePlugin.getPlugin( ) );
     }
 
 }
