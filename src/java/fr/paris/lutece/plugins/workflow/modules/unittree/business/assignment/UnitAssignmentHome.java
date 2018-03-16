@@ -119,16 +119,17 @@ public final class UnitAssignmentHome
     {
         return _dao.selectByUnit( nIdUnit, _plugin );
     }
-    
+
     /**
      * <p>
      * Deactivate the units assignments associated to the specified resource.
      * </p>
+     * 
      * @param nIdResource
-     * @param strResourceType 
+     * @param strResourceType
      */
     public static void deactivateByResource( int nIdResource, String strResourceType )
     {
-       _dao.deactivateByResource( nIdResource, strResourceType, _plugin );
+        _dao.deactivateByResource( nIdResource, strResourceType, _plugin );
     }
 }

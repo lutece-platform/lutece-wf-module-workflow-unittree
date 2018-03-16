@@ -36,14 +36,14 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.web.task;
 public class UnitUnassignmentTaskComponent extends AbstractUnittreeTaskComponent
 {
     private static final String TEMPLATE_TASK_INFORMATION = "admin/plugins/workflow/modules/unittree/task_unit_unassignment_information.html";
-   
+
     /**
      * {@inheritDoc }
      */
     @Override
-    protected String getTaskInformationTemplate() 
+    protected String getTaskInformationTemplate( )
     {
-       return TEMPLATE_TASK_INFORMATION;
+        return TEMPLATE_TASK_INFORMATION;
     }
-    
+
 }

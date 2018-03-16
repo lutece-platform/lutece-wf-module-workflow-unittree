@@ -47,29 +47,30 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * This class represents the task for unassignate 
+ * This class represents the task for unassignate
  */
-public class TaskUnitUnassignment extends SimpleTask 
+public class TaskUnitUnassignment extends SimpleTask
 {
     @Inject
     private IResourceHistoryService _resourceHistoryService;
     private static final String MESSAGE_TASK_TITLE = "module.workflow.unittree.task_unit_unassignment.title";
     private static final String TASK_INFORMATION_UNASSIGNOR = "UNASSIGNOR";
+
     /**
      * {@inheritDoc }
      */
     @Override
-    public void processTask(int nIdResourceHistory, HttpServletRequest request, Locale locale) 
+    public void processTask( int nIdResourceHistory, HttpServletRequest request, Locale locale )
     {
         ResourceHistory resourceHistory = _resourceHistoryService.findByPrimaryKey( nIdResourceHistory );
 
         if ( resourceHistory != null )
         {
-            UnitAssignmentHome.deactivateByResource( resourceHistory.getIdResource(), resourceHistory.getResourceType( ) );
-            //save the unassignor in task infos
+            UnitAssignmentHome.deactivateByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
+            // save the unassignor in task infos
             saveTaskInformation( nIdResourceHistory, request );
         }
-        
+
     }
 
     /**
@@ -80,17 +81,16 @@ public class TaskUnitUnassignment extends SimpleTask
     {
         return I18nService.getLocalizedString( MESSAGE_TASK_TITLE, locale );
     }
-    
+
     public void saveTaskInformation( int nIdResourceHistory, HttpServletRequest request )
     {
-        //Get the unassignor admin user
+        // Get the unassignor admin user
         AdminUser user = AdminUserService.getAdminUser( request );
-        
+
         TaskInformation taskInfo = new TaskInformation( nIdResourceHistory, getId( ) );
-        taskInfo.add( TASK_INFORMATION_UNASSIGNOR, user.getFirstName() + " " + user.getLastName( ) );
-        
+        taskInfo.add( TASK_INFORMATION_UNASSIGNOR, user.getFirstName( ) + " " + user.getLastName( ) );
+
         TaskInformationHome.create( taskInfo );
     }
 
-    
 }

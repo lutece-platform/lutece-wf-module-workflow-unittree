@@ -218,7 +218,7 @@ public class UnitAssignmentDAO implements IUnitAssignmentDAO
      * {@inheritDoc }
      */
     @Override
-    public void deactivateByResource(int nIdResource, String strResourceType, Plugin plugin) 
+    public void deactivateByResource( int nIdResource, String strResourceType, Plugin plugin )
     {
         DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DESACTIVATE_BY_RESOURCE, plugin );
 
