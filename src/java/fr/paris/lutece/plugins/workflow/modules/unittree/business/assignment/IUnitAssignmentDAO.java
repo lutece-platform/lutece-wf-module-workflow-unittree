@@ -101,5 +101,16 @@ public interface IUnitAssignmentDAO
      * @return the list of unit assignments
      */
     List<UnitAssignment> selectByUnit( int nIdUnit, Plugin plugin );
+    
+    /**
+     * Deactivate the unit assignments associated to the specified resource
+     * @param nIdResource
+     *              The resource id
+     * @param strResourceType
+     *              The resource type
+     * @param plugin 
+     *              The plugin
+     */
+    void deactivateByResource( int nIdResource, String strResourceType, Plugin plugin );
 
 }

@@ -73,4 +73,20 @@
         class="fr.paris.lutece.plugins.workflow.modules.unittree.web.task.UnitAssignmentAutomaticTaskComponent"
         p:taskType-ref="workflow-unittree.taskTypeUnitAssignmentAutomatic"
         p:taskConfigService-ref="workflow-unittree.taskUnitAssignmentConfigService" />
+    
+    <!-- Task Units unassignment -->
+    <bean id="workflow-unittree.taskUnitUnassignment"
+            class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.TaskUnitUnassignment"
+            scope="prototype" />
+    <bean id="workflow-unittree.taskTypeUnitUnassignment"
+            class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+            p:key="taskUnitUnassignment"
+            p:titleI18nKey="module.workflow.unittree.task_unit_unassignment.title"
+            p:beanName="workflow-unittree.taskUnitUnassignment"
+            p:taskForAutomaticAction="true"
+            p:configRequired="false"
+            p:formTaskRequired="false"   />
+    <bean id="workflow-unittree.unitUnassignmentTaskComponent"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.web.task.UnitUnassignmentTaskComponent"
+        p:taskType-ref="workflow-unittree.taskTypeUnitUnassignment" />
 </beans>
