@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><plug-in>
     <name>workflow-unittree</name>
     <class>fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin</class>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <documentation/>
     <installation/>
     <changes/>
@@ -44,7 +44,7 @@
     
     <!-- Specific plugin CSS stylesheet -->
 	<admin-css-stylesheets>
-        <admin-css-stylesheet></admin-css-stylesheet>
+        <admin-css-stylesheet/>
     </admin-css-stylesheets>
     <css-stylesheets/>
 </plug-in>
