@@ -51,10 +51,11 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class TaskUnitUnassignment extends SimpleTask
 {
-    @Inject
-    private IResourceHistoryService _resourceHistoryService;
     private static final String MESSAGE_TASK_TITLE = "module.workflow.unittree.task_unit_unassignment.title";
     private static final String TASK_INFORMATION_UNASSIGNOR = "UNASSIGNOR";
+
+    @Inject
+    private IResourceHistoryService _resourceHistoryService;
 
     /**
      * {@inheritDoc }
@@ -82,7 +83,15 @@ public class TaskUnitUnassignment extends SimpleTask
         return I18nService.getLocalizedString( MESSAGE_TASK_TITLE, locale );
     }
 
-    public void saveTaskInformation( int nIdResourceHistory, HttpServletRequest request )
+    /**
+     * Saves the task information
+     * 
+     * @param nIdResourceHistory
+     *            the resource history id
+     * @param request
+     *            the request
+     */
+    private void saveTaskInformation( int nIdResourceHistory, HttpServletRequest request )
     {
         // Get the unassignor admin user
         AdminUser user = AdminUserService.getAdminUser( request );

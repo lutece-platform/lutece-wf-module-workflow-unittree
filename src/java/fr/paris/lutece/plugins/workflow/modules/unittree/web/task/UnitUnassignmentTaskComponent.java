@@ -33,6 +33,10 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.web.task;
 
+/**
+ * This class is a task component for the {@link fr.paris.lutece.plugins.workflow.modules.unittree.service.task.TaskUnitUnassignment TaskUnitUnassignment} class
+ *
+ */
 public class UnitUnassignmentTaskComponent extends AbstractUnittreeTaskComponent
 {
     private static final String TEMPLATE_TASK_INFORMATION = "admin/plugins/workflow/modules/unittree/task_unit_unassignment_information.html";

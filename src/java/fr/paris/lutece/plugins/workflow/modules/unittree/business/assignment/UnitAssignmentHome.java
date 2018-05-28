@@ -126,7 +126,9 @@ public final class UnitAssignmentHome
      * </p>
      * 
      * @param nIdResource
+     *            the resource id
      * @param strResourceType
+     *            the resource type
      */
     public static void deactivateByResource( int nIdResource, String strResourceType )
     {
