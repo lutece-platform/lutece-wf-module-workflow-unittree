@@ -1,4 +1,4 @@
-![](http://dev.lutece.paris.fr/jenkins/buildStatus/icon?job=directory-module-workflow-unittree-deploy)
+![](http://dev.lutece.paris.fr/jenkins/buildStatus/icon?job=wf-module-workflow-unittree-deploy)
 # Module workflow unittree
 
 ## Introduction
@@ -37,7 +37,8 @@ A unit selection enables to select the target unit. A unit selection can be auto
 
 This module contains the following unit selections:
  
-* Selection of a unit among all the units. Non automatic. The user selects the target unit in a combobox. It can be used to transfer the resource to a unit for example.
+* Selection of a specific unit. Automatic. The unit is chosen in the task configuration. The user cannot select the unit in the task form.
+* Selection of a unit among all the units. Non automatic. The user selects the target unit in a combobox in the task form. It can be used to transfer the resource to a unit for example.
 * Selection of the parent unit. Automatic. It can be used to assign the resource up for example.
 * Selection of the assignor unit. Automatic. It can be used to assign the resource down for example.
 

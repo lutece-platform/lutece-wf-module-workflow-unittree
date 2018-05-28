@@ -21,6 +21,8 @@
         class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfigDAO" />
     <bean id="workflow-unittree.taskInformationDAO"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationDAO" />
+    <bean id="workflow-unittree.unitSelection.specificUnit.configDAO"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.selection.config.UnitSelectionSpecificUnitConfigDAO" />
 
     <!-- Service -->
     <bean id="workflow-unittree.taskUnitAssignmentConfigService"
@@ -32,6 +34,8 @@
         class="fr.paris.lutece.plugins.workflow.modules.unittree.service.unit.UnitAssignmentRemovalListener" />
 
     <!-- Unit Selection -->
+    <bean id="workflow-unittree.unitSelection.specificUnit"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.UnitSelectionSpecificUnit" />
     <bean id="workflow-unittree.unitSelection.fromAll"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.UnitSelectionFromAll" />
     <bean id="workflow-unittree.unitSelection.parent"

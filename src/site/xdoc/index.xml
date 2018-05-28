@@ -50,7 +50,8 @@
                 <p>
                     This module contains the following unit selections:
                     <ul>
-                        <li>Selection of a unit among all the units. Non automatic. The user selects the target unit in a combobox. It can be used to transfer the resource to a unit for example.</li>
+                        <li>Selection of a specific unit. Automatic. The unit is chosen in the task configuration. The user cannot select the unit in the task form.</li>
+                        <li>Selection of a unit among all the units. Non automatic. The user selects the target unit in a combobox in the task form. It can be used to transfer the resource to a unit for example.</li>
                         <li>Selection of the parent unit. Automatic. It can be used to assign the resource up for example.</li>
                         <li>Selection of the assignor unit. Automatic. It can be used to assign the resource down for example.</li>
                     </ul>

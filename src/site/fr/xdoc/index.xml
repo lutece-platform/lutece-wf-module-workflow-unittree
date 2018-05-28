@@ -50,7 +50,8 @@
                 <p>
                     Ce module contient les sélections d'entité suivantes :
                     <ul>
-                        <li>Sélection d'une entité parmi toutes les entités. Non automatique. L'utilisateur sélectionne l'entité cible dans une liste déroulante. Elle peut être utilisée pour transférer la ressource à une entité par exemple.</li>
+                        <li>Sélection d'une entité spécifique. Automatique. L'entité est choisie dans la configuration de la tâche. L'utilisateur ne peut pas sélectionner d'entité dans le formulaire de la tâche.</li>
+                        <li>Sélection d'une entité parmi toutes les entités. Non automatique. L'utilisateur sélectionne l'entité cible dans une liste déroulante dans le formulaire de la tâche. Elle peut être utilisée pour transférer la ressource à une entité par exemple.</li>
                         <li>Sélection de l'entité parente. Automatique. Elle peut être utilisée pour l'escalade par l'exemple.</li>
                         <li>Sélection de l'entité émettrice. Automatique. Elle peut être utilisée pour la désescalade par exemple.</li>
                     </ul>
