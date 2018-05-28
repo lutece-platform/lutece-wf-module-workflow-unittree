@@ -31,7 +31,6 @@
  *
  * License 1.0
  */
-
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
