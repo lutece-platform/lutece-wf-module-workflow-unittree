@@ -93,4 +93,7 @@
     <bean id="workflow-unittree.unitUnassignmentTaskComponent"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.web.task.UnitUnassignmentTaskComponent"
         p:taskType-ref="workflow-unittree.taskTypeUnitUnassignment" />
+        
+    <bean id="workflow-unittree.changeUnitEventPublisher"
+    	class="fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEventPublisher"/>
 </beans>
