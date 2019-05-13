@@ -33,18 +33,24 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.task;
 
+import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationHome;
+import fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEventPublisher;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistoryService;
 import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
 import fr.paris.lutece.portal.business.user.AdminUser;
 import fr.paris.lutece.portal.service.admin.AdminUserService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
+
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * This class represents the task for unassignate
@@ -56,6 +62,8 @@ public class TaskUnitUnassignment extends SimpleTask
 
     @Inject
     private IResourceHistoryService _resourceHistoryService;
+    @Inject
+    private ChangeUnitEventPublisher _publisher;
 
     /**
      * {@inheritDoc }
@@ -67,7 +75,15 @@ public class TaskUnitUnassignment extends SimpleTask
 
         if ( resourceHistory != null )
         {
-            UnitAssignmentHome.deactivateByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
+        	List<UnitAssignment> oldAssigmentList = UnitAssignmentHome.findByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
+            
+        	UnitAssignmentHome.deactivateByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
+            
+            if ( CollectionUtils.isNotEmpty( oldAssigmentList ) )
+            {
+            	 _publisher.publish( oldAssigmentList );
+            }
+            
             // save the unassignor in task infos
             saveTaskInformation( nIdResourceHistory, request );
         }
