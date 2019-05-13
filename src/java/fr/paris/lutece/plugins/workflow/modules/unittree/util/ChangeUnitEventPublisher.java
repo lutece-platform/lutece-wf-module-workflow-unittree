@@ -12,15 +12,15 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.Uni
  */
 public class ChangeUnitEventPublisher implements ApplicationEventPublisherAware {
 
-	private ApplicationEventPublisher publisher;
+	private ApplicationEventPublisher _publisher;
 	 
 	public void setApplicationEventPublisher( ApplicationEventPublisher publisher )
     {
-    	this.publisher = publisher;
+    	_publisher = publisher;
     }
 	
 	public void publish( List<UnitAssignment> oldAssigmentList )
 	{
-		publisher.publishEvent( new ChangeUnitEvent( this, oldAssigmentList ) );
+		_publisher.publishEvent( new ChangeUnitEvent( this, oldAssigmentList ) );
 	}
 }

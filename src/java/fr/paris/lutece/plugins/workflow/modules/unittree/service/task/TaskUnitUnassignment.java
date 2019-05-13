@@ -63,7 +63,7 @@ public class TaskUnitUnassignment extends SimpleTask
     @Inject
     private IResourceHistoryService _resourceHistoryService;
     @Inject
-    private ChangeUnitEventPublisher publisher;
+    private ChangeUnitEventPublisher _publisher;
 
     /**
      * {@inheritDoc }
@@ -81,7 +81,7 @@ public class TaskUnitUnassignment extends SimpleTask
             
             if ( CollectionUtils.isNotEmpty( oldAssigmentList ) )
             {
-            	 publisher.publish( oldAssigmentList );
+            	 _publisher.publish( oldAssigmentList );
             }
             
             // save the unassignor in task infos

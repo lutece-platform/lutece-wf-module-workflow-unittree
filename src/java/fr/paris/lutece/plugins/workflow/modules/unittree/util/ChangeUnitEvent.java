@@ -12,12 +12,12 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.Uni
 public class ChangeUnitEvent extends ApplicationEvent {
 
 	private static final long serialVersionUID = -6136225245590902847L;
-	private final List<UnitAssignment> oldAssignmentList;
+	private final List<UnitAssignment> _oldAssignmentList;
 
 	public ChangeUnitEvent( Object source, List<UnitAssignment> oldAssignmentList )
 	{
 		super( source );
-		this.oldAssignmentList = oldAssignmentList;
+		_oldAssignmentList = oldAssignmentList;
 	}
 
 	/**
@@ -25,7 +25,7 @@ public class ChangeUnitEvent extends ApplicationEvent {
 	 */
 	public List<UnitAssignment> getOldAssignmentList( )
 	{
-		return oldAssignmentList;
+		return _oldAssignmentList;
 	}
 
 }
