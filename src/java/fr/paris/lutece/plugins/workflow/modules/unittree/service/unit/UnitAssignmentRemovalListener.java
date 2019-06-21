@@ -35,10 +35,10 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.unit;
 
 import java.util.List;
 
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.unittree.service.UnitErrorException;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitRemovalListener;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentHome;
 
 /**
  * This class is a listener when a {@code Unit} is removed. This listener tests if there is no resource assigned to the removed unit.

@@ -40,9 +40,9 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitService;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.UnitAssignmentService;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IConfigurationHandler;

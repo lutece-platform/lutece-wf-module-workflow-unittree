@@ -33,6 +33,9 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
+
 public class MockUnitAssignment
 {
     public static final int UNIT_ID_UNSET = -1;

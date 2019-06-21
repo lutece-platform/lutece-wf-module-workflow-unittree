@@ -33,8 +33,8 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service;
 
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.IUnitAssignmentDAO;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.IUnitAssignmentDAO;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 

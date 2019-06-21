@@ -33,6 +33,10 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentDAO;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.UnitAssignmentService;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
