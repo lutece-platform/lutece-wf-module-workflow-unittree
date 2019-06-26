@@ -43,11 +43,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitService;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentHome;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationHome;

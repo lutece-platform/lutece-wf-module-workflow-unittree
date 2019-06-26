@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 
 /**
  * Publisher for {@link ChangeUnitEvent} 

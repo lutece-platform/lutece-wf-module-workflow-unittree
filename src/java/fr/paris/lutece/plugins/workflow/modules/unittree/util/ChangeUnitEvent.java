@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.context.ApplicationEvent;
 
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 
 /**
  * Event created whe a change of unit occures. 

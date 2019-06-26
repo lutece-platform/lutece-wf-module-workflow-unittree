@@ -33,8 +33,8 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.task;
 
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentHome;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationHome;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEventPublisher;

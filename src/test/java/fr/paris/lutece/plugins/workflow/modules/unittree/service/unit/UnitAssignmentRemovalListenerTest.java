@@ -33,13 +33,13 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.unit;
 
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.unittree.service.UnitErrorException;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.MockResource;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.MockUnitAssignment;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentDAOTest;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentHome;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
 import fr.paris.lutece.test.LuteceTestCase;
 

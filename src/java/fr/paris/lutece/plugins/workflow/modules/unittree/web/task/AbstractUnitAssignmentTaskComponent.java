@@ -43,7 +43,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentType;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IConfigurationHandler;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection;

@@ -15,8 +15,6 @@
         p:pluginName="workflow-unittree" />
 
     <!-- DAO -->
-    <bean id="workflow-unittree.unitAssignmentDAO"
-        class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentDAO" />
     <bean id="workflow-unittree.taskUnitAssignmentConfigDAO"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfigDAO" />
     <bean id="workflow-unittree.taskInformationDAO"
