@@ -94,4 +94,7 @@
         
     <bean id="workflow-unittree.changeUnitEventPublisher"
     	class="fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEventPublisher"/>
+    	
+    <!-- Prerequisites -->
+     <bean id="workflow-unittree.userUnitAssignedResourcePrerequisite" class="fr.paris.lutece.plugins.workflow.modules.unittree.service.prerequisite.UserUnitAssignedResourcePrerequisite"/>
 </beans>
