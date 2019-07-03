@@ -73,7 +73,7 @@ public class UserUnitAssignedResourcePrerequisite implements IManualActionPrereq
 		{
 			for ( UnitAssignment resourceUnit : resourceUnitList )
 			{
-				if ( userUnit.getIdUnit( ) == resourceUnit.getIdAssignedUnit( ) )
+				if ( resourceUnit.isActive( ) && userUnit.getIdUnit( ) == resourceUnit.getIdAssignedUnit( ) )
 				{
 					return true;
 				}

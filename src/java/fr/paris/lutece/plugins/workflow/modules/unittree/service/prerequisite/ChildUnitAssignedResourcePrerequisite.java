@@ -78,7 +78,7 @@ public class ChildUnitAssignedResourcePrerequisite implements IManualActionPrere
 		
 		for ( UnitAssignment resourceUnit : resourceUnitList )
 		{
-			if ( unitIdList.contains( resourceUnit.getIdAssignedUnit( ) ) );
+			if ( resourceUnit.isActive( ) && unitIdList.contains( resourceUnit.getIdAssignedUnit( ) ) );
 			{
 				return true;
 			}
