@@ -97,4 +97,5 @@
     	
     <!-- Prerequisites -->
      <bean id="workflow-unittree.userUnitAssignedResourcePrerequisite" class="fr.paris.lutece.plugins.workflow.modules.unittree.service.prerequisite.UserUnitAssignedResourcePrerequisite"/>
+     <bean id="workflow-unittree.childUnitAssignedResourcePrerequisite" class="fr.paris.lutece.plugins.workflow.modules.unittree.service.prerequisite.ChildUnitAssignedResourcePrerequisite"/>
 </beans>
