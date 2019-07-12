@@ -70,7 +70,6 @@ public class ChildUnitAssignedResourcePrerequisite implements IManualActionPrere
 		Set<Integer> unitIdList = new HashSet<>( );
 		for ( Unit userUnit : userUnitList )
 		{
-			unitIdList.add( userUnit.getIdUnit( ) );
 			UnitHome.getAllSubUnitsId( userUnit.getIdUnit( ) );
 		}
 		
