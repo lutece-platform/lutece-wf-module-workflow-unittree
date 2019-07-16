@@ -70,14 +70,14 @@ public class ChildUnitAssignedResourcePrerequisite implements IManualActionPrere
 		Set<Integer> unitIdList = new HashSet<>( );
 		for ( Unit userUnit : userUnitList )
 		{
-			UnitHome.getAllSubUnitsId( userUnit.getIdUnit( ) );
+			unitIdList.addAll( UnitHome.getAllSubUnitsId( userUnit.getIdUnit( ) ) );
 		}
 		
 		List<UnitAssignment> resourceUnitList = UnitAssignmentHome.findByResource( nIdResource, strResourceType );
 		
 		for ( UnitAssignment resourceUnit : resourceUnitList )
 		{
-			if ( resourceUnit.isActive( ) && unitIdList.contains( resourceUnit.getIdAssignedUnit( ) ) );
+			if ( resourceUnit.isActive( ) && unitIdList.contains( resourceUnit.getIdAssignedUnit( ) ) )
 			{
 				return true;
 			}
