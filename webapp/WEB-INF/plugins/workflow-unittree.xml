@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><plug-in>
     <name>workflow-unittree</name>
     <class>fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin</class>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
     <documentation/>
     <installation/>
     <changes/>
