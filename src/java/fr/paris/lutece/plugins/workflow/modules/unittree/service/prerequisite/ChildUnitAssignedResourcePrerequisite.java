@@ -16,72 +16,72 @@ import fr.paris.lutece.plugins.workflowcore.business.prerequisite.DefaultPrerequ
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.IPrerequisiteConfig;
 import fr.paris.lutece.portal.business.user.AdminUser;
 
-public class ChildUnitAssignedResourcePrerequisite implements IManualActionPrerequisiteService {
+public class ChildUnitAssignedResourcePrerequisite implements IManualActionPrerequisiteService
+{
 
-	private static final String PREREQUISITE_TITLE_I18N = "module.workflow.unittree.prerequisite.unit.child.resource.title";
-	private static final String PREREQUISITE_TYPE = "module.workflow.unittree.prerequisite.unit.child.resource";
+    private static final String PREREQUISITE_TITLE_I18N = "module.workflow.unittree.prerequisite.unit.child.resource.title";
+    private static final String PREREQUISITE_TYPE = "module.workflow.unittree.prerequisite.unit.child.resource";
 
-	public String getTitleI18nKey( )
-	{
-		return PREREQUISITE_TITLE_I18N;
-	}
+    public String getTitleI18nKey( )
+    {
+        return PREREQUISITE_TITLE_I18N;
+    }
 
-	public String getPrerequisiteType( )
-	{
-		return PREREQUISITE_TYPE;
-	}
+    public String getPrerequisiteType( )
+    {
+        return PREREQUISITE_TYPE;
+    }
 
-	@Override
-	public boolean hasConfiguration( )
-	{
-		return false;
-	}
+    @Override
+    public boolean hasConfiguration( )
+    {
+        return false;
+    }
 
-	@Override
-	public IPrerequisiteConfig getEmptyConfiguration( )
-	{
-		 return new DefaultPrerequisiteConfig( );
-	}
+    @Override
+    public IPrerequisiteConfig getEmptyConfiguration( )
+    {
+        return new DefaultPrerequisiteConfig( );
+    }
 
-	@Override
-	public String getConfigurationDaoBeanName( )
-	{
-		return null;
-	}
+    @Override
+    public String getConfigurationDaoBeanName( )
+    {
+        return null;
+    }
 
-	@Override
-	public String getConfigHtml( IPrerequisiteConfig config, HttpServletRequest request, Locale locale ) {
-		return null;
-	}
+    @Override
+    public String getConfigHtml( IPrerequisiteConfig config, HttpServletRequest request, Locale locale )
+    {
+        return null;
+    }
 
-	@Override
-	public boolean canActionBePerformed( int nIdResource, String strResourceType, IPrerequisiteConfig config,
-			int nIdAction )
-	{
-		return false;
-	}
-	
-	@Override
-	public boolean canManualActionBePerformed (AdminUser user, int nIdResource, String strResourceType,
-			IPrerequisiteConfig config, int nIdAction )
-	{
-		
-		List<Unit> userUnitList = UnitHome.findByIdUser( user.getUserId( ) );
-		Set<Integer> unitIdList = new HashSet<>( );
-		for ( Unit userUnit : userUnitList )
-		{
-			unitIdList.addAll( UnitHome.getAllSubUnitsId( userUnit.getIdUnit( ) ) );
-		}
-		
-		List<UnitAssignment> resourceUnitList = UnitAssignmentHome.findByResource( nIdResource, strResourceType );
-		
-		for ( UnitAssignment resourceUnit : resourceUnitList )
-		{
-			if ( resourceUnit.isActive( ) && unitIdList.contains( resourceUnit.getIdAssignedUnit( ) ) )
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+    @Override
+    public boolean canActionBePerformed( int nIdResource, String strResourceType, IPrerequisiteConfig config, int nIdAction )
+    {
+        return false;
+    }
+
+    @Override
+    public boolean canManualActionBePerformed( AdminUser user, int nIdResource, String strResourceType, IPrerequisiteConfig config, int nIdAction )
+    {
+
+        List<Unit> userUnitList = UnitHome.findByIdUser( user.getUserId( ) );
+        Set<Integer> unitIdList = new HashSet<>( );
+        for ( Unit userUnit : userUnitList )
+        {
+            unitIdList.addAll( UnitHome.getAllSubUnitsId( userUnit.getIdUnit( ) ) );
+        }
+
+        List<UnitAssignment> resourceUnitList = UnitAssignmentHome.findByResource( nIdResource, strResourceType );
+
+        for ( UnitAssignment resourceUnit : resourceUnitList )
+        {
+            if ( resourceUnit.isActive( ) && unitIdList.contains( resourceUnit.getIdAssignedUnit( ) ) )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

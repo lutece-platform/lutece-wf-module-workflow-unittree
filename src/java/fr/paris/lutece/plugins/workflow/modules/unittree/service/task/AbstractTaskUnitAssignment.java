@@ -85,7 +85,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
     private IResourceHistoryService _resourceHistoryService;
     @Inject
     private ChangeUnitEventPublisher _publisher;
-    
+
     /**
      * {@inheritDoc}
      */
@@ -255,7 +255,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
         deactivateUnitAssignments( listUnitAssignmentToDeactivate );
         if ( CollectionUtils.isNotEmpty( listUnitAssignmentToDeactivate ) )
         {
-        	 _publisher.publish( listUnitAssignmentToDeactivate );
+            _publisher.publish( listUnitAssignmentToDeactivate );
         }
 
         // ASSIGN DOWN are not recorded

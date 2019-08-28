@@ -75,15 +75,15 @@ public class TaskUnitUnassignment extends SimpleTask
 
         if ( resourceHistory != null )
         {
-        	List<UnitAssignment> oldAssigmentList = UnitAssignmentHome.findByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
-            
-        	UnitAssignmentHome.deactivateByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
-            
+            List<UnitAssignment> oldAssigmentList = UnitAssignmentHome.findByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
+
+            UnitAssignmentHome.deactivateByResource( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ) );
+
             if ( CollectionUtils.isNotEmpty( oldAssigmentList ) )
             {
-            	 _publisher.publish( oldAssigmentList );
+                _publisher.publish( oldAssigmentList );
             }
-            
+
             // save the unassignor in task infos
             saveTaskInformation( nIdResourceHistory, request );
         }
