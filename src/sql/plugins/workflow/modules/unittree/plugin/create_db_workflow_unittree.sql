@@ -3,8 +3,8 @@
 /*==================================================================*/
 DROP TABLE IF EXISTS workflow_task_unittree_information;
 CREATE TABLE workflow_task_unittree_information (
-  id_history int(11) NOT NULL,
-  id_task int(11) NOT NULL,
+  id_history int NOT NULL,
+  id_task int NOT NULL,
   information_key VARCHAR(255) NOT NULL,
   information_value VARCHAR(255) NULL
  ) ;
@@ -14,7 +14,7 @@ CREATE TABLE workflow_task_unittree_information (
 /*==================================================================*/
 DROP TABLE IF EXISTS workflow_task_unittree_unit_assignment_cf;
 CREATE TABLE workflow_task_unittree_unit_assignment_cf (
-  id_task int(11) NOT NULL,
+  id_task int NOT NULL,
   assignment_type VARCHAR(50) NULL,
   unit_selections VARCHAR(1000) NULL,
   PRIMARY KEY (id_task)
@@ -25,8 +25,8 @@ CREATE TABLE workflow_task_unittree_unit_assignment_cf (
 /*==================================================================*/
 DROP TABLE IF EXISTS workflow_task_unittree_unit_selection_specific_unit_cf;
 CREATE TABLE workflow_task_unittree_unit_selection_specific_unit_cf (
-  id_task int(11) NOT NULL,
-  id_unit int(11) NOT NULL,
+  id_task int NOT NULL,
+  id_unit int NOT NULL,
   PRIMARY KEY (id_task)
  ) ;
 
