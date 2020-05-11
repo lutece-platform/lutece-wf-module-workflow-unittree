@@ -94,4 +94,24 @@ public final class UnitAssignmentService
 
         return listUnitAssignment.stream( ).filter( unitAssignment -> unitAssignment.isActive( ) ).collect( Collectors.toList( ) );
     }
+
+    /**
+     * <p>
+     * Finds the resources assigned to the unit .
+     * <p>
+     * <p>
+     * The unit assignments are sorted by ascending date.
+     * </p>
+     * 
+     * @param nIdUnit
+     *            the Unit id
+     * @return the list of unit assignments
+     */
+    public static List<UnitAssignment> findAssignmentsByUnit( int nIdUnit )
+    {
+        List<UnitAssignment> listUnitAssignment = _dao.selectByUnit( nIdUnit, _plugin );
+
+        return listUnitAssignment.stream( ).filter( unitAssignment -> unitAssignment.isActive( ) ).collect( Collectors.toList( ) );
+    }
+
 }
