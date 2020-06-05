@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -42,6 +42,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.transform.Source;
 
 import fr.paris.lutece.plugins.unittree.business.action.IAction;
+import fr.paris.lutece.plugins.unittree.business.unit.TreeUnit;
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.plugins.unittree.service.UnitErrorException;
 import fr.paris.lutece.plugins.unittree.service.rbac.UnittreeRBACRecursiveType;
@@ -61,12 +62,6 @@ public class FakeUnitService implements IUnitService
     public int createUnit( Unit arg0, HttpServletRequest arg1 ) throws UnitErrorException
     {
         return 0;
-    }
-
-    @Override
-    public List<Unit> findBySectorId( int arg0 )
-    {
-        return new ArrayList<>( );
     }
 
     @Override
@@ -193,6 +188,20 @@ public class FakeUnitService implements IUnitService
     public void updateUnit( Unit arg0, HttpServletRequest arg1 ) throws UnitErrorException
     {
         // Nothing to do
+    }
+
+    @Override
+    public Unit getUnitByCode( String strCode, boolean bGetAdditionalInfos )
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void populateTreeUnit( TreeUnit treeUnit, AdminUser user, boolean bGetAdditionnalInfos )
+    {
+        // TODO Auto-generated method stub
+        
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -86,8 +86,8 @@ public class UnitAssignmentManualTaskComponent extends AbstractUnitAssignmentTas
                 {
                     ITaskFormHandler taskFormHandler = unitSelection.getTaskFormHandler( );
 
-                    listProcessedUnitSelectionForm.add( new ProcessedUnitSelection( unitSelection.getId( ), taskFormHandler.getTitle( locale ), taskFormHandler
-                            .getDisplayedForm( nIdResource, strResourceType, locale, task ) ) );
+                    listProcessedUnitSelectionForm.add( new ProcessedUnitSelection( unitSelection.getId( ), taskFormHandler.getTitle( locale ),
+                            taskFormHandler.getDisplayedForm( nIdResource, strResourceType, locale, task ) ) );
                 }
                 catch( AssignmentNotPossibleException e )
                 {
