@@ -40,8 +40,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
  */
 public interface ITaskInformationDAO
 {
-    String BEAN_NAME = "workflow-unittree.taskInformationDAO";
-
     /**
      * Inserts a new record in the table.
      * 

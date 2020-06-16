@@ -100,7 +100,7 @@ public class ChildUnitAssignedResourcePrerequisite implements IManualActionPrere
     public boolean canManualActionBePerformed( User user, int nIdResource, String strResourceType, IPrerequisiteConfig config, int nIdAction )
     {
         
-        if ( !(user instanceof AdminUser ) )
+        if ( !( user instanceof AdminUser ) )
         {
             return false;
         }

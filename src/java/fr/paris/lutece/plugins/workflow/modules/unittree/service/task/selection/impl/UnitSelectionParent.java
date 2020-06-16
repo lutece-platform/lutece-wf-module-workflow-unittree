@@ -175,7 +175,7 @@ public class UnitSelectionParent implements IUnitSelection
         {
             Unit unitAssigned = _unitService.getUnit( select( nIdResource, strResourceType, null, task ), false );
 
-            Map<String, Object> model = new HashMap<String, Object>( );
+            Map<String, Object> model = new HashMap<>( );
 
             model.put( MARK_ASSIGNED_UNIT, unitAssigned );
 

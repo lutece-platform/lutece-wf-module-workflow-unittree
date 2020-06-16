@@ -44,6 +44,7 @@ import java.util.Iterator;
  */
 public final class TaskInformationDAO implements ITaskInformationDAO
 {
+    public static final String BEAN_NAME = "workflow-unittree.taskInformationDAO";
     // Constants
     private static final String SQL_QUERY_SELECT = "SELECT id_history, id_task, information_key, information_value FROM workflow_task_unittree_information WHERE id_history = ? AND id_task = ?";
     private static final String SQL_QUERY_INSERT = "INSERT INTO workflow_task_unittree_information ( id_history, id_task, information_key, information_value ) VALUES ";
@@ -75,21 +76,21 @@ public final class TaskInformationDAO implements ITaskInformationDAO
                 }
             }
 
-            DAOUtil daoUtil = new DAOUtil( stringBuilder.toString( ), plugin );
-
-            // Second, fills the query
-            int nIndex = 0;
-
-            for ( String strKey : collectionKeys )
+            try ( DAOUtil daoUtil = new DAOUtil( stringBuilder.toString( ), plugin ) )
             {
-                daoUtil.setInt( ++nIndex, taskInformation.getIdHistory( ) );
-                daoUtil.setInt( ++nIndex, taskInformation.getIdTask( ) );
-                daoUtil.setString( ++nIndex, strKey );
-                daoUtil.setString( ++nIndex, taskInformation.get( strKey ) );
+                // Second, fills the query
+                int nIndex = 0;
+    
+                for ( String strKey : collectionKeys )
+                {
+                    daoUtil.setInt( ++nIndex, taskInformation.getIdHistory( ) );
+                    daoUtil.setInt( ++nIndex, taskInformation.getIdTask( ) );
+                    daoUtil.setString( ++nIndex, strKey );
+                    daoUtil.setString( ++nIndex, taskInformation.get( strKey ) );
+                }
+    
+                daoUtil.executeUpdate( );
             }
-
-            daoUtil.executeUpdate( );
-            daoUtil.free( );
         }
     }
 
@@ -99,30 +100,27 @@ public final class TaskInformationDAO implements ITaskInformationDAO
     @Override
     public TaskInformation load( int nIdHistory, int nIdTask, Plugin plugin )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin );
-
-        int nIndex = 0;
-        daoUtil.setInt( ++nIndex, nIdHistory );
-        daoUtil.setInt( ++nIndex, nIdTask );
-        daoUtil.executeQuery( );
-
         TaskInformation taskInformation = null;
-
-        // First, creates the object with one piece of information
-        if ( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
-            taskInformation = new TaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
-            taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+            int nIndex = 0;
+            daoUtil.setInt( ++nIndex, nIdHistory );
+            daoUtil.setInt( ++nIndex, nIdTask );
+            daoUtil.executeQuery( );
+    
+            // First, creates the object with one piece of information
+            if ( daoUtil.next( ) )
+            {
+                taskInformation = new TaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
+                taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+            }
+    
+            // Second, adds other pieces of information
+            while ( daoUtil.next( ) )
+            {
+                taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+            }
         }
-
-        // Second, adds other pieces of information
-        while ( daoUtil.next( ) )
-        {
-            taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
-        }
-
-        daoUtil.free( );
-
         return taskInformation;
     }
 

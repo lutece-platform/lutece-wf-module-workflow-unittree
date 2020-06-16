@@ -36,6 +36,7 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.task;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -281,13 +282,11 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
 
         if ( UnitAssignmentType.CREATION == assignmentType || UnitAssignmentType.TRANSFER == assignmentType )
         {
-            for ( UnitAssignment unitAssignment : listUnitAssignment )
-            {
-                if ( unitAssignment.isActive( ) )
-                {
-                    result.add( unitAssignment );
-                }
-            }
+            result.addAll( listUnitAssignment
+                    .stream( )
+                    .filter( UnitAssignment::isActive )
+                    .collect( Collectors.toList( ) ) );
+            
         }
 
         if ( UnitAssignmentType.ASSIGN_DOWN == assignmentType || UnitAssignmentType.ASSIGN_UP == assignmentType )

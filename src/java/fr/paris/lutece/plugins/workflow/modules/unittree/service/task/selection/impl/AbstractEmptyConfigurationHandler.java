@@ -58,7 +58,7 @@ public abstract class AbstractEmptyConfigurationHandler implements IConfiguratio
     @Override
     public String getDisplayedForm( Locale locale, ITask task )
     {
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_EMPTY_CONFIGURATION, locale, model );
 

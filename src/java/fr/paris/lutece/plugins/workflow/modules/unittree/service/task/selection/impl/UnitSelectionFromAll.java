@@ -177,7 +177,7 @@ public class UnitSelectionFromAll implements IUnitSelection
         @Override
         public String getDisplayedForm( int nIdResource, String strResourceType, Locale locale, ITask task )
         {
-            Map<String, Object> model = new HashMap<String, Object>( );
+            Map<String, Object> model = new HashMap<>( );
             ReferenceList listUnits = buildUnitlist( );
 
             model.put( MARK_UNIT_LIST, listUnits );

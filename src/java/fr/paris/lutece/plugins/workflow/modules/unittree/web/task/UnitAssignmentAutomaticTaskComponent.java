@@ -70,7 +70,7 @@ public class UnitAssignmentAutomaticTaskComponent extends AbstractUnitAssignment
         TaskUnitAssignmentConfig config = findConfig( task );
         ReferenceList listUnitSelections = buildUnitSelectionlist( request.getLocale( ) );
 
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_UNIT_SELECTION_LIST, listUnitSelections );
         model.put( MARK_IS_ADD_BUTTON_DISPLAYED, config.getUnitSelections( ).isEmpty( ) );
 

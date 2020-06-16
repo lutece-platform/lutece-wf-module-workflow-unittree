@@ -110,7 +110,7 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
             }
         }
 
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_ASSIGNMENT_TYPE_LIST, UnitAssignmentType.values( ) );
         model.put( MARK_CONFIGURED_ASSIGNMENT_TYPE, config.getAssignmentType( ) );
         model.put( MARK_UNIT_SELECTION_HTML, strUnitSelectionHtml );

@@ -93,12 +93,11 @@ public class UnitAssignmentManualTaskComponent extends AbstractUnitAssignmentTas
                 {
                     // Only logs the exception and continues
                     AppLogService.error( e );
-                    continue;
                 }
             }
         }
 
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_UNIT_SELECTION_FORM_LIST, listProcessedUnitSelectionForm );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_FORM, request.getLocale( ), model );
@@ -116,7 +115,7 @@ public class UnitAssignmentManualTaskComponent extends AbstractUnitAssignmentTas
 
         ReferenceList listUnitSelections = buildUnitSelectionlist( config.getUnitSelections( ), request.getLocale( ) );
 
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_UNIT_SELECTION_LIST, listUnitSelections );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CONFIG_UNIT_SELECTION, request.getLocale( ), model );
