@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,6 +33,9 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 
@@ -49,6 +52,7 @@ public class MockUnitAssignment
         unitAssignment.setIdAssignedUnit( nIdAssignedUnit );
         unitAssignment.setAssignmentType( assignmentType );
         unitAssignment.setActive( bIsActive );
+        unitAssignment.setAssignmentDate( new Timestamp( System.currentTimeMillis( ) ) );
 
         return unitAssignment;
     }

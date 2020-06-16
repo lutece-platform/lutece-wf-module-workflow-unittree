@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,12 +56,12 @@ public final class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<
     @Override
     public void insert( UnitSelectionSpecificUnitConfig config )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, WorkflowUnittreePlugin.getPlugin( ) );
-
-        objectToData( config, daoUtil );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, WorkflowUnittreePlugin.getPlugin( ) ) )
+        {
+            objectToData( config, daoUtil );
+    
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -70,23 +70,21 @@ public final class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<
     @Override
     public UnitSelectionSpecificUnitConfig load( int nIdTask )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, WorkflowUnittreePlugin.getPlugin( ) );
-        daoUtil.setInt( 1, nIdTask );
-        daoUtil.executeQuery( );
-
         UnitSelectionSpecificUnitConfig config = null;
-
-        if ( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, WorkflowUnittreePlugin.getPlugin( ) ) )
         {
-            config = new UnitSelectionSpecificUnitConfig( );
-
-            int nIndex = 0;
-            config.setIdTask( daoUtil.getInt( ++nIndex ) );
-            config.setUnitId( daoUtil.getInt( ++nIndex ) );
+            daoUtil.setInt( 1, nIdTask );
+            daoUtil.executeQuery( );
+    
+            if ( daoUtil.next( ) )
+            {
+                config = new UnitSelectionSpecificUnitConfig( );
+    
+                int nIndex = 0;
+                config.setIdTask( daoUtil.getInt( ++nIndex ) );
+                config.setUnitId( daoUtil.getInt( ++nIndex ) );
+            }
         }
-
-        daoUtil.free( );
-
         return config;
     }
 
@@ -96,10 +94,11 @@ public final class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<
     @Override
     public void delete( int nIdTask )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, WorkflowUnittreePlugin.getPlugin( ) );
-        daoUtil.setInt( 1, nIdTask );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, WorkflowUnittreePlugin.getPlugin( ) ) )
+        {
+            daoUtil.setInt( 1, nIdTask );
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -108,14 +107,14 @@ public final class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<
     @Override
     public void store( UnitSelectionSpecificUnitConfig config )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, WorkflowUnittreePlugin.getPlugin( ) );
-
-        int index = objectToData( config, daoUtil );
-
-        daoUtil.setInt( ++index, config.getIdTask( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, WorkflowUnittreePlugin.getPlugin( ) ) )
+        {
+            int index = objectToData( config, daoUtil );
+    
+            daoUtil.setInt( ++index, config.getIdTask( ) );
+    
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**

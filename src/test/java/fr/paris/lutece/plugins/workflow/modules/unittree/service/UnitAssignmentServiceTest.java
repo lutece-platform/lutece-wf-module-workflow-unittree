@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,24 +33,24 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service;
 
-import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
-import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
-import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.MockResource;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.MockUnitAssignment;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentDAOTest;
-import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
-import fr.paris.lutece.test.LuteceTestCase;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
+import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.MockResource;
+import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.MockUnitAssignment;
+import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
+import fr.paris.lutece.test.LuteceTestCase;
+import fr.paris.lutece.util.sql.DAOUtil;
+
 public class UnitAssignmentServiceTest extends LuteceTestCase
 {
-    private UnitAssignmentDAOTest _dao = new UnitAssignmentDAOTest( );
+    private static final String SQL_QUERY_CLEAR_TABLE = "DELETE FROM unittree_unit_assignment";
 
     public void testCurrentAssignmentWhenResourceHasNotBeenAssigned( )
     {
@@ -58,7 +58,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         assertThatCurrentAssignmentOfResourceIsNull( resource );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     private void assertThatCurrentAssignmentOfResourceIsNull( MockResource resource )
@@ -76,7 +76,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         assertThatCurrentAssignmentOfResourceIsNull( resource );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     public void testCurrentAssignmentBasicTest( )
@@ -88,7 +88,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         assertThatCurrentAssignmentOfResourceIs( resource, unitAssignment );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     private UnitAssignment insertAssignmentInDatabase( MockResource resource, int nIdAssignedUnit, UnitAssignmentType assignmentType, boolean bIsActive )
@@ -121,7 +121,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
         assertThatCurrentAssignmentOfResourceIs( resource1_2, unitAssignment1_2 );
         assertThatCurrentAssignmentOfResourceIs( resource2_2, unitAssignment2_2 );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     public void testCurrentAssignmentWhenResourceHasBeenReassigned( )
@@ -154,7 +154,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         assertThatCurrentAssignmentOfResourceIs( resource, unitAssignment );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     public void testAssignmentsWhenResourceHasNotBeenAssigned( )
@@ -163,7 +163,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         assertThatNumberOfAssignmentsForResourceIs( resource, 0 );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     public void testAssignmentsWhenResourceIsInactive( )
@@ -174,7 +174,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         assertThatNumberOfAssignmentsForResourceIs( resource, 0 );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     public void testAssignmentsBasicTest( )
@@ -185,7 +185,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         assertThatNumberOfAssignmentsForResourceIs( resource, 1 );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     private void assertThatNumberOfAssignmentsForResourceIs( MockResource resource, int nNumberOfAssignments )
@@ -213,7 +213,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
         assertThatNumberOfAssignmentsForResourceIs( resource1_2, 1 );
         assertThatNumberOfAssignmentsForResourceIs( resource2_2, 1 );
 
-        _dao.clearTable( );
+        clearTable( );
     }
 
     public void testAssignmentsWhenResourceHasBeenReassigned( )
@@ -246,6 +246,14 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         assertThatNumberOfAssignmentsForResourceIs( resource, 7 );
 
-        _dao.clearTable( );
+        clearTable( );
+    }
+    
+    private void clearTable( )
+    {
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CLEAR_TABLE, WorkflowUnittreePlugin.getPlugin( ) ) )
+        {
+            daoUtil.executeUpdate( );
+        }
     }
 }

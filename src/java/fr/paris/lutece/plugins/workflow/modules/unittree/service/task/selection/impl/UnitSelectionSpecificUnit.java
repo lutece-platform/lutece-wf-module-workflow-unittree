@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2018, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -181,7 +181,7 @@ public class UnitSelectionSpecificUnit implements IUnitSelection
         @Override
         public String getDisplayedForm( Locale locale, ITask task )
         {
-            Map<String, Object> model = new HashMap<String, Object>( );
+            Map<String, Object> model = new HashMap<>( );
             ReferenceList listUnits = buildUnitlist( );
             int nIdUnit = findSelectedUnitId( task );
 
@@ -318,7 +318,7 @@ public class UnitSelectionSpecificUnit implements IUnitSelection
         {
             Unit unitAssigned = _unitService.getUnit( select( nIdResource, strResourceType, null, task ), false );
 
-            Map<String, Object> model = new HashMap<String, Object>( );
+            Map<String, Object> model = new HashMap<>( );
 
             model.put( MARK_ASSIGNED_UNIT, unitAssigned );
 

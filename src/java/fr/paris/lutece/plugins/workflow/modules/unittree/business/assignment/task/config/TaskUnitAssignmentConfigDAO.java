@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -38,6 +38,7 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.util.sql.DAOUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -63,12 +64,12 @@ public final class TaskUnitAssignmentConfigDAO implements ITaskConfigDAO<TaskUni
     @Override
     public void insert( TaskUnitAssignmentConfig config )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, WorkflowUnittreePlugin.getPlugin( ) );
-
-        objectToData( config, daoUtil );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, WorkflowUnittreePlugin.getPlugin( ) ) )
+        {
+            objectToData( config, daoUtil );
+    
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -77,31 +78,26 @@ public final class TaskUnitAssignmentConfigDAO implements ITaskConfigDAO<TaskUni
     @Override
     public TaskUnitAssignmentConfig load( int nId )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, WorkflowUnittreePlugin.getPlugin( ) );
-        daoUtil.setInt( 1, nId );
-        daoUtil.executeQuery( );
-
         TaskUnitAssignmentConfig config = null;
-
-        if ( daoUtil.next( ) )
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, WorkflowUnittreePlugin.getPlugin( ) ) )
         {
-            config = new TaskUnitAssignmentConfig( );
-
-            int nIndex = 0;
-            config.setIdTask( daoUtil.getInt( ++nIndex ) );
-            config.setAssignmentType( daoUtil.getString( ++nIndex ) );
-
-            List<String> listUnitSelections = new ArrayList<>( );
-
-            for ( String unitSelection : StringUtils.split( daoUtil.getString( ++nIndex ), LIST_SEPARATOR ) )
+            daoUtil.setInt( 1, nId );
+            daoUtil.executeQuery( );
+    
+            if ( daoUtil.next( ) )
             {
-                listUnitSelections.add( unitSelection );
+                config = new TaskUnitAssignmentConfig( );
+    
+                int nIndex = 0;
+                config.setIdTask( daoUtil.getInt( ++nIndex ) );
+                config.setAssignmentType( daoUtil.getString( ++nIndex ) );
+    
+                List<String> listUnitSelections = new ArrayList<>( );
+                listUnitSelections.addAll( Arrays.asList( StringUtils.split( daoUtil.getString( ++nIndex ), LIST_SEPARATOR ) ) );
+                config.setUnitSelections( listUnitSelections );
             }
 
-            config.setUnitSelections( listUnitSelections );
         }
-
-        daoUtil.free( );
 
         return config;
     }
@@ -112,10 +108,11 @@ public final class TaskUnitAssignmentConfigDAO implements ITaskConfigDAO<TaskUni
     @Override
     public void delete( int nConfigId )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, WorkflowUnittreePlugin.getPlugin( ) );
-        daoUtil.setInt( 1, nConfigId );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, WorkflowUnittreePlugin.getPlugin( ) ) )
+        {
+            daoUtil.setInt( 1, nConfigId );
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**
@@ -124,14 +121,12 @@ public final class TaskUnitAssignmentConfigDAO implements ITaskConfigDAO<TaskUni
     @Override
     public void store( TaskUnitAssignmentConfig config )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, WorkflowUnittreePlugin.getPlugin( ) );
-
-        int index = objectToData( config, daoUtil );
-
-        daoUtil.setInt( ++index, config.getIdTask( ) );
-
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, WorkflowUnittreePlugin.getPlugin( ) ) )
+        {
+            int index = objectToData( config, daoUtil );
+            daoUtil.setInt( ++index, config.getIdTask( ) );
+            daoUtil.executeUpdate( );
+        }
     }
 
     /**

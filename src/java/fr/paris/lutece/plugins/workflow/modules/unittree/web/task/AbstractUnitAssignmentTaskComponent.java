@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -110,7 +110,7 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
             }
         }
 
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_ASSIGNMENT_TYPE_LIST, UnitAssignmentType.values( ) );
         model.put( MARK_CONFIGURED_ASSIGNMENT_TYPE, config.getAssignmentType( ) );
         model.put( MARK_UNIT_SELECTION_HTML, strUnitSelectionHtml );

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -67,7 +67,7 @@ public abstract class AbstractUnittreeTaskComponent extends SimpleTaskComponent
 
         if ( taskInformation != null )
         {
-            Map<String, Object> model = new HashMap<String, Object>( );
+            Map<String, Object> model = new HashMap<>( );
             model.put( MARK_TASK_INFORMATION, taskInformation );
 
             HtmlTemplate template = AppTemplateService.getTemplate( getTaskInformationTemplate( ), locale, model );

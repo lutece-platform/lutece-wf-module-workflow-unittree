@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,21 +33,20 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+import java.util.List;
+
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentDAO;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.UnitAssignmentService;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.sql.DAOUtil;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import java.util.List;
 
 public class UnitAssignmentDAOTest extends LuteceTestCase
 {
@@ -100,8 +99,9 @@ public class UnitAssignmentDAOTest extends LuteceTestCase
 
     public void clearTable( )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CLEAR_TABLE, _plugin );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CLEAR_TABLE, WorkflowUnittreePlugin.getPlugin( ) ) )
+        {
+            daoUtil.executeUpdate( );
+        }
     }
 }

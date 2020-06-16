@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -70,7 +70,7 @@ public class UnitAssignmentAutomaticTaskComponent extends AbstractUnitAssignment
         TaskUnitAssignmentConfig config = findConfig( task );
         ReferenceList listUnitSelections = buildUnitSelectionlist( request.getLocale( ) );
 
-        Map<String, Object> model = new HashMap<String, Object>( );
+        Map<String, Object> model = new HashMap<>( );
         model.put( MARK_UNIT_SELECTION_LIST, listUnitSelections );
         model.put( MARK_IS_ADD_BUTTON_DISPLAYED, config.getUnitSelections( ).isEmpty( ) );
 

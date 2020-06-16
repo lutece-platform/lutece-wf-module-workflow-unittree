@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2017, Mairie de Paris
+ * Copyright (c) 2002-2020, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public final class TaskInformationHome
 {
     // Static variable pointed at the DAO instance
-    private static ITaskInformationDAO _dao = SpringContextService.getBean( ITaskInformationDAO.BEAN_NAME );
+    private static ITaskInformationDAO _dao = SpringContextService.getBean( TaskInformationDAO.BEAN_NAME );
 
     /**
      * Private constructor
