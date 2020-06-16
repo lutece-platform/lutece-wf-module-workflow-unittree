@@ -1,13 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<plug-in>
+<?xml version="1.0" encoding="UTF-8"?><plug-in>
     <name>workflow-unittree</name>
     <class>fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin
     </class>
-    <version>1.0.3-SNAPSHOT</version>
-    <documentation />
-    <installation />
-    <changes />
-    <user-guide />
+    <version>1.0.3</version>
+    <documentation/>
+    <installation/>
+    <changes/>
+    <user-guide/>
     <description>module.workflow.unittree.module.description
     </description>
     <provider>module.workflow.unittree.module.provider</provider>
@@ -22,7 +21,7 @@
 
     <core-version-dependency>
         <min-core-version>6.0.1</min-core-version>
-        <max-core-version />
+        <max-core-version/>
     </core-version-dependency>
 
     <!-- Admin features parameters -->
@@ -48,7 +47,7 @@
 
     <!-- Specific plugin CSS stylesheet -->
     <admin-css-stylesheets>
-        <admin-css-stylesheet />
+        <admin-css-stylesheet/>
     </admin-css-stylesheets>
-    <css-stylesheets />
+    <css-stylesheets/>
 </plug-in>
