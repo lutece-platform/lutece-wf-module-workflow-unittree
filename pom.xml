@@ -10,7 +10,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>module-workflow-unittree</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <name>Lutece Workflow Unit Tree</name>
 
     <repositories>
@@ -26,19 +26,19 @@
         <dependency>
             <groupId>fr.paris.lutece</groupId>
             <artifactId>lutece-core</artifactId>
-            <version>[6.2.0,)</version>
+            <version>[7.0.0-SNAPSHOT,)</version>
             <type>lutece-core</type>
         </dependency>
         <dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>plugin-workflow</artifactId>
-            <version>[4.3.8,)</version>
+            <version>[5.0.0-SNAPSHOT,)</version>
             <type>lutece-plugin</type>
         </dependency>
         <dependency>
             <groupId>fr.paris.lutece.plugins</groupId>
             <artifactId>plugin-unittree</artifactId>
-            <version>[2.1.5,)</version>
+            <version>[3.0.0-SNAPSHOT,)</version>
             <type>lutece-plugin</type>
         </dependency>
     </dependencies>
