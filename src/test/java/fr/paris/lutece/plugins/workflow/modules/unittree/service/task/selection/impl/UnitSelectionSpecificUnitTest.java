@@ -35,12 +35,12 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection
 
 import org.springframework.mock.web.MockHttpServletRequest;
 
+import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
+import fr.paris.lutece.plugins.unittree.service.selection.IConfigurationHandler;
+import fr.paris.lutece.plugins.unittree.service.selection.ITaskFormHandler;
 import fr.paris.lutece.plugins.unittree.service.unit.FakeUnitService;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.selection.config.SpyUnitSelectionSpecificUnitConfigDAO;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.selection.config.UnitSelectionSpecificUnitConfig;
-import fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IConfigurationHandler;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.ITaskFormHandler;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.WorkflowUnittreeConstants;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;

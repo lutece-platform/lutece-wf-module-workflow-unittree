@@ -35,6 +35,7 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection
 
 import java.util.List;
 
+import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 /**

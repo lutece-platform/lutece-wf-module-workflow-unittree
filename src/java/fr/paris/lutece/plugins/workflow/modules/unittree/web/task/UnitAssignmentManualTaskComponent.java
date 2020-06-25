@@ -41,10 +41,10 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
+import fr.paris.lutece.plugins.unittree.service.selection.ITaskFormHandler;
+import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
-import fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.ITaskFormHandler;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
