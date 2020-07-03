@@ -2,9 +2,9 @@
   <@formGroup labelFor="assignment_type" labelKey="#i18n{module.workflow.unittree.task_unit_assignment.config.labelAssignmentType}" helpKey="#i18n{module.workflow.unittree.task_unit_assignment.config.labelAssignmentType.help}">
     <#list list_assignment_type as assignment_type >
       <#if configured_assignment_type?? && configured_assignment_type == assignment_type.assignmentTypeCode>
-        <@radioButton name="assignment_type" value='${assignment_type.assignmentTypeCode}' checked=true mandatory=true orientation='horizontal' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.assignmentType.${assignment_type.assignmentTypeCode}}' />
+        <@radioButton name="assignment_type" value='${assignment_type.assignmentTypeCode}' orientation='horizontal' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.assignmentType.${assignment_type.assignmentTypeCode}}' />
       <#else>
-        <@radioButton name="assignment_type" value='${assignment_type.assignmentTypeCode}' mandatory=true orientation='horizontal' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.assignmentType.${assignment_type.assignmentTypeCode}}' />
+        <@radioButton name="assignment_type" value='${assignment_type.assignmentTypeCode}' orientation='horizontal' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.assignmentType.${assignment_type.assignmentTypeCode}}' />
       </#if>
     </#list>
   </@formGroup>
