@@ -50,6 +50,7 @@ public final class TaskInformationDAO implements ITaskInformationDAO
     private static final String SQL_QUERY_INSERT = "INSERT INTO workflow_task_unittree_information ( id_history, id_task, information_key, information_value ) VALUES ";
     private static final String SQL_QUERY_INSERT_VALUE = "( ?, ?, ?, ? )";
     private static final String SQL_QUERY_INSERT_VALUE_SEPARATOR = ",";
+    private TaskInformation taskInformation;
 
     /**
      * {@inheritDoc }
@@ -100,7 +101,6 @@ public final class TaskInformationDAO implements ITaskInformationDAO
     @Override
     public TaskInformation load( int nIdHistory, int nIdTask, Plugin plugin )
     {
-        TaskInformation taskInformation = null;
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_SELECT, plugin ) )
         {
             int nIndex = 0;
@@ -111,17 +111,17 @@ public final class TaskInformationDAO implements ITaskInformationDAO
             // First, creates the object with one piece of information
             if ( daoUtil.next( ) )
             {
-                taskInformation = new TaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
-                taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+            	this.taskInformation = new TaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
+                this.taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
             }
     
             // Second, adds other pieces of information
             while ( daoUtil.next( ) )
             {
-                taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+                this.taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
             }
         }
-        return taskInformation;
+        return this.taskInformation;
     }
 
 }
