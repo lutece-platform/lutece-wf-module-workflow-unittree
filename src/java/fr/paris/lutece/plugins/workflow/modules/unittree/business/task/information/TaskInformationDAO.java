@@ -50,7 +50,7 @@ public final class TaskInformationDAO implements ITaskInformationDAO
     private static final String SQL_QUERY_INSERT = "INSERT INTO workflow_task_unittree_information ( id_history, id_task, information_key, information_value ) VALUES ";
     private static final String SQL_QUERY_INSERT_VALUE = "( ?, ?, ?, ? )";
     private static final String SQL_QUERY_INSERT_VALUE_SEPARATOR = ",";
-    private TaskInformation taskInformation;
+    private TaskInformation _taskInformation;
 
     /**
      * {@inheritDoc }
