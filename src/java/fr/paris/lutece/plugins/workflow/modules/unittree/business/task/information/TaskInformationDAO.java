@@ -111,17 +111,17 @@ public final class TaskInformationDAO implements ITaskInformationDAO
             // First, creates the object with one piece of information
             if ( daoUtil.next( ) )
             {
-            	this.taskInformation = new TaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
-                this.taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+            	this._taskInformation = new TaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
+                this._taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
             }
     
             // Second, adds other pieces of information
             while ( daoUtil.next( ) )
             {
-                this.taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+                this._taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
             }
         }
-        return this.taskInformation;
+        return this._taskInformation;
     }
 
 }
