@@ -34,8 +34,6 @@
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
-
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 
