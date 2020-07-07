@@ -33,10 +33,7 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-
 import java.util.List;
 
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
@@ -64,7 +61,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
     private void assertThatCurrentAssignmentOfResourceIsNull( MockResource resource )
     {
         UnitAssignment unitAssignmentCurrent = UnitAssignmentService.findCurrentAssignment( resource.getId( ), resource.getType( ) );
-        assertThat( unitAssignmentCurrent, is( nullValue( ) ) );
+        assertEquals( unitAssignmentCurrent, nullValue( ) );
     }
 
     public void testCurrentAssignmentWhenResourceIsInactive( )
@@ -101,7 +98,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
     private void assertThatCurrentAssignmentOfResourceIs( MockResource resource, UnitAssignment unitAssignment )
     {
         UnitAssignment unitAssignmentCurrent = UnitAssignmentService.findCurrentAssignment( resource.getId( ), resource.getType( ) );
-        assertThat( unitAssignmentCurrent.getId( ), is( unitAssignment.getId( ) ) );
+        assertEquals( unitAssignmentCurrent.getId( ), unitAssignment.getId( ) );
     }
 
     public void testCurrentAssignmentForResourcesWithDifferentTypes( )
@@ -191,7 +188,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
     private void assertThatNumberOfAssignmentsForResourceIs( MockResource resource, int nNumberOfAssignments )
     {
         List<UnitAssignment> listUnitAssignment = UnitAssignmentService.findAssignments( resource.getId( ), resource.getType( ) );
-        assertThat( listUnitAssignment.size( ), is( nNumberOfAssignments ) );
+        assertEquals( listUnitAssignment.size( ), nNumberOfAssignments );
     }
 
     public void testAssignmentsForResourcesWithDifferentTypes( )

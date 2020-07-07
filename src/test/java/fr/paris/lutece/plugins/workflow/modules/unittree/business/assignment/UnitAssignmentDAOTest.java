@@ -33,9 +33,6 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import java.util.List;
 
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
@@ -81,7 +78,7 @@ public class UnitAssignmentDAOTest extends LuteceTestCase
     private void assertThatAssignmentIsNotActive( MockResource resource )
     {
         List<UnitAssignment> listUnitAssignments = _dao.selectByResource( resource.getId( ), resource.getType( ), _plugin );
-        assertThat( listUnitAssignments.get( 0 ).isActive( ), is( false ) );
+        assertEquals( listUnitAssignments.get( 0 ).isActive( ), false );
     }
 
     public void testDeactivationOnInactiveAssignment( )

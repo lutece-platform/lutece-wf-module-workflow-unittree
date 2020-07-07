@@ -81,9 +81,9 @@ public class TaskInformationDAOTest extends LuteceTestCase
 
     private void assertEqualityBetween( TaskInformation taskInformation1, TaskInformation taskInformation2 )
     {
-        assertThat( taskInformation1.getIdHistory( ), is( taskInformation2.getIdHistory( ) ) );
-        assertThat( taskInformation1.getIdTask( ), is( taskInformation2.getIdTask( ) ) );
-        assertThat( taskInformation1.getKeys( ).size( ), is( taskInformation2.getKeys( ).size( ) ) );
+        assertEquals( taskInformation1.getIdHistory( ), taskInformation2.getIdHistory( ) );
+        assertEquals( taskInformation1.getIdTask( ), taskInformation2.getIdTask( ) );
+        assertEquals( taskInformation1.getKeys( ).size( ), taskInformation2.getKeys( ).size( ) );
 
         assertEqualityBetweenPiecesOfInformation( taskInformation1, taskInformation2 );
     }
@@ -113,7 +113,7 @@ public class TaskInformationDAOTest extends LuteceTestCase
         insertIntoDabase( taskInformation );
 
         TaskInformation taskInformationFromDatabase = findFromDatabase( taskInformation );
-        assertThat( taskInformationFromDatabase, is( nullValue( ) ) );
+        assertEquals( taskInformationFromDatabase, nullValue( ) );
     }
 
     public void testInsertWhenTaskInformationKeyIsNull( )
@@ -132,7 +132,7 @@ public class TaskInformationDAOTest extends LuteceTestCase
         }
 
         TaskInformation taskInformationFromDatabase = findFromDatabase( taskInformation );
-        assertThat( taskInformationFromDatabase, is( nullValue( ) ) );
+        assertEquals( taskInformationFromDatabase, nullValue( ) );
     }
 
     public void testInsertWhenTaskInformationValueIsNull( )
