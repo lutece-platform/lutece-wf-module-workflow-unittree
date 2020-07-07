@@ -33,7 +33,6 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 import java.util.List;
 
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
@@ -61,7 +60,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
     private void assertThatCurrentAssignmentOfResourceIsNull( MockResource resource )
     {
         UnitAssignment unitAssignmentCurrent = UnitAssignmentService.findCurrentAssignment( resource.getId( ), resource.getType( ) );
-        assertEquals( unitAssignmentCurrent, nullValue( ) );
+        assertEquals( unitAssignmentCurrent, null );
     }
 
     public void testCurrentAssignmentWhenResourceIsInactive( )

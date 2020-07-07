@@ -45,10 +45,6 @@ import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.sql.DAOUtil;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-
 public class TaskInformationDAOTest extends LuteceTestCase
 {
     private static final String SQL_QUERY_CLEAR_TABLE = "DELETE FROM workflow_task_unittree_information";
@@ -95,15 +91,17 @@ public class TaskInformationDAOTest extends LuteceTestCase
             String pieceOfInformationValue1 = taskInformation1.get( pieceOfInformationKey1 );
             String pieceOfInformationValue2 = taskInformation2.get( pieceOfInformationKey1 );
 
-            assertThat( pieceOfInformationValue1, is( pieceOfInformationValue2 ) );
+            assertEquals( pieceOfInformationValue1, pieceOfInformationValue2 );
         }
     }
 
     public static void clearTable( )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CLEAR_TABLE, _plugin );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CLEAR_TABLE, _plugin ) )
+        {
+	        daoUtil.executeUpdate( );
+	        daoUtil.free( );
+        }
     }
 
     public void testInsertTaskInformationWithNoPieceOfInformation( )
@@ -113,7 +111,7 @@ public class TaskInformationDAOTest extends LuteceTestCase
         insertIntoDabase( taskInformation );
 
         TaskInformation taskInformationFromDatabase = findFromDatabase( taskInformation );
-        assertEquals( taskInformationFromDatabase, nullValue( ) );
+        assertEquals( taskInformationFromDatabase, null );
     }
 
     public void testInsertWhenTaskInformationKeyIsNull( )
@@ -132,7 +130,7 @@ public class TaskInformationDAOTest extends LuteceTestCase
         }
 
         TaskInformation taskInformationFromDatabase = findFromDatabase( taskInformation );
-        assertEquals( taskInformationFromDatabase, nullValue( ) );
+        assertEquals( taskInformationFromDatabase, null );
     }
 
     public void testInsertWhenTaskInformationValueIsNull( )
