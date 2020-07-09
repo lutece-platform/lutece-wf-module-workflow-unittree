@@ -36,7 +36,7 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.ta
 import org.apache.commons.lang3.StringUtils;
 
 import fr.paris.lutece.plugins.unittree.service.selection.IParametrableConfigurationHandler;
-import fr.paris.lutece.plugins.unittree.service.selection.IParametrableSelectionConfig;
+import fr.paris.lutece.plugins.unittree.service.selection.IParametrableUnitSelection;
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
 import fr.paris.lutece.portal.service.spring.SpringContextService;
 
@@ -71,17 +71,17 @@ public class ParametrableUnitSelectionConfig extends TaskConfig
     }
 
     /**
-     * Get the {@link IParametrableSelectionConfig}.
+     * Get the {@link IParametrableUnitSelection}.
      * 
      * @return
      */
-    public IParametrableSelectionConfig getParametrableSelectionConfig( )
+    public IParametrableUnitSelection getParametrableSelectionConfig( )
     {
         IParametrableConfigurationHandler configurationHandler = getParametrableSelectionConfigHandler( );
         if ( configurationHandler == null )
         {
             return null;
         }
-        return configurationHandler.getParametrableSelectionConfig( );
+        return configurationHandler.getParametrableUnitSelection( );
     }
 }

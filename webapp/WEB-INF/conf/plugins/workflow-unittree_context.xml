@@ -47,6 +47,8 @@
         class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.UnitSelectionParent" />
     <bean id="workflow-unittree.unitSelection.assignor"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.UnitSelectionAssignor" />
+    <bean id="workflow-unittree.unitSelection.parametrable"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl.ParametrableUnitSelection" />
 
     <!-- Task Unit Assignment - Manual -->
     <bean id="workflow-unittree.taskUnitAssignmentManual"
