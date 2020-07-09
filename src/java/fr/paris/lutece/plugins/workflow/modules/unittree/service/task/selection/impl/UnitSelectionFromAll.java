@@ -44,11 +44,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
+import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
+import fr.paris.lutece.plugins.unittree.service.selection.IConfigurationHandler;
+import fr.paris.lutece.plugins.unittree.service.selection.ITaskFormHandler;
+import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitService;
-import fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IConfigurationHandler;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.ITaskFormHandler;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;

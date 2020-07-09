@@ -34,10 +34,10 @@
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
 import java.sql.Timestamp;
-import java.util.Calendar;
 
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
+import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
 
 public class MockUnitAssignment
 {
@@ -46,6 +46,7 @@ public class MockUnitAssignment
     public static UnitAssignment create( MockResource resource, int nIdAssignorUnit, int nIdAssignedUnit, UnitAssignmentType assignmentType, boolean bIsActive )
     {
         UnitAssignment unitAssignment = new UnitAssignment( );
+        unitAssignment.setId( IdGenerator.generateId( ) );
         unitAssignment.setIdResource( resource.getId( ) );
         unitAssignment.setResourceType( resource.getType( ) );
         unitAssignment.setIdAssignorUnit( nIdAssignorUnit );

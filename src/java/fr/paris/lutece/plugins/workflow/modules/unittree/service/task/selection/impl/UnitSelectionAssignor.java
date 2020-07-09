@@ -43,13 +43,13 @@ import javax.servlet.http.HttpServletRequest;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
+import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
+import fr.paris.lutece.plugins.unittree.service.selection.IConfigurationHandler;
+import fr.paris.lutece.plugins.unittree.service.selection.ITaskFormHandler;
+import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitService;
-import fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.UnitAssignmentService;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.AbstractTaskUnitAssignment;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IConfigurationHandler;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.ITaskFormHandler;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -151,7 +151,10 @@ public class UnitSelectionAssignor implements IUnitSelection
     {
         // Messages
         private static final String MESSAGE_TITLE = "module.workflow.unittree.unit_selection.assignor.form.title";
-
+     
+        // Templates
+        private static final String TEMPLATE_AUTOMATIC_TASK_FORM = "admin/plugins/workflow/modules/unittree/unitselection/form/unit_selection_automatic_form.html";
+        
         // Markers
         private static final String MARK_ASSIGNED_UNIT = "assigned_unit";
 

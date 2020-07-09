@@ -37,8 +37,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 

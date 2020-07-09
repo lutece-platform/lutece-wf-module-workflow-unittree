@@ -44,12 +44,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
+import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
+import fr.paris.lutece.plugins.unittree.service.selection.IConfigurationHandler;
+import fr.paris.lutece.plugins.unittree.service.selection.ITaskFormHandler;
+import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitService;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.selection.config.UnitSelectionSpecificUnitConfig;
-import fr.paris.lutece.plugins.workflow.modules.unittree.exception.AssignmentNotPossibleException;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IConfigurationHandler;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.ITaskFormHandler;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.WorkflowUnittreeConstants;
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
@@ -297,7 +297,10 @@ public class UnitSelectionSpecificUnit implements IUnitSelection
     {
         // Messages
         private static final String MESSAGE_TITLE = "module.workflow.unittree.unit_selection.specific_unit.form.title";
-
+     
+        // Templates
+        private static final String TEMPLATE_AUTOMATIC_TASK_FORM = "admin/plugins/workflow/modules/unittree/unitselection/form/unit_selection_automatic_form.html";
+        
         // Markers
         private static final String MARK_ASSIGNED_UNIT = "assigned_unit";
 
