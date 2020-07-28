@@ -34,13 +34,12 @@
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.selection.config;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.test.LuteceTestCase;
 
 public class ParametrableUnitSelectionConfigBusinessTest extends LuteceTestCase
 {
 
-    private ITaskConfigDAO<ParametrableUnitSelectionConfig> _dao = SpringContextService.getBean( ParametrableUnitSelectionConfigDao.BEAN_NAME );
+    private ITaskConfigDAO<ParametrableUnitSelectionConfig> _dao = new ParametrableUnitSelectionConfigDao( );
     
     
     public void testCRUD( )
