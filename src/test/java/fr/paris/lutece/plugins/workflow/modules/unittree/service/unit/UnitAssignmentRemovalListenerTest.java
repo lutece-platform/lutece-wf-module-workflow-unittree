@@ -50,7 +50,14 @@ public class UnitAssignmentRemovalListenerTest extends LuteceTestCase
 
     public void testRemoveUnitWithNoAssignment( ) throws Exception
     {
-        _listener.notify( IdGenerator.generateId( ) );
+        try
+        {
+            _listener.notify( IdGenerator.generateId( ) );
+        }
+        catch( UnitErrorException e )
+        {
+            fail( "Not expecting an UnitErrorException to be thrown" );
+        }
     }
 
     public void testRemoveUnitWithAssignments( )
