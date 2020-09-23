@@ -33,13 +33,14 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service;
 
-import fr.paris.lutece.plugins.unittree.business.assignment.IUnitAssignmentDAO;
-import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
-import fr.paris.lutece.portal.service.plugin.Plugin;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
-
 import java.util.List;
 import java.util.stream.Collectors;
+
+import fr.paris.lutece.plugins.unittree.business.assignment.IUnitAssignmentDAO;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentDAO;
+import fr.paris.lutece.portal.service.plugin.Plugin;
+import fr.paris.lutece.portal.service.spring.SpringContextService;
 
 /**
  * This class is the entry point for unit assignment. It provides methods for unit assignment.
@@ -50,7 +51,7 @@ public final class UnitAssignmentService
     private static final Plugin _plugin = WorkflowUnittreePlugin.getPlugin( );
 
     // Static variable pointed at the DAO instance
-    private static IUnitAssignmentDAO _dao = SpringContextService.getBean( IUnitAssignmentDAO.BEAN_NAME );
+    private static IUnitAssignmentDAO _dao = SpringContextService.getBean( UnitAssignmentDAO.BEAN_NAME );
 
     /**
      * Constructor
