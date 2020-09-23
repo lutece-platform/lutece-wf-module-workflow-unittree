@@ -113,12 +113,12 @@ public final class TaskInformationDAO implements ITaskInformationDAO
             {
                 taskInformation = new TaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
                 taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
-            }
-    
-            // Second, adds other pieces of information
-            while ( daoUtil.next( ) )
-            {
-                taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+                
+                // Second, adds other pieces of information
+                while ( daoUtil.next( ) )
+                {
+                    taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
+                }
             }
         }
         return taskInformation;
