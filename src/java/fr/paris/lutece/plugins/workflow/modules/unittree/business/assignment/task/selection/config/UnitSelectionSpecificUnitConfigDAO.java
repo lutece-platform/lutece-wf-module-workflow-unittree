@@ -59,7 +59,7 @@ public final class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, WorkflowUnittreePlugin.getPlugin( ) ) )
         {
             objectToData( config, daoUtil );
-    
+
             daoUtil.executeUpdate( );
         }
     }
@@ -75,11 +75,11 @@ public final class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<
         {
             daoUtil.setInt( 1, nIdTask );
             daoUtil.executeQuery( );
-    
+
             if ( daoUtil.next( ) )
             {
                 config = new UnitSelectionSpecificUnitConfig( );
-    
+
                 int nIndex = 0;
                 config.setIdTask( daoUtil.getInt( ++nIndex ) );
                 config.setUnitId( daoUtil.getInt( ++nIndex ) );
@@ -110,9 +110,9 @@ public final class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE, WorkflowUnittreePlugin.getPlugin( ) ) )
         {
             int index = objectToData( config, daoUtil );
-    
+
             daoUtil.setInt( ++index, config.getIdTask( ) );
-    
+
             daoUtil.executeUpdate( );
         }
     }

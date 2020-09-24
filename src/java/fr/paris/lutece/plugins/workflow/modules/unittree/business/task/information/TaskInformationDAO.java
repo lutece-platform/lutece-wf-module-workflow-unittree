@@ -81,7 +81,7 @@ public final class TaskInformationDAO implements ITaskInformationDAO
             {
                 // Second, fills the query
                 int nIndex = 0;
-    
+
                 for ( String strKey : collectionKeys )
                 {
                     daoUtil.setInt( ++nIndex, taskInformation.getIdHistory( ) );
@@ -89,7 +89,7 @@ public final class TaskInformationDAO implements ITaskInformationDAO
                     daoUtil.setString( ++nIndex, strKey );
                     daoUtil.setString( ++nIndex, taskInformation.get( strKey ) );
                 }
-    
+
                 daoUtil.executeUpdate( );
             }
         }
@@ -108,13 +108,13 @@ public final class TaskInformationDAO implements ITaskInformationDAO
             daoUtil.setInt( ++nIndex, nIdHistory );
             daoUtil.setInt( ++nIndex, nIdTask );
             daoUtil.executeQuery( );
-    
+
             // First, creates the object with one piece of information
             if ( daoUtil.next( ) )
             {
                 taskInformation = new TaskInformation( daoUtil.getInt( "id_history" ), daoUtil.getInt( "id_task" ) );
                 taskInformation.add( daoUtil.getString( "information_key" ), daoUtil.getString( "information_value" ) );
-                
+
                 // Second, adds other pieces of information
                 while ( daoUtil.next( ) )
                 {
@@ -135,6 +135,6 @@ public final class TaskInformationDAO implements ITaskInformationDAO
             daoUtil.setInt( ++nIndex, nIdTask );
             daoUtil.executeUpdate( );
         }
-        
+
     }
 }

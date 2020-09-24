@@ -97,11 +97,11 @@ public class UserUnitAssignedResourcePrerequisite implements IManualActionPrereq
     @Override
     public boolean canManualActionBePerformed( User user, int nIdResource, String strResourceType, IPrerequisiteConfig config, int nIdAction )
     {
-       if ( !( user instanceof AdminUser ) )
-       {
-           return false;
-       }
-        
+        if ( !( user instanceof AdminUser ) )
+        {
+            return false;
+        }
+
         List<Unit> userUnitList = UnitHome.findByIdUser( ( (AdminUser) user ).getUserId( ) );
 
         List<UnitAssignment> resourceUnitList = UnitAssignmentHome.findByResource( nIdResource, strResourceType );

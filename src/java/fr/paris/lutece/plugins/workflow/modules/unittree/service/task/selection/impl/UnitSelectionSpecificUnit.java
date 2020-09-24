@@ -297,10 +297,10 @@ public class UnitSelectionSpecificUnit implements IUnitSelection
     {
         // Messages
         private static final String MESSAGE_TITLE = "module.workflow.unittree.unit_selection.specific_unit.form.title";
-     
+
         // Templates
         private static final String TEMPLATE_AUTOMATIC_TASK_FORM = "admin/plugins/workflow/modules/unittree/unitselection/form/unit_selection_automatic_form.html";
-        
+
         // Markers
         private static final String MARK_ASSIGNED_UNIT = "assigned_unit";
 

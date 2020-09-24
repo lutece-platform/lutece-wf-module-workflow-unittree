@@ -201,7 +201,7 @@ public class FakeUnitService implements IUnitService
     public void populateTreeUnit( TreeUnit treeUnit, AdminUser user, boolean bGetAdditionnalInfos )
     {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
