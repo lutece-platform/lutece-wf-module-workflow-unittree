@@ -282,11 +282,8 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
 
         if ( UnitAssignmentType.CREATION == assignmentType || UnitAssignmentType.TRANSFER == assignmentType )
         {
-            result.addAll( listUnitAssignment
-                    .stream( )
-                    .filter( UnitAssignment::isActive )
-                    .collect( Collectors.toList( ) ) );
-            
+            result.addAll( listUnitAssignment.stream( ).filter( UnitAssignment::isActive ).collect( Collectors.toList( ) ) );
+
         }
 
         if ( UnitAssignmentType.ASSIGN_DOWN == assignmentType || UnitAssignmentType.ASSIGN_UP == assignmentType )

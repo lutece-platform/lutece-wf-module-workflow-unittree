@@ -248,7 +248,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 
         clearTable( );
     }
-    
+
     private void clearTable( )
     {
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CLEAR_TABLE, WorkflowUnittreePlugin.getPlugin( ) ) )

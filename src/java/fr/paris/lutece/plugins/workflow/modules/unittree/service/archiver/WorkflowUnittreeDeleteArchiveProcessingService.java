@@ -62,25 +62,25 @@ public class WorkflowUnittreeDeleteArchiveProcessingService extends AbstractArch
         archiveTaskAssignManual( historyList );
         archiveTaskAssignAuto( historyList );
         archiveTaskUnassign( historyList );
-        
+
         UnitAssignmentHome.deleteByResource( resourceWorkflow.getIdResource( ), resourceWorkflow.getResourceType( ) );
     }
-    
+
     private void archiveTaskUnassign( List<ResourceHistory> historyList )
     {
         archiveTaskAssign( historyList, TASK_TYPE_UNASSIGN );
     }
-    
+
     private void archiveTaskAssignManual( List<ResourceHistory> historyList )
     {
         archiveTaskAssign( historyList, TASK_TYPE_ASSIGN_MANUAL );
     }
-    
+
     private void archiveTaskAssignAuto( List<ResourceHistory> historyList )
     {
         archiveTaskAssign( historyList, TASK_TYPE_ASSIGN_AUTOMATIQUE );
     }
-    
+
     private void archiveTaskAssign( List<ResourceHistory> historyList, String taskType )
     {
         for ( ResourceHistory history : historyList )
@@ -90,7 +90,7 @@ public class WorkflowUnittreeDeleteArchiveProcessingService extends AbstractArch
             {
                 TaskInformationHome.delete( history.getIdResource( ), task.getId( ) );
             }
-           
+
         }
     }
 }

@@ -157,7 +157,7 @@ public class UnitSelectionParent implements IUnitSelection
 
         // Templates
         private static final String TEMPLATE_AUTOMATIC_TASK_FORM = "admin/plugins/workflow/modules/unittree/unitselection/form/unit_selection_automatic_form.html";
-        
+
         // Markers
         private static final String MARK_ASSIGNED_UNIT = "assigned_unit";
 

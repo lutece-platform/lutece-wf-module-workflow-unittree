@@ -80,7 +80,7 @@ public final class TaskInformationHome
     {
         return _dao.load( nIdHistory, nIdTask, WorkflowUnittreePlugin.getPlugin( ) );
     }
-    
+
     /**
      * Delete the task information for the specified couple {history id, task id}
      * 

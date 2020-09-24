@@ -67,7 +67,7 @@ public final class TaskUnitAssignmentConfigDAO implements ITaskConfigDAO<TaskUni
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_INSERT, WorkflowUnittreePlugin.getPlugin( ) ) )
         {
             objectToData( config, daoUtil );
-    
+
             daoUtil.executeUpdate( );
         }
     }
@@ -83,15 +83,15 @@ public final class TaskUnitAssignmentConfigDAO implements ITaskConfigDAO<TaskUni
         {
             daoUtil.setInt( 1, nId );
             daoUtil.executeQuery( );
-    
+
             if ( daoUtil.next( ) )
             {
                 config = new TaskUnitAssignmentConfig( );
-    
+
                 int nIndex = 0;
                 config.setIdTask( daoUtil.getInt( ++nIndex ) );
                 config.setAssignmentType( daoUtil.getString( ++nIndex ) );
-    
+
                 List<String> listUnitSelections = new ArrayList<>( );
                 listUnitSelections.addAll( Arrays.asList( StringUtils.split( daoUtil.getString( ++nIndex ), LIST_SEPARATOR ) ) );
                 config.setUnitSelections( listUnitSelections );
