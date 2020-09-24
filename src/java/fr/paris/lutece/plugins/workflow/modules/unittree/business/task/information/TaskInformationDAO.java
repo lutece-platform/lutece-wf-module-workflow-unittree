@@ -48,6 +48,7 @@ public final class TaskInformationDAO implements ITaskInformationDAO
     // Constants
     private static final String SQL_QUERY_SELECT = "SELECT id_history, id_task, information_key, information_value FROM workflow_task_unittree_information WHERE id_history = ? AND id_task = ?";
     private static final String SQL_QUERY_INSERT = "INSERT INTO workflow_task_unittree_information ( id_history, id_task, information_key, information_value ) VALUES ";
+    private static final String SQL_QUERY_DELETE = "DELETE FROM workflow_task_unittree_information WHERE id_history = ? AND id_task = ?";
     private static final String SQL_QUERY_INSERT_VALUE = "( ?, ?, ?, ? )";
     private static final String SQL_QUERY_INSERT_VALUE_SEPARATOR = ",";
 
@@ -124,4 +125,16 @@ public final class TaskInformationDAO implements ITaskInformationDAO
         return taskInformation;
     }
 
+    @Override
+    public void delete( int nIdHistory, int nIdTask, Plugin plugin )
+    {
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_DELETE, plugin ) )
+        {
+            int nIndex = 0;
+            daoUtil.setInt( ++nIndex, nIdHistory );
+            daoUtil.setInt( ++nIndex, nIdTask );
+            daoUtil.executeUpdate( );
+        }
+        
+    }
 }

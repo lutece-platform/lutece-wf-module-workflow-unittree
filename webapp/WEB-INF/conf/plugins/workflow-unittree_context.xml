@@ -104,4 +104,10 @@
     <bean
         id="workflow-unittree.childUnitAssignedResourcePrerequisite"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.service.prerequisite.ChildUnitAssignedResourcePrerequisite" />
+        
+   <!-- Archivers -->
+    <bean id="workflow-unittree.workflowUnittreeResourceArchiver"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.archiver.WorkflowUnittreeResourceArchiver" />
+    <bean id="workflow-unittree.workflowUnittreeDeleteArchiveProcessingService"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.archiver.WorkflowUnittreeDeleteArchiveProcessingService" />
 </beans>
