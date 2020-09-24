@@ -31,47 +31,43 @@
  *
  * License 1.0
  */
-package fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information;
+package fr.paris.lutece.plugins.workflow.modules.unittree.service.archiver;
 
-import fr.paris.lutece.portal.service.plugin.Plugin;
+import javax.inject.Inject;
+import javax.inject.Named;
+
+import fr.paris.lutece.plugins.workflow.modules.archive.ArchivalType;
+import fr.paris.lutece.plugins.workflow.modules.archive.IResourceArchiver;
+import fr.paris.lutece.plugins.workflow.modules.archive.service.IArchiveProcessingService;
+import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 
 /**
- * This interface provides Data Access methods for {@link TaskInformation} objects
+ * {@link IResourceArchiver} for all data of module workflow-forms
  */
-public interface ITaskInformationDAO
+public class WorkflowUnittreeResourceArchiver implements IResourceArchiver
 {
-    /**
-     * Inserts a new record in the table.
-     * 
-     * @param taskInformation
-     *            the task information to insert
-     * @param plugin
-     *            the Plugin
-     */
-    void insert( TaskInformation taskInformation, Plugin plugin );
+    public static final String BEAN_NAME = "workflow-unittree.workflowUnittreeResourceArchiver";
 
-    /**
-     * Loads the data from the table
-     * 
-     * @param nIdHistory
-     *            The history id
-     * @param nIdTask
-     *            The task id
-     * @param plugin
-     *            the Plugin
-     * @return The task information
-     */
-    TaskInformation load( int nIdHistory, int nIdTask, Plugin plugin );
+    @Inject
+    @Named( WorkflowUnittreeDeleteArchiveProcessingService.BEAN_NAME )
+    private IArchiveProcessingService _deleteArchiveProcessingService;
 
-    /**
-     * Delete a new record in the table.
-     * 
-     * @param nIdHistory
-     *            The history id
-     * @param nIdTask
-     *            The task id
-     * @param plugin
-     *            the Plugin
-     */
-    void delete( int nIdHistory, int nIdTask, Plugin plugin );
+    @Override
+    public void archiveResource( ArchivalType archivalType, ResourceWorkflow resourceWorkflow )
+    {
+        switch( archivalType )
+        {
+            case DELETE:
+                _deleteArchiveProcessingService.archiveResource( resourceWorkflow );
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public String getBeanName( )
+    {
+        return BEAN_NAME;
+    }
 }

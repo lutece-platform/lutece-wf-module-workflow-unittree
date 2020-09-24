@@ -80,5 +80,19 @@ public final class TaskInformationHome
     {
         return _dao.load( nIdHistory, nIdTask, WorkflowUnittreePlugin.getPlugin( ) );
     }
+    
+    /**
+     * Delete the task information for the specified couple {history id, task id}
+     * 
+     * @param nIdHistory
+     *            the history id
+     * @param nIdTask
+     *            the task id
+     * @return the task information
+     */
+    public static void delete( int nIdHistory, int nIdTask )
+    {
+        _dao.delete( nIdHistory, nIdTask, WorkflowUnittreePlugin.getPlugin( ) );
+    }
 
 }
