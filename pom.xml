@@ -54,6 +54,6 @@
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-unittree.git</developerConnection>
         <url>https://github.com/lutece-platform/lutece-wf-module-workflow-unittree.git</url>
         <tag>HEAD</tag>
-  </scm>
+	</scm>
     
 </project>
