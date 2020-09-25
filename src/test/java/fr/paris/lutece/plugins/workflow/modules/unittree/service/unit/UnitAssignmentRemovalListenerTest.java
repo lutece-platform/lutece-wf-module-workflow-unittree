@@ -67,7 +67,7 @@ public class UnitAssignmentRemovalListenerTest extends LuteceTestCase
         }
         catch( UnitErrorException e )
         {
-            // correct behavior
+            assertNotNull( e );
         }
 
         _dao.clearTable( );
