@@ -1,15 +1,8 @@
-<@row>
-  <@formGroup labelFor="unit_selection_id" labelKey="#i18n{module.workflow.unittree.task_unit_assignment.manual.config.labelUnitSelection}" helpKey="#i18n{module.workflow.unittree.task_unit_assignment.manual.config.labelUnitSelection.help}" >
-    <@select name="unit_selection_id_to_add" items=list_unit_selection default_value='' />
-  </@formGroup>
-  <#if list_unit_selection?has_content>
-    <div class="col-xs-12 col-sm-offset-3 col-sm-8 col-md-offset-3 col-md-8">
-      <button  class="btn btn-primary" name="apply" type="submit" value="addUnitSelection" >
-        <i class="fa fa-plus"></i>&nbsp;#i18n{module.workflow.unittree.task_unit_assignment.config.buttonAdd}
-      </button>
-    </div>
-    <div class="col-xs-12" >
-      <em>#i18n{module.workflow.unittree.task_unit_assignment.manual.config.message.add.impossible}</em>
-    </div>
-  </#if>
-</@row>
+<@formGroup labelFor='unit_selection_id' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.manual.config.labelUnitSelection}' helpKey='#i18n{module.workflow.unittree.task_unit_assignment.manual.config.labelUnitSelection.help}'>
+	<@select name='unit_selection_id_to_add' items=list_unit_selection default_value='' />
+</@formGroup>
+<#if list_unit_selection?has_content>
+	<@formGroup>
+	  <@button type='submit' name='apply' value='addUnitSelection' title='#i18n{module.workflow.unittree.task_unit_assignment.config.buttonAdd}' buttonIcon='plus' />
+	</@formGroup>
+</#if>

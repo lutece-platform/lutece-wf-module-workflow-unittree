@@ -1,12 +1,14 @@
-<@row>
-	<@formGroup labelFor="unit_selection_config" labelKey="#i18n{module.workflow.unittree.task_unit_assignment.parametrable.config.label}" helpKey="#i18n{module.workflow.unittree.task_unit_assignment.manual.config.labelUnitSelection.help}" >
-		<@select name="unit_selection_config" items=list_custom_config default_value='' />
-	</@formGroup>
-	<#if is_add_config_displayed>
-		<div class="col-xs-12 col-sm-offset-3 col-sm-8 col-md-offset-3 col-md-8">
-		  <@button type='submit' buttonIcon='plus' title='&nbsp;#i18n{module.workflow.unittree.task_unit_assignment.config.buttonAdd}' name='apply' value='choose_parametrable_config' />
-	    </div>
-    </#if>
-</@row>
+<@formGroup labelFor='unit_selection_config' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.parametrable.config.label}' helpKey='#i18n{module.workflow.unittree.task_unit_assignment.manual.config.labelUnitSelection.help}'>
+<#if is_add_config_displayed>
+	<@inputGroup>
+		<@select name='unit_selection_config' items=list_custom_config default_value='' />
+		<@inputGroupItem>
+			<@button type='submit' name='apply' title='&nbsp;#i18n{module.workflow.unittree.task_unit_assignment.config.buttonAdd}' hideTitle=['all'] value='choose_parametrable_config' buttonIcon='plus' size='sm' />
+		</@inputGroupItem>
+	</@inputGroup>
+<#else>
+	<@select name='unit_selection_config' items=list_custom_config default_value='' />
+</#if>
+</@formGroup>
 
 ${html_custom_config}

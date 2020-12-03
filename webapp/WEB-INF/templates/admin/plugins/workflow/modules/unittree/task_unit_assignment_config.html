@@ -1,47 +1,27 @@
-<@row>
-  <@formGroup labelFor="assignment_type" labelKey="#i18n{module.workflow.unittree.task_unit_assignment.config.labelAssignmentType}" helpKey="#i18n{module.workflow.unittree.task_unit_assignment.config.labelAssignmentType.help}">
-    <#list list_assignment_type as assignment_type >
-      <#if configured_assignment_type?? && configured_assignment_type == assignment_type.assignmentTypeCode>
-        <@radioButton name="assignment_type" value='${assignment_type.assignmentTypeCode}' checked=true orientation='horizontal' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.assignmentType.${assignment_type.assignmentTypeCode}}' />
-      <#else>
-        <@radioButton name="assignment_type" value='${assignment_type.assignmentTypeCode}' orientation='horizontal' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.assignmentType.${assignment_type.assignmentTypeCode}}' />
-      </#if>
-    </#list>
-  </@formGroup>
-</@row>
+<@formGroup labelFor='assignment_type' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.config.labelAssignmentType}' helpKey='#i18n{module.workflow.unittree.task_unit_assignment.config.labelAssignmentType.help}'>
+	<#list list_assignment_type as assignment_type >
+		<#if configured_assignment_type?? && configured_assignment_type == assignment_type.assignmentTypeCode>
+		<@radioButton name='assignment_type' value='${assignment_type.assignmentTypeCode}' orientation='horizontal' checked=true labelKey='#i18n{module.workflow.unittree.task_unit_assignment.assignmentType.${assignment_type.assignmentTypeCode}}' />
+		<#else>
+		<@radioButton name='assignment_type' value='${assignment_type.assignmentTypeCode}' orientation='horizontal' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.assignmentType.${assignment_type.assignmentTypeCode}}' />
+		</#if>
+	</#list>
+</@formGroup>
 
 ${unit_selection_html}
   
-<hr/>
   
-<@row>
-  <#if list_configured_unit_selection?has_content>
-    <@tabs>
-      <@tabList params="role=\'tablist\'" >
-        <#list list_configured_unit_selection as configured_unit_selection >
-          <li id="tab-${configured_unit_selection.id}" <#if configured_unit_selection?index == 0>class="active"</#if> aria-controls="panel-${configured_unit_selection.id}" role="tab" >
-             <a href="#panel-${configured_unit_selection.id}" data-toggle="tab" aria-controls="" aria-expanded="true">${configured_unit_selection.title}</a>
-          </li>
-        </#list>
-      </@tabList>
-    </@tabs>
+<#if list_configured_unit_selection?has_content>
+	<#list list_configured_unit_selection as configured_unit_selection >
+		<@fieldSet legend='${configured_unit_selection.title}'>
+		${configured_unit_selection.htmlForm}
+		<@formGroup>
+			<@button type='submit' name='apply' value='removeUnitSelection-${configured_unit_selection.id}' buttonIcon='trash' color='danger' title='#i18n{module.workflow.unittree.task_unit_assignment.config.buttonRemove}' />
+		</@formGroup>
+		</@fieldSet>
+	</#list>
+</#if>
 
-    <@tabContent>
-      <#list list_configured_unit_selection as configured_unit_selection >
-        <div id="panel-${configured_unit_selection.id}" class="tab-pane <#if configured_unit_selection?index == 0>active</#if>" aria-labelledby="tab-${configured_unit_selection.id}" role="tabpanel" >
-            ${configured_unit_selection.htmlForm}
-          <div class="col-xs-12 col-sm-offset-3 col-sm-8 col-md-offset-3 col-md-8">
-            <button class="btn btn-primary btn-danger" type="submit" name="apply" value="removeUnitSelection-${configured_unit_selection.id}" formnovalidate >
-              <i class="glyphicon glyphicon-trash icon-white"></i>&nbsp;#i18n{module.workflow.unittree.task_unit_assignment.config.buttonRemove}
-            </button>
-          </div>
-        </div>
-      </#list>
-    </@tabContent>
-  </#if>
-  <div class="col-xs-12" >
-    <em>#i18n{module.workflow.unittree.task_unit_assignment.config.message.save.impossible}</em>
-  </div>
-</@row>
-
-<hr/>
+<@formGroup>
+	<@alert color='warning'><@icon style='exclamation-triangle' /> #i18n{module.workflow.unittree.task_unit_assignment.config.message.save.impossible}</@alert>
+</@formGroup>
