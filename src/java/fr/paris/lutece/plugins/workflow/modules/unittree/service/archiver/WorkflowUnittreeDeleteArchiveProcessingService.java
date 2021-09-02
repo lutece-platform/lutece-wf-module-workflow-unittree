@@ -33,14 +33,9 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.archiver;
 
-import java.util.List;
-
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.workflow.modules.archive.service.AbstractArchiveProcessingService;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationHome;
-import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
-import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 
 /**
  * Service for archival of type delete of plugin-workflow.
@@ -49,48 +44,9 @@ public class WorkflowUnittreeDeleteArchiveProcessingService extends AbstractArch
 {
     public static final String BEAN_NAME = "workflow-unittree.workflowUnittreeDeleteArchiveProcessingService";
 
-    private static final String TASK_TYPE_ASSIGN_MANUAL = "taskUnitAssignmentManual";
-    private static final String TASK_TYPE_ASSIGN_AUTOMATIQUE = "taskUnitAssignmentAutomatic";
-    private static final String TASK_TYPE_UNASSIGN = "taskUnitUnassignment";
-
     @Override
     public void archiveResource( ResourceWorkflow resourceWorkflow )
     {
-        List<ResourceHistory> historyList = _resourceHistoryService.getAllHistoryByResource( resourceWorkflow.getIdResource( ),
-                resourceWorkflow.getResourceType( ), resourceWorkflow.getWorkflow( ).getId( ) );
-
-        archiveTaskAssignManual( historyList );
-        archiveTaskAssignAuto( historyList );
-        archiveTaskUnassign( historyList );
-
         UnitAssignmentHome.deleteByResource( resourceWorkflow.getIdResource( ), resourceWorkflow.getResourceType( ) );
-    }
-
-    private void archiveTaskUnassign( List<ResourceHistory> historyList )
-    {
-        archiveTaskAssign( historyList, TASK_TYPE_UNASSIGN );
-    }
-
-    private void archiveTaskAssignManual( List<ResourceHistory> historyList )
-    {
-        archiveTaskAssign( historyList, TASK_TYPE_ASSIGN_MANUAL );
-    }
-
-    private void archiveTaskAssignAuto( List<ResourceHistory> historyList )
-    {
-        archiveTaskAssign( historyList, TASK_TYPE_ASSIGN_AUTOMATIQUE );
-    }
-
-    private void archiveTaskAssign( List<ResourceHistory> historyList, String taskType )
-    {
-        for ( ResourceHistory history : historyList )
-        {
-            List<ITask> taskList = findTasksByHistory( history, taskType );
-            for ( ITask task : taskList )
-            {
-                TaskInformationHome.delete( history.getIdResource( ), task.getId( ) );
-            }
-
-        }
     }
 }

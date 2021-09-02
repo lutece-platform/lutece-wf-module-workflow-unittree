@@ -371,6 +371,13 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
         TaskInformationHome.create( taskInformation );
     }
 
+    @Override
+    public void doRemoveTaskInformation( int nIdHistory )
+    {
+        ResourceHistory history = _resourceHistoryService.findByPrimaryKey( nIdHistory );
+        TaskInformationHome.delete( history.getIdResource( ), getId( ) );
+    }
+    
     /**
      * Gives the unit selection to use
      * 
