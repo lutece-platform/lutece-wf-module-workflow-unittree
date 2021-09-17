@@ -33,48 +33,20 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.archiver;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import fr.paris.lutece.plugins.workflow.modules.archive.ArchivalType;
-import fr.paris.lutece.plugins.workflow.modules.archive.IResourceArchiver;
-import fr.paris.lutece.plugins.workflow.modules.archive.service.IArchiveProcessingService;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
+import fr.paris.lutece.plugins.workflow.modules.archive.service.AbstractArchiveProcessingService;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
 
 /**
- * {@link IResourceArchiver} for all data of module workflow-forms
+ * Service for archival of type delete of plugin-workflow.
  */
-public class WorkflowUnittreeResourceArchiver implements IResourceArchiver
+public class WorkflowUnittreeAnonymizeArchiveProcessingService extends AbstractArchiveProcessingService
 {
-    public static final String BEAN_NAME = "workflow-unittree.workflowUnittreeResourceArchiver";
-
-    @Inject
-    @Named( WorkflowUnittreeDeleteArchiveProcessingService.BEAN_NAME )
-    private IArchiveProcessingService _deleteArchiveProcessingService;
-    
-    @Inject
-    @Named( WorkflowUnittreeAnonymizeArchiveProcessingService.BEAN_NAME )
-    private IArchiveProcessingService _anonymizeArchiveProcessingService;
+    public static final String BEAN_NAME = "workflow-unittree.workflowUnittreeAnonymizeArchiveProcessingService";
 
     @Override
-    public void archiveResource( ArchivalType archivalType, ResourceWorkflow resourceWorkflow )
+    public void archiveResource( ResourceWorkflow resourceWorkflow )
     {
-        switch( archivalType )
-        {
-            case DELETE:
-                _deleteArchiveProcessingService.archiveResource( resourceWorkflow );
-                break;
-            case ANONYMIZE:
-                _anonymizeArchiveProcessingService.archiveResource( resourceWorkflow );
-                break;
-            default:
-                break;
-        }
-    }
-
-    @Override
-    public String getBeanName( )
-    {
-        return BEAN_NAME;
+        UnitAssignmentHome.deleteByResource( resourceWorkflow.getIdResource( ), resourceWorkflow.getResourceType( ) );
     }
 }
