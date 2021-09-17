@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -377,7 +377,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
         ResourceHistory history = _resourceHistoryService.findByPrimaryKey( nIdHistory );
         TaskInformationHome.delete( history.getIdResource( ), getId( ) );
     }
-    
+
     /**
      * Gives the unit selection to use
      * 

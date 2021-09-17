@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2020, City of Paris
+ * Copyright (c) 2002-2021, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -40,25 +40,24 @@ public class ParametrableUnitSelectionConfigBusinessTest extends LuteceTestCase
 {
 
     private ITaskConfigDAO<ParametrableUnitSelectionConfig> _dao = new ParametrableUnitSelectionConfigDao( );
-    
-    
+
     public void testCRUD( )
     {
         ParametrableUnitSelectionConfig config = new ParametrableUnitSelectionConfig( );
         config.setIdTask( 2 );
         config.setParametrableConfigHandler( "bean" );
-        
+
         _dao.insert( config );
-        
+
         ParametrableUnitSelectionConfig loaded = _dao.load( 2 );
         assertEquals( config.getParametrableConfigHandler( ), loaded.getParametrableConfigHandler( ) );
-        
+
         config.setParametrableConfigHandler( "bean2" );
         _dao.store( config );
-        
+
         loaded = _dao.load( 2 );
         assertEquals( config.getParametrableConfigHandler( ), loaded.getParametrableConfigHandler( ) );
-        
+
         _dao.delete( 2 );
         loaded = _dao.load( 2 );
         assertNull( loaded );
