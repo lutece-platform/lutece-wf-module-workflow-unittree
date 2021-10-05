@@ -82,15 +82,6 @@ public abstract class AbstractUnittreeTaskComponent extends SimpleTaskComponent
      * {@inheritDoc}
      */
     @Override
-    public String getTaskInformationXml( int nIdHistory, HttpServletRequest request, Locale locale, ITask task )
-    {
-        return null;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public String validateConfig( ITaskConfig config, HttpServletRequest request )
     {
         return null;
