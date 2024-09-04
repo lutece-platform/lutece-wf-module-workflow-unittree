@@ -33,22 +33,30 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
+import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.unittree.business.unit.Unit;
 import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
 import fr.paris.lutece.plugins.unittree.service.selection.IConfigurationHandler;
 import fr.paris.lutece.plugins.unittree.service.selection.ITaskFormHandler;
 import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitService;
+import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
+import fr.paris.lutece.plugins.workflow.modules.unittree.service.UnitAssignmentService;
+import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
@@ -72,6 +80,9 @@ public class UnitSelectionFromAll implements IUnitSelection
     // Services
     @Inject
     private IUnitService _unitService;
+    @Inject
+    @Named( "workflow-unittree.taskUnitAssignmentConfigService" )
+    private ITaskConfigService _taskConfigService;
 
     private final IConfigurationHandler _configurationHandler = new ConfigurationHandler( );
     private final ITaskFormHandler _taskFormHandler = new TaskFormHandler( );
@@ -177,10 +188,22 @@ public class UnitSelectionFromAll implements IUnitSelection
         @Override
         public String getDisplayedForm( int nIdResource, String strResourceType, Locale locale, ITask task )
         {
-            Map<String, Object> model = new HashMap<>( );
-            ReferenceList listUnits = buildUnitlist( );
+            List<Unit> listUnits = null;
+            TaskUnitAssignmentConfig assignmentconfig = _taskConfigService.findByPrimaryKey( task.getId( ) );
+            
+            if ( assignmentconfig != null && UnitAssignmentType.ASSIGN_UP.getAssignmentTypeCode( ).equals( assignmentconfig.getAssignmentType( ) ) )
+            {
+                listUnits = getListParentUnits( nIdResource, strResourceType );
+            }
+            else
+            {
+        	    listUnits = _unitService.getAllUnits( false );
+            }
 
-            model.put( MARK_UNIT_LIST, listUnits );
+            Map<String, Object> model = new HashMap<>( );
+            ReferenceList listRefUnits = ReferenceList.convert( listUnits, "idUnit", "label", true );
+
+            model.put( MARK_UNIT_LIST, listRefUnits );
 
             HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_TASK_FORM, locale, model );
 
@@ -188,17 +211,32 @@ public class UnitSelectionFromAll implements IUnitSelection
         }
 
         /**
-         * Builds the unit list as a reference list
+         * Get the units parent list
          * 
-         * @return the reference list containing the units
+         * @param nIdResource The resource identifier
+         * @param strResourceType The resource type
+         * 
+         * @return units parent list
          */
-        private ReferenceList buildUnitlist( )
+        private List<Unit> getListParentUnits( int nIdResource, String strResourceType )
         {
-            List<Unit> listUnits = _unitService.getAllUnits( false );
+            List<Unit> listUnits = new ArrayList<>( );
+            UnitAssignment currentUnitAssignment = UnitAssignmentService.findCurrentAssignment( nIdResource, strResourceType );
 
-            return ReferenceList.convert( listUnits, "idUnit", "label", true );
+            if ( currentUnitAssignment != null && currentUnitAssignment.getAssignedUnit( ) != null )
+            {
+        	    Unit currentUnit = currentUnitAssignment.getAssignedUnit( );
+        	    listUnits = _unitService.getListParentUnits( currentUnit );
+        		
+        	    // remove the unit itselft which is already included
+        	    if ( CollectionUtils.isNotEmpty( listUnits ) )
+                {
+        		    listUnits.remove( currentUnit );
+                }
+        	}
+        	
+            return listUnits;
         }
-
     }
 
 }
