@@ -56,7 +56,6 @@ public class UnitAssignmentAutomaticTaskComponent extends AbstractUnitAssignment
 {
     // Markers
     private static final String MARK_UNIT_SELECTION_LIST = "list_unit_selection";
-    private static final String MARK_IS_ADD_BUTTON_DISPLAYED = "is_add_button_displayed";
 
     // Templates
     private static final String TEMPLATE_CONFIG_UNIT_SELECTION = "admin/plugins/workflow/modules/unittree/task_unit_assignment_automatic_config_unit_selection.html";
@@ -72,7 +71,6 @@ public class UnitAssignmentAutomaticTaskComponent extends AbstractUnitAssignment
 
         Map<String, Object> model = new HashMap<>( );
         model.put( MARK_UNIT_SELECTION_LIST, listUnitSelections );
-        model.put( MARK_IS_ADD_BUTTON_DISPLAYED, config.getUnitSelections( ).isEmpty( ) );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CONFIG_UNIT_SELECTION, request.getLocale( ), model );
 
