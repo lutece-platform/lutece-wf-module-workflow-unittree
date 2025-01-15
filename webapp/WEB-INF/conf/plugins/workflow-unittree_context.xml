@@ -28,11 +28,16 @@
     <bean
         id="workflow-unittree.unitSelection.parametrableUnitSelection.configDAO"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.selection.config.ParametrableUnitSelectionConfigDao" />
+    <bean id="workflow-unittree.taskUnitAssignmentNotificationConfigDAO"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentNotificationConfigDAO" />
 
     <!-- Service -->
     <bean id="workflow-unittree.taskUnitAssignmentConfigService"
         class="fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService"
         p:taskConfigDAO-ref="workflow-unittree.taskUnitAssignmentConfigDAO" />
+    <bean id="workflow-unittree.taskUnitAssignmentNotificationConfigService"
+        class="fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService"
+        p:taskConfigDAO-ref="workflow-unittree.taskUnitAssignmentNotificationConfigDAO" />
     
     <!-- Listener -->
     <bean id="workflow-unittree.unitRemovalListener"
@@ -100,6 +105,26 @@
 
     <bean id="workflow-unittree.changeUnitEventPublisher"
         class="fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEventPublisher" />
+
+	<!-- Task Unit Assignment Notification -->
+	<bean id="workflow-unittree.taskUnitAssignmentNotification"
+        class="fr.paris.lutece.plugins.workflow.modules.unittree.service.task.TaskUnitAssignmentNotification"
+        scope="prototype" />
+	<bean id="workflow-unittree.taskUnitAssignmentNotificationConfig"
+		class="fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentNotificationConfig"
+		scope="prototype" />
+	<bean id="workflow-unittree.taskTypeUnitAssignmentNotification"
+		class="fr.paris.lutece.plugins.workflowcore.business.task.TaskType"
+		p:key="taskUnitAssignmentNotification"
+		p:titleI18nKey="module.workflow.unittree.task_unit_assignment_notification.title"
+		p:beanName="workflow-unittree.taskUnitAssignmentNotification"
+		p:configBeanName="workflow-unittree.taskUnitAssignmentNotificationConfig"
+		p:taskForAutomaticAction="true" p:configRequired="true"
+		p:formTaskRequired="false" />
+	<bean id="workflow-unittree.unitAssignmentNotificationTaskComponent"
+		class="fr.paris.lutece.plugins.workflow.modules.unittree.web.task.UnitAssignmentNotificationTaskComponent"
+		p:taskType-ref="workflow-unittree.taskTypeUnitAssignmentNotification"
+		p:taskConfigService-ref="workflow-unittree.taskUnitAssignmentNotificationConfigService" />
 
     <!-- Prerequisites -->
     <bean
