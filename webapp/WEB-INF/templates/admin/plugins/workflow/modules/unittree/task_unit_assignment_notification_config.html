@@ -1,0 +1,11 @@
+<legend>#i18n{module.workflow.unittree.task_unit_assignment_notification.config.title}</legend>
+
+<@formGroup labelKey='#i18n{module.workflow.unittree.task_unit_assignment_notification.config.labelSubject}' helpKey='#i18n{module.workflow.unittree.task_unit_assignment_notification.config.labelSubjectHelp}'>
+	<@input type='text' name='subject' value='${(config.subject)!}' mandatory=mandatory></@input>
+</@formGroup>
+<@formGroup labelKey='#i18n{module.workflow.unittree.task_unit_assignment_notification.config.labelMessage}'>
+	<@input type='textarea' name='message' value='${(config.message)!}' rows=6 cols=100 richtext=true mandatory=mandatory >${(config.message)!}</@input>
+</@formGroup>
+
+<#include "/admin/util/editor/editor.html" />
+<@initEditor />
