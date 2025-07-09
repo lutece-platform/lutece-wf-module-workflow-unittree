@@ -39,13 +39,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
 import fr.paris.lutece.plugins.unittree.service.selection.ITaskFormHandler;
 import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
+import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
+import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.util.AppLogService;
@@ -57,6 +62,8 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * TaskUnitAssignmentManual} class
  *
  */
+@ApplicationScoped
+@Named( "workflow-unittree.unitAssignmentManualTaskComponent" )
 public class UnitAssignmentManualTaskComponent extends AbstractUnitAssignmentTaskComponent
 {
     // Markers
@@ -67,6 +74,14 @@ public class UnitAssignmentManualTaskComponent extends AbstractUnitAssignmentTas
     private static final String TEMPLATE_CONFIG_UNIT_SELECTION = "admin/plugins/workflow/modules/unittree/task_unit_assignment_manual_config_unit_selection.html";
     private static final String TEMPLATE_TASK_FORM = "admin/plugins/workflow/modules/unittree/task_unit_assignment_manual_form.html";
 
+    @Inject
+    public UnitAssignmentManualTaskComponent( @Named( "workflow-unittree.taskTypeUnitAssignmentManual" ) ITaskType taskType, 
+    		                                  @Named( "workflow-unittree.taskUnitAssignmentConfigService" ) ITaskConfigService taskConfigService )
+    {
+        setTaskType( taskType );
+        setTaskConfigService( taskConfigService );
+    }
+    
     /**
      * {@inheritDoc}
      */

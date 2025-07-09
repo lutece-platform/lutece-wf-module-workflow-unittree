@@ -35,7 +35,9 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.task;
 
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
@@ -45,6 +47,8 @@ import fr.paris.lutece.portal.service.i18n.I18nService;
  * This class represents a task to manually assign a resource to a unit
  *
  */
+@Dependent
+@Named( "workflow-unittree.taskUnitAssignmentManual" )
 public class TaskUnitAssignmentManual extends AbstractTaskUnitAssignment
 {
     // Message

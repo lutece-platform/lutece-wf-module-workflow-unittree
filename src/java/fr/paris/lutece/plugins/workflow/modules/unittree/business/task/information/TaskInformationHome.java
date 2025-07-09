@@ -34,7 +34,7 @@
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information;
 
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
+import jakarta.enterprise.inject.spi.CDI;
 
 /**
  * This class provides instances management methods (create, find, ...) for {@link TaskInformation} objects
@@ -43,7 +43,7 @@ import fr.paris.lutece.portal.service.spring.SpringContextService;
 public final class TaskInformationHome
 {
     // Static variable pointed at the DAO instance
-    private static ITaskInformationDAO _dao = SpringContextService.getBean( TaskInformationDAO.BEAN_NAME );
+    private static ITaskInformationDAO _dao = CDI.current( ).select( ITaskInformationDAO.class ).get( );
 
     /**
      * Private constructor

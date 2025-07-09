@@ -33,14 +33,19 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.selection.config;
 
+import org.junit.jupiter.api.Test;
+
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.test.LuteceTestCase;
+import jakarta.inject.Inject;
 
 public class ParametrableUnitSelectionConfigBusinessTest extends LuteceTestCase
 {
 
-    private ITaskConfigDAO<ParametrableUnitSelectionConfig> _dao = new ParametrableUnitSelectionConfigDao( );
+	@Inject
+    private ITaskConfigDAO<ParametrableUnitSelectionConfig> _dao;
 
+    @Test
     public void testCRUD( )
     {
         ParametrableUnitSelectionConfig config = new ParametrableUnitSelectionConfig( );

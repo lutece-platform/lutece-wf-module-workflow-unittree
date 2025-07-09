@@ -38,8 +38,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -62,17 +64,22 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * This class is a unit selection to a specific unit
  *
  */
+@ApplicationScoped
+@Named( "workflow-unittree.unitSelection.specificUnit" )
 public class UnitSelectionSpecificUnit implements IUnitSelection
 {
     private static final String ID = "UnitSelectionSpecificUnit";
 
     // Services
-    private final IUnitService _unitService;
-    private final ITaskConfigDAO<UnitSelectionSpecificUnitConfig> _configDAO;
+    @Inject
+    private IUnitService _unitService;
+    
+    @Inject
+    private ITaskConfigDAO<UnitSelectionSpecificUnitConfig> _configDAO;
 
     private final IConfigurationHandler _configurationHandler = new ConfigurationHandler( );
     private final ITaskFormHandler _taskFormHandler = new TaskFormHandler( );
-
+    
     /**
      * Constructor
      * 

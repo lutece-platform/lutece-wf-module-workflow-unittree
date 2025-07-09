@@ -38,7 +38,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.transform.Source;
 
 import fr.paris.lutece.plugins.unittree.business.action.IAction;

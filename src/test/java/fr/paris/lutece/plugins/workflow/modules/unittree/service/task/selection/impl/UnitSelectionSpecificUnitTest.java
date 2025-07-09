@@ -33,7 +33,8 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.impl;
 
-import org.springframework.mock.web.MockHttpServletRequest;
+import fr.paris.lutece.test.LuteceTestCase;
+import fr.paris.lutece.test.mocks.MockHttpServletRequest;
 
 import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
 import fr.paris.lutece.plugins.unittree.service.selection.IConfigurationHandler;
@@ -45,15 +46,13 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.WorkflowUnittreeConstants;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.plugins.workflowcore.service.task.MockTask;
-import junit.framework.TestCase;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
 
 import java.util.Locale;
 
-public class UnitSelectionSpecificUnitTest extends TestCase
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+public class UnitSelectionSpecificUnitTest extends LuteceTestCase
 {
     private static final String PARAMETER_UNIT_ID = "task_unit_assignment_config_selection_specific_unit_id";
     private static final String RESOURCE_TYPE = "UnitSelectionSpecificUnitTest";
@@ -62,6 +61,7 @@ public class UnitSelectionSpecificUnitTest extends TestCase
     private SpyUnitSelectionSpecificUnitConfigDAO _configDAO;
     private UnitSelectionSpecificUnit _selection;
 
+    @BeforeEach
     public void setUp( ) throws Exception
     {
         super.setUp( );
@@ -71,6 +71,7 @@ public class UnitSelectionSpecificUnitTest extends TestCase
         _selection = new UnitSelectionSpecificUnit( new FakeUnitService( ), _configDAO );
     }
 
+    @Test
     public void testSaveConfigurationWhenNoUnitIsSelected( )
     {
         ITask task = MockTask.create( );
@@ -79,10 +80,11 @@ public class UnitSelectionSpecificUnitTest extends TestCase
 
         configHandler.saveConfiguration( _request, task );
 
-        assertThat( _configDAO.load( task.getId( ) ).getUnitId( ), is( WorkflowUnittreeConstants.UNSET_ID ) );
-        assertThat( _configDAO.isInsertCalled( ), is( true ) );
+        assertEquals( WorkflowUnittreeConstants.UNSET_ID, _configDAO.load( task.getId( ) ).getUnitId( ) );
+        assertEquals( true, _configDAO.isInsertCalled( ) );
     }
 
+    @Test
     public void testSaveConfigurationWhenNoConfigurationIsPreviouslySaved( )
     {
         ITask task = MockTask.create( );
@@ -93,9 +95,9 @@ public class UnitSelectionSpecificUnitTest extends TestCase
 
         configHandler.saveConfiguration( _request, task );
 
-        assertThat( _configDAO.load( task.getId( ) ).getUnitId( ), is( nNewUnitId ) );
-        assertThat( _configDAO.isInsertCalled( ), is( true ) );
-        assertThat( _configDAO.isStoreCalled( ), is( false ) );
+        assertEquals( nNewUnitId, _configDAO.load( task.getId( ) ).getUnitId( ) );
+        assertEquals( true, _configDAO.isInsertCalled( ) );
+        assertEquals( false, _configDAO.isStoreCalled( ) );
     }
 
     private UnitSelectionSpecificUnitConfig createConfig( ITask task )
@@ -107,6 +109,7 @@ public class UnitSelectionSpecificUnitTest extends TestCase
         return config;
     }
 
+    @Test
     public void testSaveConfigurationWhenAConfigurationIsPreviouslySaved( )
     {
         ITask task = MockTask.create( );
@@ -119,11 +122,12 @@ public class UnitSelectionSpecificUnitTest extends TestCase
 
         configHandler.saveConfiguration( _request, task );
 
-        assertThat( _configDAO.load( task.getId( ) ).getUnitId( ), is( nNewUnitId ) );
-        assertThat( _configDAO.isInsertCalled( ), is( false ) );
-        assertThat( _configDAO.isStoreCalled( ), is( true ) );
+        assertEquals( nNewUnitId, _configDAO.load( task.getId( ) ).getUnitId( ) );
+        assertEquals( false, _configDAO.isInsertCalled( ) );
+        assertEquals( true, _configDAO.isStoreCalled( ));
     }
 
+    @Test
     public void testRemoveConfigurationWhenNoConfigurationIsPreviouslySaved( )
     {
         ITask task = MockTask.create( );
@@ -132,9 +136,10 @@ public class UnitSelectionSpecificUnitTest extends TestCase
 
         configHandler.removeConfiguration( task );
 
-        assertThat( _configDAO.isDeleteCalled( ), is( true ) );
+        assertEquals( true, _configDAO.isDeleteCalled( ) );
     }
 
+    @Test
     public void testRemoveConfigurationWhenAConfigurationIsPreviouslySaved( )
     {
         ITask task = MockTask.create( );
@@ -145,10 +150,11 @@ public class UnitSelectionSpecificUnitTest extends TestCase
 
         configHandler.removeConfiguration( task );
 
-        assertThat( _configDAO.load( task.getId( ) ), is( nullValue( ) ) );
-        assertThat( _configDAO.isDeleteCalled( ), is( true ) );
+        assertNull( _configDAO.load( task.getId( ) ) );
+        assertEquals( true, _configDAO.isDeleteCalled( ) );
     }
 
+    @Test
     public void testDisplayedFormWhenConfiguredUnitIsIncorrect( )
     {
         ITask task = MockTask.create( );
@@ -165,6 +171,7 @@ public class UnitSelectionSpecificUnitTest extends TestCase
         }
     }
 
+    @Test
     public void testUnitSelection( ) throws AssignmentNotPossibleException
     {
         ITask task = MockTask.create( );
@@ -173,9 +180,10 @@ public class UnitSelectionSpecificUnitTest extends TestCase
 
         int nSelectedUnitId = _selection.select( IdGenerator.generateId( ), RESOURCE_TYPE, _request, task );
 
-        assertThat( nSelectedUnitId, is( config.getUnitId( ) ) );
+        assertEquals( nSelectedUnitId, config.getUnitId( ) );
     }
 
+    @Test
     public void testUnitSelectionWhenConfiguredUnitIsIncorrect( )
     {
         ITask task = MockTask.create( );

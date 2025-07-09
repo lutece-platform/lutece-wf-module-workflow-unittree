@@ -35,7 +35,11 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.ta
 
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
+@ApplicationScoped
+@Named( "workflow-unittree.taskUnitAssignmentNotificationConfigDAO" )
 public class TaskUnitAssignmentNotificationConfigDAO implements ITaskConfigDAO<TaskUnitAssignmentNotificationConfig>
 {
     private static final String SQL_QUERY_SELECT = "SELECT id_task, subject, message FROM workflow_task_unittree_unit_assignment_notification_cf WHERE id_task = ?";

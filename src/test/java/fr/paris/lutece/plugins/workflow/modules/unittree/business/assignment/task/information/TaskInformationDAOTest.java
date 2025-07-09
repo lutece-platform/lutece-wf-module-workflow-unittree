@@ -33,9 +33,10 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.information;
 
+import org.junit.jupiter.api.Test;
+
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.ITaskInformationDAO;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformation;
-import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationDAO;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin;
 import fr.paris.lutece.plugins.workflowcore.business.resource.MockResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
@@ -44,10 +45,7 @@ import fr.paris.lutece.plugins.workflowcore.service.task.MockTask;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.sql.DAOUtil;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
+import jakarta.inject.Inject;
 
 public class TaskInformationDAOTest extends LuteceTestCase
 {
@@ -55,8 +53,10 @@ public class TaskInformationDAOTest extends LuteceTestCase
 
     private static final Plugin _plugin = WorkflowUnittreePlugin.getPlugin( );
 
-    private final ITaskInformationDAO _dao = new TaskInformationDAO( );
+    @Inject
+    private ITaskInformationDAO _dao;
 
+    @Test
     public void testInsertOneTaskInformation( )
     {
         TaskInformation taskInformation = MockTaskInformation.createWithPiecesOfInformation( );
@@ -81,9 +81,9 @@ public class TaskInformationDAOTest extends LuteceTestCase
 
     private void assertEqualityBetween( TaskInformation taskInformation1, TaskInformation taskInformation2 )
     {
-        assertThat( taskInformation1.getIdHistory( ), is( taskInformation2.getIdHistory( ) ) );
-        assertThat( taskInformation1.getIdTask( ), is( taskInformation2.getIdTask( ) ) );
-        assertThat( taskInformation1.getKeys( ).size( ), is( taskInformation2.getKeys( ).size( ) ) );
+        assertEquals( taskInformation1.getIdHistory( ), taskInformation2.getIdHistory( ) );
+        assertEquals( taskInformation1.getIdTask( ), taskInformation2.getIdTask( ) );
+        assertEquals( taskInformation1.getKeys( ).size( ), taskInformation2.getKeys( ).size( ) );
 
         assertEqualityBetweenPiecesOfInformation( taskInformation1, taskInformation2 );
     }
@@ -95,17 +95,19 @@ public class TaskInformationDAOTest extends LuteceTestCase
             String pieceOfInformationValue1 = taskInformation1.get( pieceOfInformationKey1 );
             String pieceOfInformationValue2 = taskInformation2.get( pieceOfInformationKey1 );
 
-            assertThat( pieceOfInformationValue1, is( pieceOfInformationValue2 ) );
+            assertEquals( pieceOfInformationValue1, pieceOfInformationValue2 );
         }
     }
 
     public static void clearTable( )
     {
-        DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CLEAR_TABLE, _plugin );
-        daoUtil.executeUpdate( );
-        daoUtil.free( );
+        try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_CLEAR_TABLE, _plugin ) )
+        {            
+            daoUtil.executeUpdate( );
+        }
     }
 
+    @Test
     public void testInsertTaskInformationWithNoPieceOfInformation( )
     {
         TaskInformation taskInformation = MockTaskInformation.createWithNoPieceOfInformation( );
@@ -113,9 +115,10 @@ public class TaskInformationDAOTest extends LuteceTestCase
         insertIntoDabase( taskInformation );
 
         TaskInformation taskInformationFromDatabase = findFromDatabase( taskInformation );
-        assertThat( taskInformationFromDatabase, is( nullValue( ) ) );
+        assertNull( taskInformationFromDatabase );
     }
 
+    @Test
     public void testInsertWhenTaskInformationKeyIsNull( )
     {
         TaskInformation taskInformation = MockTaskInformation.createWithNoPieceOfInformation( );
@@ -132,9 +135,10 @@ public class TaskInformationDAOTest extends LuteceTestCase
         }
 
         TaskInformation taskInformationFromDatabase = findFromDatabase( taskInformation );
-        assertThat( taskInformationFromDatabase, is( nullValue( ) ) );
+        assertNull( taskInformationFromDatabase );
     }
 
+    @Test
     public void testInsertWhenTaskInformationValueIsNull( )
     {
         TaskInformation taskInformation = MockTaskInformation.createWithNoPieceOfInformation( );
@@ -148,6 +152,7 @@ public class TaskInformationDAOTest extends LuteceTestCase
         clearTable( );
     }
 
+    @Test
     public void testInsertTwoTaskInformationToSameHistory( )
     {
         ResourceHistory resourceHistory = MockResourceHistory.create( );
@@ -168,6 +173,7 @@ public class TaskInformationDAOTest extends LuteceTestCase
         clearTable( );
     }
 
+    @Test
     public void testInsertTwoTaskInformationToSameTask( )
     {
         ResourceHistory resourceHistory1 = MockResourceHistory.create( );

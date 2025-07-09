@@ -33,6 +33,8 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.unit;
 
+import org.junit.jupiter.api.Test;
+
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
@@ -42,12 +44,16 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.Moc
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.UnitAssignmentDAOTest;
 import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
 import fr.paris.lutece.test.LuteceTestCase;
+import jakarta.inject.Inject;
 
 public class UnitAssignmentRemovalListenerTest extends LuteceTestCase
 {
     private UnitAssignmentDAOTest _dao = new UnitAssignmentDAOTest( );
-    private UnitAssignmentRemovalListener _listener = new UnitAssignmentRemovalListener( );
+    
+    @Inject
+    private UnitAssignmentRemovalListener _listener;
 
+    @Test
     public void testRemoveUnitWithNoAssignment( ) throws Exception
     {
         try
@@ -60,6 +66,7 @@ public class UnitAssignmentRemovalListenerTest extends LuteceTestCase
         }
     }
 
+    @Test
     public void testRemoveUnitWithAssignments( )
     {
         MockResource resource = MockResource.create( );

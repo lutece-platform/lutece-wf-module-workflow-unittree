@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2002-2021, City of Paris
+ * Copyright (c) 2002-2025, City of Paris
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,47 +33,37 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.task;
 
-import java.util.Locale;
-
-import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Named;
-import jakarta.servlet.http.HttpServletRequest;
-
-import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
-import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
-import fr.paris.lutece.portal.service.i18n.I18nService;
+import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentNotificationConfig;
+import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
+import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
+import fr.paris.lutece.plugins.workflowcore.service.config.TaskConfigService;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
+import jakarta.inject.Named;
 
-/**
- * This class represents a task to automatically assign a resource to a unit
- *
- */
-@Dependent
-@Named( "workflow-unittree.taskUnitAssignmentAutomatic" )
-public class TaskUnitAssignmentAutomatic extends AbstractTaskUnitAssignment
+@ApplicationScoped
+public class TaskUnitConfigServiceProducer 
 {
-    // Message
-    private static final String MESSAGE_TASK_TITLE = "module.workflow.unittree.task_unit_assignment.automatic.title";
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getTitle( Locale locale )
+	@Produces
+    @ApplicationScoped
+    @Named( "workflow-unittree.taskUnitAssignmentConfigService" )
+    public ITaskConfigService produceTaskUnitAssignmentConfigService(
+            @Named( "workflow-unittree.taskUnitAssignmentConfigDAO" ) ITaskConfigDAO<TaskUnitAssignmentConfig> taskUnitAssignmentConfigDAO )
     {
-        return I18nService.getLocalizedString( MESSAGE_TASK_TITLE, locale );
+        TaskConfigService taskService = new TaskConfigService( );
+        taskService.setTaskConfigDAO( (ITaskConfigDAO) taskUnitAssignmentConfigDAO );
+        return taskService;
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected IUnitSelection fetchUnitSelection( HttpServletRequest request )
+	
+	@Produces
+    @ApplicationScoped
+    @Named( "workflow-unittree.taskUnitAssignmentNotificationConfigService" )
+    public ITaskConfigService produceTaskUnitAssignmentNotificationConfigService(
+            @Named( "workflow-unittree.taskUnitAssignmentNotificationConfigDAO" ) ITaskConfigDAO<TaskUnitAssignmentNotificationConfig> taskUnitAssignmentNotificationConfigDAO )
     {
-        TaskUnitAssignmentConfig config = getConfig( );
-
-        // Here, only one unit selection should be configured
-        return UnitSelectionService.getInstance( ).find( config.getUnitSelections( ).get( 0 ) );
+        TaskConfigService taskService = new TaskConfigService( );
+        taskService.setTaskConfigDAO( (ITaskConfigDAO) taskUnitAssignmentNotificationConfigDAO );
+        return taskService;
     }
-
 }

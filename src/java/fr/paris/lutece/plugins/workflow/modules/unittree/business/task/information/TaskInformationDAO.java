@@ -35,6 +35,8 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.business.task.informat
 
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -42,6 +44,8 @@ import java.util.Iterator;
 /**
  * This class provides Data Access methods for {@link TaskInformation} objects
  */
+@ApplicationScoped
+@Named( TaskInformationDAO.BEAN_NAME )
 public final class TaskInformationDAO implements ITaskInformationDAO
 {
     public static final String BEAN_NAME = "workflow-unittree.taskInformationDAO";

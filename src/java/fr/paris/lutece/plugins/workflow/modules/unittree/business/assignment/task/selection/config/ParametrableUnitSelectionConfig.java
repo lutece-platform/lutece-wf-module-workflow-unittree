@@ -38,7 +38,8 @@ import org.apache.commons.lang3.StringUtils;
 import fr.paris.lutece.plugins.unittree.service.selection.IParametrableConfigurationHandler;
 import fr.paris.lutece.plugins.unittree.service.selection.IParametrableUnitSelection;
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
+import jakarta.enterprise.inject.literal.NamedLiteral;
+import jakarta.enterprise.inject.spi.CDI;
 
 public class ParametrableUnitSelectionConfig extends TaskConfig
 {
@@ -67,7 +68,8 @@ public class ParametrableUnitSelectionConfig extends TaskConfig
         {
             return null;
         }
-        return SpringContextService.getBean( _parametrableConfigHandler );
+        return CDI.current().select( IParametrableConfigurationHandler.class, NamedLiteral.of( _parametrableConfigHandler ) ).get( );
+
     }
 
     /**

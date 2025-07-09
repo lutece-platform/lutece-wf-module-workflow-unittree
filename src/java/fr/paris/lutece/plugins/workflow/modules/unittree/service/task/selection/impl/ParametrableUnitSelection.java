@@ -37,8 +37,11 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Instance;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.unittree.exception.AssignmentNotPossibleException;
 import fr.paris.lutece.plugins.unittree.service.selection.IConfigurationHandler;
@@ -50,11 +53,13 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.tas
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.i18n.I18nService;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
+
+@ApplicationScoped
+@Named( "workflow-unittree.unitSelection.parametrable" )
 public class ParametrableUnitSelection implements IUnitSelection
 {
     private static final String ID = "ParametrableUnitSelection";
@@ -64,6 +69,9 @@ public class ParametrableUnitSelection implements IUnitSelection
 
     private final IConfigurationHandler _configurationHandler = new ConfigurationHandler( );
 
+    @Inject
+    private Instance<IParametrableConfigurationHandler> _parametrableConfigurationHandler;
+    
     @Override
     public String getId( )
     {
@@ -207,7 +215,7 @@ public class ParametrableUnitSelection implements IUnitSelection
         private ReferenceList getParametrableConfigurationHandlerList( Locale locale )
         {
             ReferenceList list = new ReferenceList( );
-            for ( IParametrableConfigurationHandler handler : SpringContextService.getBeansOfType( IParametrableConfigurationHandler.class ) )
+            for ( IParametrableConfigurationHandler handler : _parametrableConfigurationHandler.stream( ).toList()  )
             {
                 list.addItem( handler.getBeanName( ), handler.getTitle( locale ) );
             }

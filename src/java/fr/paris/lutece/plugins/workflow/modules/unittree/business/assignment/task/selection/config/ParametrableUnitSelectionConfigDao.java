@@ -38,7 +38,11 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.portal.service.plugin.PluginService;
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
+@ApplicationScoped
+@Named( "workflow-unittree.unitSelection.parametrableUnitSelection.configDAO" )
 public class ParametrableUnitSelectionConfigDao implements ITaskConfigDAO<ParametrableUnitSelectionConfig>
 {
     public static final String BEAN_NAME = "workflow-unittree.unitSelection.parametrableUnitSelection.configDAO";

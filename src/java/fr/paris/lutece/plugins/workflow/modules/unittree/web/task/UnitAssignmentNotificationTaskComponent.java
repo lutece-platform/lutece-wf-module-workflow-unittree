@@ -37,17 +37,21 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentNotificationConfig;
 import fr.paris.lutece.plugins.workflow.web.task.NoFormTaskComponent;
+import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
+@ApplicationScoped
+@Named( "workflow-unittree.unitAssignmentNotificationTaskComponent" )
 public class UnitAssignmentNotificationTaskComponent extends NoFormTaskComponent
 {
     //MARKS
@@ -61,7 +65,15 @@ public class UnitAssignmentNotificationTaskComponent extends NoFormTaskComponent
     @Inject
     @Named( BEAN_CONFIG )
     private ITaskConfigService _taskConfigService;
-
+    
+    @Inject
+    public UnitAssignmentNotificationTaskComponent( @Named( "workflow-unittree.taskTypeUnitAssignmentNotification" ) ITaskType taskType, 
+    		                                        @Named( "workflow-unittree.taskUnitAssignmentNotificationConfigService" ) ITaskConfigService taskConfigService )
+    {
+        setTaskType( taskType );
+        setTaskConfigService( taskConfigService );
+    }
+    
     /**
      * {@inheritDoc}
      */

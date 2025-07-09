@@ -36,7 +36,7 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection
 import java.util.List;
 
 import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
-import fr.paris.lutece.portal.service.spring.SpringContextService;
+import jakarta.enterprise.inject.spi.CDI;
 
 /**
  * <p>
@@ -56,7 +56,7 @@ public final class UnitSelectionService
      */
     private UnitSelectionService( )
     {
-        _listUnitSelections = SpringContextService.getBeansOfType( IUnitSelection.class );
+        _listUnitSelections = CDI.current( ).select( IUnitSelection.class ).stream( ).toList( );
     }
 
     /**

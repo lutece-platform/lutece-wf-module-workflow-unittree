@@ -36,6 +36,8 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.ta
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin;
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +48,8 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * This class provides Data Access methods for {@link TaskUnitAssignmentConfig} objects
  */
-
+@ApplicationScoped
+@Named( "workflow-unittree.taskUnitAssignmentConfigDAO" )
 public final class TaskUnitAssignmentConfigDAO implements ITaskConfigDAO<TaskUnitAssignmentConfig>
 {
 
@@ -58,6 +61,8 @@ public final class TaskUnitAssignmentConfigDAO implements ITaskConfigDAO<TaskUni
 
     private static final char LIST_SEPARATOR = ';';
 
+    TaskUnitAssignmentConfigDAO( ) { }
+    
     /**
      * {@inheritDoc }
      */

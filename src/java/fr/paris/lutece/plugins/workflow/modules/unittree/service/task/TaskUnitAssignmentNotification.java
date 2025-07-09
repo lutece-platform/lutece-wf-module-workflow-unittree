@@ -36,9 +36,10 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.task;
 import java.util.List;
 import java.util.Locale;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -56,8 +57,9 @@ import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistorySer
 import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.mail.MailService;
-import fr.paris.lutece.portal.service.util.AppPropertiesService;
 
+@Dependent
+@Named( "workflow-unittree.taskUnitAssignmentNotification" )
 public class TaskUnitAssignmentNotification extends SimpleTask
 {
     private static final String MESSAGE_TASK_TITLE = "module.workflow.unittree.task_unit_assignment_notification.title";

@@ -39,11 +39,15 @@ import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.unittree.service.UnitErrorException;
 import fr.paris.lutece.plugins.unittree.service.unit.IUnitRemovalListener;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 /**
  * This class is a listener when a {@code Unit} is removed. This listener tests if there is no resource assigned to the removed unit.
  *
  */
+@ApplicationScoped
+@Named( "workflow-unittree.unitRemovalListener" )
 public class UnitAssignmentRemovalListener implements IUnitRemovalListener
 {
     private static final String MESSAGE_UNIT_REMOVAL_ERROR = "module.workflow.unittree.unit.assignment.removal.listener.error";

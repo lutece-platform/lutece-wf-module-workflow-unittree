@@ -38,9 +38,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 
@@ -55,7 +56,7 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.tas
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationHome;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
-import fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEventPublisher;
+import fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEvent;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistoryService;
@@ -85,7 +86,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
     @Inject
     private IResourceHistoryService _resourceHistoryService;
     @Inject
-    private ChangeUnitEventPublisher _publisher;
+    private Event<ChangeUnitEvent> _changeUnitEvent;
 
     /**
      * {@inheritDoc}
@@ -256,7 +257,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
         deactivateUnitAssignments( listUnitAssignmentToDeactivate );
         if ( CollectionUtils.isNotEmpty( listUnitAssignmentToDeactivate ) )
         {
-            _publisher.publish( listUnitAssignmentToDeactivate );
+        	_changeUnitEvent.fire( new ChangeUnitEvent( listUnitAssignmentToDeactivate ) );
         }
 
         // ASSIGN DOWN are not recorded
