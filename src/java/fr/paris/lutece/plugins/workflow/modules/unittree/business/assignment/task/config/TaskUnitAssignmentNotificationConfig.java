@@ -34,7 +34,11 @@
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config;
 
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
+import jakarta.enterprise.context.Dependent;
+import jakarta.inject.Named;
 
+@Dependent
+@Named( "workflow-unittree.taskUnitAssignmentNotificationConfig" )
 public class TaskUnitAssignmentNotificationConfig extends TaskConfig
 {
 	private String _strSubject;

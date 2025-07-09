@@ -37,7 +37,7 @@ import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformation;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.task.information.TaskInformationHome;
-import fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEventPublisher;
+import fr.paris.lutece.plugins.workflow.modules.unittree.util.ChangeUnitEvent;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceHistory;
 import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistoryService;
 import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
@@ -47,14 +47,20 @@ import fr.paris.lutece.portal.service.i18n.I18nService;
 
 import java.util.List;
 import java.util.Locale;
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.event.Event;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
 
 /**
  * This class represents the task for unassignate
  */
+@Dependent
+@Named( "workflow-unittree.taskUnitUnassignment" )
 public class TaskUnitUnassignment extends SimpleTask
 {
     private static final String MESSAGE_TASK_TITLE = "module.workflow.unittree.task_unit_unassignment.title";
@@ -63,7 +69,7 @@ public class TaskUnitUnassignment extends SimpleTask
     @Inject
     private IResourceHistoryService _resourceHistoryService;
     @Inject
-    private ChangeUnitEventPublisher _publisher;
+    private Event<ChangeUnitEvent> _changeUnitEvent;
 
     /**
      * {@inheritDoc }
@@ -81,7 +87,7 @@ public class TaskUnitUnassignment extends SimpleTask
 
             if ( CollectionUtils.isNotEmpty( oldAssigmentList ) )
             {
-                _publisher.publish( oldAssigmentList );
+            	_changeUnitEvent.fire( new ChangeUnitEvent( oldAssigmentList ) );
             }
 
             // save the unassignor in task infos

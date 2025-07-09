@@ -36,10 +36,14 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.archiver;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.workflow.modules.archive.service.AbstractArchiveProcessingService;
 import fr.paris.lutece.plugins.workflowcore.business.resource.ResourceWorkflow;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 /**
  * Service for archival of type delete of plugin-workflow.
  */
+@ApplicationScoped
+@Named( WorkflowUnittreeAnonymizeArchiveProcessingService.BEAN_NAME )
 public class WorkflowUnittreeAnonymizeArchiveProcessingService extends AbstractArchiveProcessingService
 {
     public static final String BEAN_NAME = "workflow-unittree.workflowUnittreeAnonymizeArchiveProcessingService";

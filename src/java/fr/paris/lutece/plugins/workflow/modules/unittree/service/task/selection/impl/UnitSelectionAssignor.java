@@ -37,8 +37,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
@@ -59,6 +61,8 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * This class is a unit selection using the assignor unit
  *
  */
+@ApplicationScoped
+@Named( "workflow-unittree.unitSelection.assignor" )
 public class UnitSelectionAssignor implements IUnitSelection
 {
     private static final String ID = "UnitSelectionAssignor";

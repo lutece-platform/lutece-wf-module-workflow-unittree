@@ -33,14 +33,27 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.web.task;
 
+import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+
 /**
  * This class is a task component for the {@link fr.paris.lutece.plugins.workflow.modules.unittree.service.task.TaskUnitUnassignment TaskUnitUnassignment} class
  *
  */
+@ApplicationScoped
+@Named( "workflow-unittree.unitUnassignmentTaskComponent" )
 public class UnitUnassignmentTaskComponent extends AbstractUnittreeTaskComponent
 {
     private static final String TEMPLATE_TASK_INFORMATION = "admin/plugins/workflow/modules/unittree/task_unit_unassignment_information.html";
-
+    
+    @Inject
+    public UnitUnassignmentTaskComponent( @Named( "workflow-unittree.taskTypeUnitUnassignment" ) ITaskType taskType )
+    {
+        setTaskType( taskType );
+    }
+    
     /**
      * {@inheritDoc }
      */

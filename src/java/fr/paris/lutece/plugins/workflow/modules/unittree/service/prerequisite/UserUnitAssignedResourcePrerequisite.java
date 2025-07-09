@@ -36,7 +36,9 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.service.prerequisite;
 import java.util.List;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.api.user.User;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
@@ -48,6 +50,8 @@ import fr.paris.lutece.plugins.workflowcore.business.prerequisite.DefaultPrerequ
 import fr.paris.lutece.plugins.workflowcore.business.prerequisite.IPrerequisiteConfig;
 import fr.paris.lutece.portal.business.user.AdminUser;
 
+@ApplicationScoped
+@Named( "workflow-unittree.userUnitAssignedResourcePrerequisite" )
 public class UserUnitAssignedResourcePrerequisite implements IManualActionPrerequisiteService
 {
 

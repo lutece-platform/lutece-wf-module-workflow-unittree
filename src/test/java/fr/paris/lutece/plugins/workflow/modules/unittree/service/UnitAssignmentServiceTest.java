@@ -33,11 +33,9 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.junit.Assert.assertThat;
-
 import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
@@ -52,6 +50,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
 {
     private static final String SQL_QUERY_CLEAR_TABLE = "DELETE FROM unittree_unit_assignment";
 
+    @Test
     public void testCurrentAssignmentWhenResourceHasNotBeenAssigned( )
     {
         MockResource resource = MockResource.create( );
@@ -64,9 +63,10 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
     private void assertThatCurrentAssignmentOfResourceIsNull( MockResource resource )
     {
         UnitAssignment unitAssignmentCurrent = UnitAssignmentService.findCurrentAssignment( resource.getId( ), resource.getType( ) );
-        assertThat( unitAssignmentCurrent, is( nullValue( ) ) );
+        assertNull( unitAssignmentCurrent );
     }
 
+    @Test
     public void testCurrentAssignmentWhenResourceIsInactive( )
     {
         MockResource resource = MockResource.create( );
@@ -79,6 +79,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
         clearTable( );
     }
 
+    @Test
     public void testCurrentAssignmentBasicTest( )
     {
         MockResource resource = MockResource.create( );
@@ -101,9 +102,10 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
     private void assertThatCurrentAssignmentOfResourceIs( MockResource resource, UnitAssignment unitAssignment )
     {
         UnitAssignment unitAssignmentCurrent = UnitAssignmentService.findCurrentAssignment( resource.getId( ), resource.getType( ) );
-        assertThat( unitAssignmentCurrent.getId( ), is( unitAssignment.getId( ) ) );
+        assertEquals( unitAssignmentCurrent.getId( ), unitAssignment.getId( ) );
     }
 
+    @Test
     public void testCurrentAssignmentForResourcesWithDifferentTypes( )
     {
         MockResource resource1_1 = MockResource.create( );
@@ -124,6 +126,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
         clearTable( );
     }
 
+    @Test
     public void testCurrentAssignmentWhenResourceHasBeenReassigned( )
     {
         MockResource resource = MockResource.create( );
@@ -157,6 +160,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
         clearTable( );
     }
 
+    @Test
     public void testAssignmentsWhenResourceHasNotBeenAssigned( )
     {
         MockResource resource = MockResource.create( );
@@ -166,6 +170,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
         clearTable( );
     }
 
+    @Test
     public void testAssignmentsWhenResourceIsInactive( )
     {
         MockResource resource = MockResource.create( );
@@ -177,6 +182,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
         clearTable( );
     }
 
+    @Test
     public void testAssignmentsBasicTest( )
     {
         MockResource resource = MockResource.create( );
@@ -191,9 +197,10 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
     private void assertThatNumberOfAssignmentsForResourceIs( MockResource resource, int nNumberOfAssignments )
     {
         List<UnitAssignment> listUnitAssignment = UnitAssignmentService.findAssignments( resource.getId( ), resource.getType( ) );
-        assertThat( listUnitAssignment.size( ), is( nNumberOfAssignments ) );
+        assertEquals( listUnitAssignment.size( ), nNumberOfAssignments );
     }
 
+    @Test
     public void testAssignmentsForResourcesWithDifferentTypes( )
     {
         MockResource resource1_1 = MockResource.create( );
@@ -216,6 +223,7 @@ public class UnitAssignmentServiceTest extends LuteceTestCase
         clearTable( );
     }
 
+    @Test
     public void testAssignmentsWhenResourceHasBeenReassigned( )
     {
         MockResource resource = MockResource.create( );

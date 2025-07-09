@@ -37,11 +37,16 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.servlet.http.HttpServletRequest;
 
 import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
+import fr.paris.lutece.plugins.workflowcore.business.task.ITaskType;
+import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.util.ReferenceList;
@@ -52,6 +57,8 @@ import fr.paris.lutece.util.html.HtmlTemplate;
  * TaskUnitAssignmentAutomatic} class
  *
  */
+@ApplicationScoped
+@Named( "workflow-unittree.unitAssignmentAutomaticTaskComponent" )
 public class UnitAssignmentAutomaticTaskComponent extends AbstractUnitAssignmentTaskComponent
 {
     // Markers
@@ -59,7 +66,15 @@ public class UnitAssignmentAutomaticTaskComponent extends AbstractUnitAssignment
 
     // Templates
     private static final String TEMPLATE_CONFIG_UNIT_SELECTION = "admin/plugins/workflow/modules/unittree/task_unit_assignment_automatic_config_unit_selection.html";
-
+    
+    @Inject
+    public UnitAssignmentAutomaticTaskComponent( @Named( "workflow-unittree.taskTypeUnitAssignmentAutomatic" ) ITaskType taskType, 
+    		                                     @Named( "workflow-unittree.taskUnitAssignmentConfigService" ) ITaskConfigService taskConfigService )
+    {
+        setTaskType( taskType );
+        setTaskConfigService( taskConfigService );
+    }
+    
     /**
      * {@inheritDoc}
      */

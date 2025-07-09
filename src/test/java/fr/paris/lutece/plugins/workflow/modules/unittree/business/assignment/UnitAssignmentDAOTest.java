@@ -33,13 +33,12 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import java.util.List;
 
+import org.junit.jupiter.api.Test;
+
+import fr.paris.lutece.plugins.unittree.business.assignment.IUnitAssignmentDAO;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignment;
-import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentDAO;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentHome;
 import fr.paris.lutece.plugins.unittree.business.assignment.UnitAssignmentType;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin;
@@ -47,6 +46,7 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.util.IdGenerator;
 import fr.paris.lutece.portal.service.plugin.Plugin;
 import fr.paris.lutece.test.LuteceTestCase;
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.inject.Inject;
 
 public class UnitAssignmentDAOTest extends LuteceTestCase
 {
@@ -54,8 +54,10 @@ public class UnitAssignmentDAOTest extends LuteceTestCase
 
     private static final Plugin _plugin = WorkflowUnittreePlugin.getPlugin( );
 
-    private UnitAssignmentDAO _dao = new UnitAssignmentDAO( );
+    @Inject
+    private IUnitAssignmentDAO _dao;
 
+    @Test
     public void testDeactivationOnActiveAssignment( )
     {
         MockResource resource = MockResource.create( );
@@ -81,9 +83,10 @@ public class UnitAssignmentDAOTest extends LuteceTestCase
     private void assertThatAssignmentIsNotActive( MockResource resource )
     {
         List<UnitAssignment> listUnitAssignments = _dao.selectByResource( resource.getId( ), resource.getType( ), _plugin );
-        assertThat( listUnitAssignments.get( 0 ).isActive( ), is( false ) );
+        assertEquals( false, listUnitAssignments.get( 0 ).isActive( ) );
     }
 
+    @Test
     public void testDeactivationOnInactiveAssignment( )
     {
         MockResource resource = MockResource.create( );

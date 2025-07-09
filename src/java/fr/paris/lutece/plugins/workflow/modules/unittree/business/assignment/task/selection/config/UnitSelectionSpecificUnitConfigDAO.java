@@ -36,12 +36,15 @@ package fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.ta
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin;
 import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.util.sql.DAOUtil;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
 
 /**
  * This class provides Data Access methods for {@link UnitSelectionSpecificUnitConfig} objects
  */
-
-public final class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<UnitSelectionSpecificUnitConfig>
+@ApplicationScoped
+@Named( "workflow-unittree.unitSelection.specificUnitSelection.configDAO" )
+public class UnitSelectionSpecificUnitConfigDAO implements ITaskConfigDAO<UnitSelectionSpecificUnitConfig>
 {
 
     // Constants
