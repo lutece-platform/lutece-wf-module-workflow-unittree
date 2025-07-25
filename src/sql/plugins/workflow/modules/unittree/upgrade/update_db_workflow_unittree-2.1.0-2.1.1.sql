@@ -1,3 +1,6 @@
+--liquibase formatted sql
+--changeset workflow-unittree:update_db_workflow_unittree-2.1.0-2.1.1.sql
+--preconditions onFail:MARK_RAN onError:WARN
 /*====================================================================================*/
 /* Table structure for table workflow_task_unittree_unit_assignment_notification_cf   */
 /*====================================================================================*/
