@@ -1,6 +1,6 @@
---liquibase formatted sql
---changeset workflow-unittree:create_db_workflow_unittree.sql
---preconditions onFail:MARK_RAN onError:WARN
+-- liquibase formatted sql
+-- changeset workflow-unittree:create_db_workflow_unittree.sql
+-- preconditions onFail:MARK_RAN onError:WARN
 /*==================================================================*/
 /* Table structure for table workflow_task_unittree_information   */
 /*==================================================================*/
