@@ -1,6 +1,6 @@
---liquibase formatted sql
---changeset workflow-unittree:update_db_workflow_unittree-1.0.1-2.0.0.sql
---preconditions onFail:MARK_RAN onError:WARN
+-- liquibase formatted sql
+-- changeset workflow-unittree:update_db_workflow_unittree-1.0.1-2.0.0.sql
+-- preconditions onFail:MARK_RAN onError:WARN
 /*==================================================================*/
 /* Table structure for table unittree_unit_selection_parametrable_cf   */
 /*==================================================================*/
