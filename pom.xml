@@ -10,7 +10,7 @@
     <groupId>fr.paris.lutece.plugins</groupId>
     <artifactId>module-workflow-unittree</artifactId>
     <packaging>lutece-plugin</packaging>
-    <version>2.1.2-SNAPSHOT</version>
+    <version>2.1.2-beta-01</version>
     <name>Lutece Workflow Unit Tree</name>
 
     <repositories>
@@ -59,7 +59,7 @@
         <connection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-unittree.git</connection>
         <developerConnection>scm:git:https://github.com/lutece-platform/lutece-wf-module-workflow-unittree.git</developerConnection>
         <url>https://github.com/lutece-platform/lutece-wf-module-workflow-unittree.git</url>
-        <tag>HEAD</tag>
+        <tag>module-workflow-unittree-2.1.2-beta-01</tag>
 	</scm>
     
 </project>
