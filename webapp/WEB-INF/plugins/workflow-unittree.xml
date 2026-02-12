@@ -2,7 +2,7 @@
     <name>workflow-unittree</name>
     <class>fr.paris.lutece.plugins.workflow.modules.unittree.service.WorkflowUnittreePlugin
     </class>
-    <version>3.0.0-SNAPSHOT</version>
+    <version>3.0.0</version>
     <documentation/>
     <installation/>
     <changes/>
