@@ -61,6 +61,7 @@ import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.resource.IResourceHistoryService;
 import fr.paris.lutece.plugins.workflowcore.service.task.SimpleTask;
 import fr.paris.lutece.portal.service.util.AppException;
+import fr.paris.lutece.portal.service.util.AppLogService;
 
 /**
  * This class is an abstract task to assign a resource to a unit
@@ -112,7 +113,9 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
 
                 if ( unitAssigned == null )
                 {
-                    throw new AppException( "The target unit does not exist" );
+                    AppLogService.error( "The target unit does not exist for resource id "
+                            + resourceHistory.getIdResource( ) + " and resource type " + resourceHistory.getResourceType( ) + "." );
+                    return;
                 }
 
                 List<UnitAssignment> listUnitAssignment = UnitAssignmentHome.findByResource( resourceHistory.getIdResource( ),
