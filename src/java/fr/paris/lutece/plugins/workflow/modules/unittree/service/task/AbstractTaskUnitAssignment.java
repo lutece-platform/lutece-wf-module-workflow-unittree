@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+import fr.paris.lutece.portal.service.util.AppLogService;
 import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
@@ -113,7 +114,9 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
 
                 if ( unitAssigned == null )
                 {
-                    throw new AppException( "The target unit does not exist" );
+                    AppLogService.error( "The target unit does not exist for resource id "
+                            + resourceHistory.getIdResource( ) + " and resource type " + resourceHistory.getResourceType( ) + "." );
+                    return;
                 }
 
                 List<UnitAssignment> listUnitAssignment = UnitAssignmentHome.findByResource( resourceHistory.getIdResource( ),
