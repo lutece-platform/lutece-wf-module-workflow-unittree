@@ -76,6 +76,7 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
     // Other contants
     private static final String BUTTON_ADD_UNIT_SELECTION = "addUnitSelection";
     private static final String BUTTON_REMOVE_UNIT_SELECTION = "removeUnitSelection";
+    private static final String DEFAULT_ASSIGNMENT_TYPE = "transfer";
 
     /**
      * {@inheritDoc}
@@ -173,7 +174,13 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
         {
             config = new TaskUnitAssignmentConfig( );
             config.setIdTask( task.getId( ) );
+            config.setAssignmentType( DEFAULT_ASSIGNMENT_TYPE );
             getTaskConfigService( ).create( config );
+        }
+        else if ( StringUtils.isBlank( config.getAssignmentType( ) ) )
+        {
+            config.setAssignmentType( DEFAULT_ASSIGNMENT_TYPE );
+            getTaskConfigService( ).update( config );
         }
 
         return config;
