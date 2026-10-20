@@ -10,12 +10,15 @@
 			</#list>
 		</@formGroup>
 	<#else>
-		<@formGroup labelFor='unit_selection_id' labelKey='#i18n{module.workflow.unittree.task_unit_assignment.manual.form.labelUnitSelection}' helpKey='#i18n{module.workflow.unittree.task_unit_assignment.manual.form.labelUnitSelection.help}' mandatory=true>
+		<#assign unitSelectionLegend>#i18n{module.workflow.unittree.task_unit_assignment.manual.form.labelUnitSelection} <span class="text-danger">*</span></#assign>
+		<@fieldSet legend=unitSelectionLegend fieldsetParams={ 'aria-describedby': 'help_unit_selection_id' }>
+		<@formGroup labelFor='unit_selection_id' helpKey='#i18n{module.workflow.unittree.task_unit_assignment.manual.form.labelUnitSelection.help}'>
 			<#list list_unit_selection_form as unit_selection_form>
-				<@radioButton name='task_unit_assignment_selection_id' value='${unit_selection_form.id}' labelKey='${unit_selection_form.title}' />
+				<@radioButton name='task_unit_assignment_selection_id' id='task_unit_assignment_selection_id_${unit_selection_form?index}' value='${unit_selection_form.id}' labelKey='${unit_selection_form.title}' mandatory=true />
 				${unit_selection_form.htmlForm}
 			</#list>
 		</@formGroup>
+		</@fieldSet>
 	</#if>
 <#else>
 	<@formGroup>
