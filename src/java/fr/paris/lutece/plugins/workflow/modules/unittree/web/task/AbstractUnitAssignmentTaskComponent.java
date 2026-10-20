@@ -50,7 +50,9 @@ import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.tas
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.service.template.HtmlMarkup;
 import fr.paris.lutece.util.html.HtmlTemplate;
+import freemarker.core.TemplateHTMLOutputModel;
 
 /**
  * This class is an abstract task component for the task to assign a resource to a unit
@@ -113,7 +115,8 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
         Map<String, Object> model = new HashMap<>( );
         model.put( MARK_ASSIGNMENT_TYPE_LIST, UnitAssignmentType.values( ) );
         model.put( MARK_CONFIGURED_ASSIGNMENT_TYPE, config.getAssignmentType( ) );
-        model.put( MARK_UNIT_SELECTION_HTML, strUnitSelectionHtml );
+        // the unit selection form is HTML rendered by getUnitSelectionForm (LUT-33153)
+        model.put( MARK_UNIT_SELECTION_HTML, HtmlMarkup.of( strUnitSelectionHtml ) );
         model.put( MARK_CONFIGURED_UNIT_SELECTION_LIST, listProcessedUnitSelectionConfiguration );
 
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CONFIG, locale, model );
@@ -253,7 +256,9 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
      * This class represents a unit selection with a processed form.
      * </p>
      * <p>
-     * The form can be the configuration form or the task form. It has been processed by Freemarker.
+     * The form can be the configuration form or the task form. It has been processed by Freemarker: it is kept as HTML markup, so
+     * the template that lists the unit selections writes it as is under auto-escaping (LUT-33153). Markup is not
+     * serializable: an instance is built with the model, never kept in the session.
      * </p>
      *
      */
@@ -261,7 +266,7 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
     {
         private final String _strId;
         private final String _strTitle;
-        private final String _strHtmlForm;
+        private final TemplateHTMLOutputModel _htmlForm;
 
         /**
          * Constructor
@@ -277,7 +282,7 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
         {
             _strId = strId;
             _strTitle = strTitle;
-            _strHtmlForm = strHtmlForm;
+            _htmlForm = HtmlMarkup.of( strHtmlForm );
         }
 
         /**
@@ -303,11 +308,11 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
         /**
          * Gives the HTML form
          * 
-         * @return the HTML Form
+         * @return the HTML Form, as markup
          */
-        public String getHtmlForm( )
+        public TemplateHTMLOutputModel getHtmlForm( )
         {
-            return _strHtmlForm;
+            return _htmlForm;
         }
     }
 
