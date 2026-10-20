@@ -54,6 +54,7 @@ import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfigDAO;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.portal.service.i18n.I18nService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
+import fr.paris.lutece.portal.service.template.HtmlMarkup;
 import fr.paris.lutece.util.ReferenceList;
 import fr.paris.lutece.util.html.HtmlTemplate;
 
@@ -156,7 +157,8 @@ public class ParametrableUnitSelection implements IUnitSelection
             if ( config.getParametrableSelectionConfigHandler( ) != null )
             {
                 model.put( MARK_CUSTOM_CONFIG, config.getParametrableConfigHandler( ) );
-                model.put( MARK_HTML_CUSTOM_CONFIG, config.getParametrableSelectionConfigHandler( ).getCustomConfigForm( locale, task ) );
+                // the custom configuration form is HTML the handler renders (LUT-33153)
+                model.put( MARK_HTML_CUSTOM_CONFIG, HtmlMarkup.of( config.getParametrableSelectionConfigHandler( ).getCustomConfigForm( locale, task ) ) );
                 model.put( MARK_IS_ADD_CONFIG_DISPLAYED, false );
             }
             else
