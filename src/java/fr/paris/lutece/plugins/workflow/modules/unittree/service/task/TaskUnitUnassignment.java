@@ -118,4 +118,22 @@ public class TaskUnitUnassignment extends SimpleTask
         TaskInformationHome.create( taskInfo );
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doRemoveTaskInformation( int nIdHistory )
+    {
+        TaskInformationHome.delete( nIdHistory, getId( ) );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void doRemoveConfig( )
+    {
+        TaskInformationHome.deleteByTask( getId( ) );
+    }
 }

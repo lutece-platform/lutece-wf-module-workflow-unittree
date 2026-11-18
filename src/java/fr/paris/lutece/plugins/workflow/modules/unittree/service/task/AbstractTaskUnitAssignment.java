@@ -160,6 +160,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
         }
 
         _taskConfigService.remove( this.getId( ) );
+        TaskInformationHome.deleteByTask( getId( ) );
     }
 
     /**
@@ -377,8 +378,8 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
     @Override
     public void doRemoveTaskInformation( int nIdHistory )
     {
-        ResourceHistory history = _resourceHistoryService.findByPrimaryKey( nIdHistory );
-        TaskInformationHome.delete( history.getIdResource( ), getId( ) );
+        // the information is stored by history, not by resource
+        TaskInformationHome.delete( nIdHistory, getId( ) );
     }
 
     /**

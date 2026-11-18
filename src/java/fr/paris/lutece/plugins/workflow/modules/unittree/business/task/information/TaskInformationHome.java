@@ -95,4 +95,15 @@ public final class TaskInformationHome
         _dao.delete( nIdHistory, nIdTask, WorkflowUnittreePlugin.getPlugin( ) );
     }
 
+    /**
+     * Deletes every information a task wrote, whatever the execution
+     *
+     * @param nIdTask
+     *            the task
+     */
+    public static void deleteByTask( int nIdTask )
+    {
+        _dao.deleteByTask( nIdTask, WorkflowUnittreePlugin.getPlugin( ) );
+    }
+
 }
