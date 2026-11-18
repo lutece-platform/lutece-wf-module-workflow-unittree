@@ -43,7 +43,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Named;
 
 /**
- * This class is a listener when a {@code Unit} is removed. This listener tests if there is no resource assigned to the removed unit.
+ * This class is a listener when a {@code Unit} is removed. This listener tests if there is no resource currently assigned to the removed unit.
  *
  */
 @ApplicationScoped
@@ -60,7 +60,8 @@ public class UnitAssignmentRemovalListener implements IUnitRemovalListener
     {
         List<UnitAssignment> listUnitAssignments = UnitAssignmentHome.findByUnit( nIdRemovedUnit );
 
-        if ( !listUnitAssignments.isEmpty( ) )
+        // Only the active assignments: a resource transferred or unassigned keeps an inactive row for the history
+        if ( listUnitAssignments.stream( ).anyMatch( UnitAssignment::isActive ) )
         {
             throw new UnitErrorException( MESSAGE_UNIT_REMOVAL_ERROR );
         }

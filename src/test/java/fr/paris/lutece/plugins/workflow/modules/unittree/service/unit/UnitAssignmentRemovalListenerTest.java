@@ -86,4 +86,26 @@ public class UnitAssignmentRemovalListenerTest extends LuteceTestCase
 
         _dao.clearTable( );
     }
+
+    @Test
+    public void testRemoveUnitWithInactiveAssignmentsOnly( )
+    {
+        MockResource resource = MockResource.create( );
+        int nIdUnit = IdGenerator.generateId( );
+        UnitAssignment unitAssignment = MockUnitAssignment.create( resource, MockUnitAssignment.UNIT_ID_UNSET, nIdUnit, UnitAssignmentType.CREATION, false );
+        UnitAssignmentHome.create( unitAssignment );
+
+        try
+        {
+            _listener.notify( nIdUnit );
+        }
+        catch( UnitErrorException e )
+        {
+            fail( "Not expecting an UnitErrorException to be thrown for a resource no longer assigned to the unit" );
+        }
+        finally
+        {
+            _dao.clearTable( );
+        }
+    }
 }
