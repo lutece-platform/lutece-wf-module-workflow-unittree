@@ -232,10 +232,23 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
      */
     private void addUnitSelection( String strId, TaskUnitAssignmentConfig config )
     {
-        if ( !StringUtils.isEmpty( strId ) )
+        // A unit selection is configured once (its configuration is stored by task)
+        if ( !StringUtils.isEmpty( strId ) && !config.getUnitSelections( ).contains( strId ) && canAddUnitSelection( config ) )
         {
             config.getUnitSelections( ).add( strId );
         }
+    }
+
+    /**
+     * Tells if a unit selection can be added to the specified configuration
+     * 
+     * @param config
+     *            the configuration
+     * @return {@code true} if a unit selection can be added, {@code false} otherwise
+     */
+    protected boolean canAddUnitSelection( TaskUnitAssignmentConfig config )
+    {
+        return true;
     }
 
     /**

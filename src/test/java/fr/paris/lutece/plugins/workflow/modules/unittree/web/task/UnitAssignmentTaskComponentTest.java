@@ -33,11 +33,14 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.web.task;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
+import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
+import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
 import fr.paris.lutece.plugins.workflowcore.service.config.ITaskConfigService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
 import fr.paris.lutece.plugins.workflowcore.service.task.MockTask;
@@ -89,5 +92,41 @@ public class UnitAssignmentTaskComponentTest extends LuteceTestCase
         {
             _taskConfigService.remove( task.getId( ) );
         }
+    }
+
+    @Test
+    public void testAutomaticTaskHoldsOneUnitSelection( )
+    {
+        List<IUnitSelection> listAutomaticSelections = UnitSelectionService.getInstance( ).getUnitSelections( ).stream( ).filter( IUnitSelection::isAutomatic )
+                .toList( );
+        assertTrue( listAutomaticSelections.size( ) >= 2 );
+
+        ITask task = MockTask.create( );
+
+        try
+        {
+            // The same selection added twice, then another selection
+            assertNull( _component.doSaveConfig( getAddUnitSelectionRequest( listAutomaticSelections.get( 0 ) ), Locale.FRENCH, task ) );
+            assertNull( _component.doSaveConfig( getAddUnitSelectionRequest( listAutomaticSelections.get( 0 ) ), Locale.FRENCH, task ) );
+            assertNull( _component.doSaveConfig( getAddUnitSelectionRequest( listAutomaticSelections.get( 1 ) ), Locale.FRENCH, task ) );
+
+            TaskUnitAssignmentConfig config = _taskConfigService.findByPrimaryKey( task.getId( ) );
+            assertEquals( List.of( listAutomaticSelections.get( 0 ).getId( ) ), config.getUnitSelections( ) );
+        }
+        finally
+        {
+            listAutomaticSelections.forEach( selection -> selection.getConfigurationHandler( ).removeConfiguration( task ) );
+            _taskConfigService.remove( task.getId( ) );
+        }
+    }
+
+    private MockHttpServletRequest getAddUnitSelectionRequest( IUnitSelection unitSelection )
+    {
+        MockHttpServletRequest request = new MockHttpServletRequest( );
+        request.setParameter( "assignment_type", "create" );
+        request.setParameter( "apply", "addUnitSelection" );
+        request.setParameter( "unit_selection_id_to_add", unitSelection.getId( ) );
+
+        return request;
     }
 }

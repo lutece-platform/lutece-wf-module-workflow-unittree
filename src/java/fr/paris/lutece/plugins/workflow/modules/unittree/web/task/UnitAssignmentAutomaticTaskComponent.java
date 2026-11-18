@@ -82,7 +82,8 @@ public class UnitAssignmentAutomaticTaskComponent extends AbstractUnitAssignment
     protected String getUnitSelectionForm( HttpServletRequest request, ITask task )
     {
         TaskUnitAssignmentConfig config = findConfig( task );
-        ReferenceList listUnitSelections = buildUnitSelectionlist( request.getLocale( ) );
+        // The automatic task uses one unit selection only: none can be added once it is configured
+        ReferenceList listUnitSelections = canAddUnitSelection( config ) ? buildUnitSelectionlist( request.getLocale( ) ) : new ReferenceList( );
 
         Map<String, Object> model = new HashMap<>( );
         model.put( MARK_UNIT_SELECTION_LIST, listUnitSelections );
@@ -90,6 +91,15 @@ public class UnitAssignmentAutomaticTaskComponent extends AbstractUnitAssignment
         HtmlTemplate template = AppTemplateService.getTemplate( TEMPLATE_CONFIG_UNIT_SELECTION, request.getLocale( ), model );
 
         return template.getHtml( );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    protected boolean canAddUnitSelection( TaskUnitAssignmentConfig config )
+    {
+        return config.getUnitSelections( ).isEmpty( );
     }
 
     /**
