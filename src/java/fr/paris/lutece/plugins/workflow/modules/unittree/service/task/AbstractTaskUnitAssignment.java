@@ -122,6 +122,12 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
                 TaskUnitAssignmentConfig config = getConfig( );
                 UnitAssignmentType unitAssignmentType = UnitAssignmentType.findByCode( config.getAssignmentType( ) );
 
+                if ( unitAssignmentType == null )
+                {
+                    // Task saved before the assignment type was mandatory: the task configuration must be saved again with a type
+                    throw new AppException( "The assignment type of the task " + getId( ) + " is not configured" );
+                }
+
                 UnitAssignment unitAssignment = createUnitAssignment( resourceHistory.getIdResource( ), resourceHistory.getResourceType( ), unitAssignmentType,
                         unitAssignor, unitAssigned );
                 manageUnitAssignments( listUnitAssignment, unitAssignment );

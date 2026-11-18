@@ -49,6 +49,8 @@ import fr.paris.lutece.plugins.unittree.service.selection.IUnitSelection;
 import fr.paris.lutece.plugins.workflow.modules.unittree.business.assignment.task.config.TaskUnitAssignmentConfig;
 import fr.paris.lutece.plugins.workflow.modules.unittree.service.task.selection.UnitSelectionService;
 import fr.paris.lutece.plugins.workflowcore.service.task.ITask;
+import fr.paris.lutece.portal.service.message.AdminMessage;
+import fr.paris.lutece.portal.service.message.AdminMessageService;
 import fr.paris.lutece.portal.service.template.AppTemplateService;
 import fr.paris.lutece.portal.service.template.HtmlMarkup;
 import fr.paris.lutece.util.html.HtmlTemplate;
@@ -74,6 +76,9 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
     private static final String PARAMETER_APPLY = "apply";
     private static final String PARAMETER_UNIT_SELECTION_ID_TO_ADD = "unit_selection_id_to_add";
     private static final String PARAMETER_ASSIGNMENT_TYPE = "assignment_type";
+
+    // Messages
+    private static final String MESSAGE_MANDATORY_ASSIGNMENT_TYPE = "module.workflow.unittree.task_unit_assignment.config.message.assignmentTypeMandatory";
 
     // Other contants
     private static final String BUTTON_ADD_UNIT_SELECTION = "addUnitSelection";
@@ -130,8 +135,16 @@ public abstract class AbstractUnitAssignmentTaskComponent extends AbstractUnittr
     @Override
     public String doSaveConfig( HttpServletRequest request, Locale locale, ITask task )
     {
+        String strAssignmentType = request.getParameter( PARAMETER_ASSIGNMENT_TYPE );
+
+        // The task can not assign a resource without assignment type
+        if ( UnitAssignmentType.findByCode( strAssignmentType ) == null )
+        {
+            return AdminMessageService.getMessageUrl( request, MESSAGE_MANDATORY_ASSIGNMENT_TYPE, AdminMessage.TYPE_STOP );
+        }
+
         TaskUnitAssignmentConfig config = findConfig( task );
-        config.setAssignmentType( request.getParameter( PARAMETER_ASSIGNMENT_TYPE ) );
+        config.setAssignmentType( strAssignmentType );
 
         String strAction = request.getParameter( PARAMETER_APPLY );
 
