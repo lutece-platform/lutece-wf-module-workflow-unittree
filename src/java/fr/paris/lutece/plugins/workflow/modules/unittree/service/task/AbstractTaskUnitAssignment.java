@@ -375,8 +375,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
     @Override
     public void doRemoveTaskInformation( int nIdHistory )
     {
-        ResourceHistory history = _resourceHistoryService.findByPrimaryKey( nIdHistory );
-        TaskInformationHome.delete( history.getIdResource( ), getId( ) );
+        TaskInformationHome.delete( nIdHistory, getId( ) );
     }
 
     /**
