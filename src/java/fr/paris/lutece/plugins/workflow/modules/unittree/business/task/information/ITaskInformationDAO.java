@@ -74,4 +74,14 @@ public interface ITaskInformationDAO
      *            the Plugin
      */
     void delete( int nIdHistory, int nIdTask, Plugin plugin );
+
+    /**
+     * Deletes every information a task wrote, whatever the execution
+     *
+     * @param nIdTask
+     *            the task
+     * @param plugin
+     *            the plugin
+     */
+    void deleteByTask( int nIdTask, Plugin plugin );
 }
