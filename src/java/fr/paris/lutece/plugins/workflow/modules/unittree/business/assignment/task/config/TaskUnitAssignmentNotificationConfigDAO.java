@@ -57,8 +57,8 @@ public class TaskUnitAssignmentNotificationConfigDAO implements ITaskConfigDAO<T
         {
             int nIndex = 1;
             daoUtil.setInt( nIndex++, config.getIdTask( ) );
-            daoUtil.setString( nIndex++, config.getMessage( ) );
             daoUtil.setString( nIndex++, config.getSubject( ) );
+            daoUtil.setString( nIndex++, config.getMessage( ) );
 
             daoUtil.executeUpdate( );
         }
@@ -82,8 +82,8 @@ public class TaskUnitAssignmentNotificationConfigDAO implements ITaskConfigDAO<T
 
                 int nIndex = 1;
                 config.setIdTask( daoUtil.getInt( nIndex++ ) );
-                config.setMessage( daoUtil.getString( nIndex++ ) );
                 config.setSubject( daoUtil.getString( nIndex++ ) );
+                config.setMessage( daoUtil.getString( nIndex++ ) );
             }
         }
 
@@ -112,8 +112,8 @@ public class TaskUnitAssignmentNotificationConfigDAO implements ITaskConfigDAO<T
         try ( DAOUtil daoUtil = new DAOUtil( SQL_QUERY_UPDATE ) )
         {
             int nIndex = 1;
-            daoUtil.setString( nIndex++, config.getMessage( ) );
             daoUtil.setString( nIndex++, config.getSubject( ) );
+            daoUtil.setString( nIndex++, config.getMessage( ) );
             daoUtil.setInt( nIndex++, config.getIdTask( ) );
             
             daoUtil.executeUpdate( );
