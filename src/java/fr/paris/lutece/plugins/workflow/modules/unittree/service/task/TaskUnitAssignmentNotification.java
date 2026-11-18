@@ -33,8 +33,10 @@
  */
 package fr.paris.lutece.plugins.workflow.modules.unittree.service.task;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
@@ -113,23 +115,30 @@ public class TaskUnitAssignmentNotification extends SimpleTask
         if ( notif != null && notif.getHasNotif( ) )
         {
         	String strNoReplyEmail = MailService.getNoReplyEmail( );
+        	// One mail per address: the list of the unit already holds the address of the unit when both are used
+        	Set<String> setEmails = new LinkedHashSet<>( );
         	
         	if ( notif.getUseList( ) )
         	{
         		List<String> usersEmailList = _notifyService.getUnitUsersEmail( notif.getIdUnit( ) );
         		if ( CollectionUtils.isNotEmpty( usersEmailList ) )
         		{
-        		    for ( String strEmail : usersEmailList )
-        		    {
-        		    	MailService.sendMailHtml( strEmail, StringUtils.EMPTY, strNoReplyEmail, config.getSubject(), config.getMessage( ) );
-        		    }
+        		    setEmails.addAll( usersEmailList );
         		}
         		
         	}
         	
-        	if ( notif.getUseEmail() && StringUtils.isNoneBlank(notif.getEmail()))
+        	if ( notif.getUseEmail() )
         	{
-        		MailService.sendMailHtml( notif.getEmail(), StringUtils.EMPTY, strNoReplyEmail, config.getSubject(), config.getMessage( ) );    
+        		setEmails.add( notif.getEmail( ) );
+        	}
+        	
+        	for ( String strEmail : setEmails )
+        	{
+        	    if ( StringUtils.isNotBlank( strEmail ) )
+        	    {
+        	        MailService.sendMailHtml( strEmail, StringUtils.EMPTY, strNoReplyEmail, config.getSubject(), config.getMessage( ) );
+        	    }
         	}
         }
     }
