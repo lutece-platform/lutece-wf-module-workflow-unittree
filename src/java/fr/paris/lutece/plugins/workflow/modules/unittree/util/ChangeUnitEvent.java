@@ -45,10 +45,31 @@ public class ChangeUnitEvent
 
     private static final long serialVersionUID = -6136225245590902847L;
     private final List<UnitAssignment> _oldAssignmentList;
+    private final UnitAssignment _newAssignment;
 
+    /**
+     * Change of unit without new assignment (unassignment)
+     * 
+     * @param oldAssignmentList
+     *            the assignments deactivated
+     */
     public ChangeUnitEvent( List<UnitAssignment> oldAssignmentList )
     {
+        this( oldAssignmentList, null );
+    }
+
+    /**
+     * Change of unit
+     * 
+     * @param oldAssignmentList
+     *            the assignments deactivated
+     * @param newAssignment
+     *            the assignment that replaces them, or null
+     */
+    public ChangeUnitEvent( List<UnitAssignment> oldAssignmentList, UnitAssignment newAssignment )
+    {
         _oldAssignmentList = oldAssignmentList;
+        _newAssignment = newAssignment;
     }
 
     /**
@@ -57,6 +78,15 @@ public class ChangeUnitEvent
     public List<UnitAssignment> getOldAssignmentList( )
     {
         return _oldAssignmentList;
+    }
+
+    /**
+     * @return the assignment that replaces the old ones (the resource may stay in one of the old units), or null for an
+     *         unassignment
+     */
+    public UnitAssignment getNewAssignment( )
+    {
+        return _newAssignment;
     }
 
 }

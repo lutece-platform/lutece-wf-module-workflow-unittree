@@ -263,7 +263,7 @@ public abstract class AbstractTaskUnitAssignment extends SimpleTask
         deactivateUnitAssignments( listUnitAssignmentToDeactivate );
         if ( CollectionUtils.isNotEmpty( listUnitAssignmentToDeactivate ) )
         {
-        	_changeUnitEvent.fire( new ChangeUnitEvent( listUnitAssignmentToDeactivate ) );
+        	_changeUnitEvent.fire( new ChangeUnitEvent( listUnitAssignmentToDeactivate, unitAssignmentNew ) );
         }
 
         // ASSIGN DOWN are not recorded
